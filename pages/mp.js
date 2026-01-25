@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Cart from './Cart';
+import Cart from '../components/Cart';
 import Link from 'next/link';
 
 // ========== CONFIGURAÇÃO LOCAL ========== //
