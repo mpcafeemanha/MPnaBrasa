@@ -3,52 +3,52 @@ import Head from 'next/head';
 import Cart from '../components/Cart';
 import Link from 'next/link';
 
-// ========== CONFIGURAÇÃO LOCAL ========== //
+// ========== CONFIGURAÇÃO CHURRASCO ========== //
 const localConfig = {
-  businessName: "MP Café & Manhã",
-  businessType: "Padaria e Café",
+  businessName: "MP na Brasa",
+  businessType: "Kits de Churrasco Gourmet",
   city: "Joanópolis",
   state: "SP",
-  address: "Rua Capitão Antônio Mathias, 720 - Centro",
+    address: "Rua Capitão Antonio Mathias , 720 - Centro",
   cep: "12980-000",
   phone: "(11) 91357-2902",
   whatsapp: "5511913572902",
-  description: "Padaria e café especializada em produtos para café da manhã em Joanópolis-SP. Pães frescos, bolos, salgados, cafés especiais e muito mais.",
+  description: "Kits completos de churrasco gourmet com carnes premium, acompanhamentos selecionados e utensílios de qualidade para um churrasco perfeito.",
   deliveryArea: "Joanópolis e região"
 };
 
-// ========== PALETA DE CORES ========== //
+// ========== PALETA DE CORES GOURMET ========== //
 const colorPalette = {
-  primary: '#8B4513',
-  secondary: '#D2B48C',
-  accent: '#A0522D',
-  light: '#F5F5DC',
-  dark: '#654321',
+  primary: '#8B0000', // Vermelho vinho
+  secondary: '#2C2C2C', // Preto/cinza escuro
+  accent: '#B22222', // Vermelho firebrick
+  light: '#F8F8F8', // Cinza muito claro
+  dark: '#1A1A1A', // Preto quase puro
   white: '#FFFFFF',
   success: '#228B22',
   text: '#333333'
 };
 
 // ========== CATEGORIAS ========== //
-const categories = ['Café da Manhã'];
+const categories = ['Kits Completos', 'Carnes Premium', 'Acompanhamentos', 'Utensílios'];
 
 // ========== PRODUTOS COM CATEGORIAS ========== //
 const products = [
-  { id: 1, name: 'Pão Francês (Dúzia)', category: 'Café da Manhã', price: 12.90, image: '/Logo MP cafe.png' },
-  { id: 2, name: 'Bolo de Fubá (Fatia)', category: 'Café da Manhã', price: 6.50, image: '/Logo MP cafe.png' },
-  { id: 3, name: 'Café Especial 250g', category: 'Café da Manhã', price: 18.90, image: '/Logo MP cafe.png' },
-  { id: 4, name: 'Kit Café Completo', category: 'Café da Manhã', price: 49.90, image: '/Logo MP cafe.png' },
-  { id: 5, name: 'Croissant Recheado', category: 'Café da Manhã', price: 8.90, image: '/Logo MP cafe.png' },
-  { id: 6, name: 'Suco de Laranja', category: 'Café da Manhã', price: 7.50, image: '/Logo MP cafe.png' },
-  { id: 7, name: 'Brigadeiro (6un)', category: 'Café da Manhã', price: 15.90, image: '/Logo MP cafe.png' },
-  { id: 8, name: 'Pão de Queijo (Dúzia)', category: 'Café da Manhã', price: 14.90, image: '/Logo MP cafe.png' },
-  { id: 9, name: 'Pão de Forma Integral', category: 'Café da Manhã', price: 9.90, image: '/Logo MP cafe.png' },
-  { id: 10, name: 'Bolo de Cenoura (Fatia)', category: 'Café da Manhã', price: 7.90, image: '/Logo MP cafe.png' },
-  { id: 11, name: 'Café Coado 500g', category: 'Café da Manhã', price: 22.90, image: '/Logo MP cafe.png' },
-  { id: 12, name: 'Empada de Frango', category: 'Café da Manhã', price: 5.90, image: '/Logo MP cafe.png' },
+  { id: 1, name: 'Kit Churrasco Familiar (4-6p)', category: 'Kits Completos', price: 249.90, image: '/images/kit-familiar.jpg' },
+  { id: 2, name: 'Kit Churrasco Premium (8-10p)', category: 'Kits Completos', price: 399.90, image: '/images/kit-premium.jpg' },
+  { id: 3, name: 'Kit Mega Churrasco (15-20p)', category: 'Kits Completos', price: 699.90, image: '/images/kit-mega.jpg' },
+  { id: 4, name: 'Picanha Angus Kg', category: 'Carnes Premium', price: 89.90, image: '/images/picanha.jpg' },
+  { id: 5, name: 'Costela Bovino Kg', category: 'Carnes Premium', price: 69.90, image: '/images/costela.jpg' },
+  { id: 6, name: 'Linguicinha Toscana Kg', category: 'Carnes Premium', price: 39.90, image: '/images/linguica.jpg' },
+  { id: 7, name: 'Coração de Frango Kg', category: 'Carnes Premium', price: 34.90, image: '/images/coracao.jpg' },
+  { id: 8, name: 'Farofa Especial 500g', category: 'Acompanhamentos', price: 18.90, image: '/images/farofa.jpg' },
+  { id: 9, name: 'Vinagrete Premium 500g', category: 'Acompanhamentos', price: 15.90, image: '/images/vinagrete.jpg' },
+  { id: 10, name: 'Pão de Alho Recheado (6un)', category: 'Acompanhamentos', price: 24.90, image: '/images/pao-alho.jpg' },
+  { id: 11, name: 'Churrasqueira Portátil', category: 'Utensílios', price: 189.90, image: '/images/churrasqueira.jpg' },
+  { id: 12, name: 'Kit Facas Profissional', category: 'Utensílios', price: 129.90, image: '/images/facas.jpg' },
 ];
 
-// ========== RODAPÉ CLEAN - ESTILO PMG ========== //
+// ========== RODAPÉ CLEAN - MESMO ESTILO ========== //
 const FooterClean = ({ isMobile }) => {
   const footerStyle = {
     marginTop: '60px',
@@ -59,7 +59,7 @@ const FooterClean = ({ isMobile }) => {
     borderTop: `2px solid ${colorPalette.primary}`,
     backgroundColor: colorPalette.light,
     borderRadius: '12px 12px 0 0',
-    boxShadow: '0 -2px 10px rgba(139, 69, 19, 0.1)',
+    boxShadow: '0 -2px 10px rgba(139, 0, 0, 0.1)',
     width: '100%',
     boxSizing: 'border-box'
   };
@@ -145,7 +145,7 @@ const FooterClean = ({ isMobile }) => {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.color = colorPalette.white;
                 e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 4px 8px rgba(139, 69, 19, 0.2)';
+                e.target.style.boxShadow = '0 4px 8px rgba(139, 0, 0, 0.2)';
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = colorPalette.white;
@@ -169,7 +169,7 @@ const FooterClean = ({ isMobile }) => {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.color = colorPalette.white;
                 e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 4px 8px rgba(139, 69, 19, 0.2)';
+                e.target.style.boxShadow = '0 4px 8px rgba(139, 0, 0, 0.2)';
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = colorPalette.white;
@@ -193,7 +193,7 @@ const FooterClean = ({ isMobile }) => {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.color = colorPalette.white;
                 e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 4px 8px rgba(139, 69, 19, 0.2)';
+                e.target.style.boxShadow = '0 4px 8px rgba(139, 0, 0, 0.2)';
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = colorPalette.white;
@@ -217,7 +217,7 @@ const FooterClean = ({ isMobile }) => {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.color = colorPalette.white;
                 e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 4px 8px rgba(139, 69, 19, 0.2)';
+                e.target.style.boxShadow = '0 4px 8px rgba(139, 0, 0, 0.2)';
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = colorPalette.white;
@@ -340,8 +340,8 @@ const FooterClean = ({ isMobile }) => {
             marginRight: 'auto',
             padding: '0 10px'
           }}>
-            <strong>MP Café & Manhã</strong> - Especialistas em café da manhã em <strong>Joanópolis-SP</strong>. 
-            Padaria e café com pães frescos, bolos caseiros, salgados e cafés especiais para começar seu dia com energia.
+            <strong>MP na Brasa</strong> - Especialistas em churrasco gourmet em <strong>{localConfig.city}-{localConfig.state}</strong>. 
+            Kits completos com carnes selecionadas, acompanhamentos premium e tudo que você precisa para um churrasco perfeito.
           </p>
           
           <p style={{ 
@@ -350,7 +350,7 @@ const FooterClean = ({ isMobile }) => {
             color: colorPalette.dark,
             lineHeight: '1.5'
           }}>
-            © {new Date().getFullYear()} MP Café & Manhã. Todos os direitos reservados.
+            © {new Date().getFullYear()} MP na Brasa. Todos os direitos reservados.
           </p>
           <p style={{ 
             margin: '5px 0', 
@@ -382,7 +382,7 @@ const FooterClean = ({ isMobile }) => {
   );
 };
 
-export default function MPCafeManha() {
+export default function MPNaBrasa() {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [searchTerm, setSearchTerm] = useState('');
   const [cart, setCart] = useState([]);
@@ -409,7 +409,7 @@ export default function MPCafeManha() {
 
   // Carrinho
   useEffect(() => {
-    const saved = localStorage.getItem('mp_cafe_cart');
+    const saved = localStorage.getItem('mp_brasa_cart');
     if (saved) {
       const parsed = JSON.parse(saved);
       setCart(parsed);
@@ -418,7 +418,7 @@ export default function MPCafeManha() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('mp_cafe_cart', JSON.stringify(cart));
+    localStorage.setItem('mp_brasa_cart', JSON.stringify(cart));
   }, [cart]);
 
   const addToCart = (product) => {
@@ -465,7 +465,7 @@ export default function MPCafeManha() {
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  // Estilos inline - APENAS AJUSTES RESPONSIVOS
+  // Estilos inline - MESMO PADRÃO, APENAS CORES DIFERENTES
   const styles = {
     container: {
       maxWidth: '1200px',
@@ -482,13 +482,14 @@ export default function MPCafeManha() {
       borderRadius: isMobile ? '10px' : '15px',
       marginBottom: isMobile ? '20px' : '30px',
       border: `2px solid ${colorPalette.secondary}`,
-      boxShadow: '0 4px 12px rgba(139, 69, 19, 0.1)'
+      boxShadow: '0 4px 12px rgba(44, 44, 44, 0.1)'
     },
     logo: {
-      height: isMobile ? '80px' : '110px',
+      height: isMobile ? '90px' : '120px', // Aumentei o tamanho
       marginBottom: isMobile ? '12px' : '15px',
       borderRadius: '10px',
-      maxWidth: '100%'
+      maxWidth: '100%',
+      objectFit: 'contain'
     },
     headerButtonsContainer: {
       display: 'flex',
@@ -515,12 +516,12 @@ export default function MPCafeManha() {
       display: 'flex',
       alignItems: 'center',
       gap: '6px',
-      boxShadow: '0 2px 5px rgba(139, 69, 19, 0.2)',
+      boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)',
       ':hover': {
         backgroundColor: colorPalette.white,
         color: colorPalette.primary,
         transform: 'translateY(-2px)',
-        boxShadow: '0 4px 10px rgba(139, 69, 19, 0.3)'
+        boxShadow: '0 4px 10px rgba(139, 0, 0, 0.3)'
       }
     },
     search: {
@@ -542,14 +543,14 @@ export default function MPCafeManha() {
       padding: isMobile ? '12px' : '15px',
       backgroundColor: colorPalette.white,
       borderRadius: isMobile ? '8px' : '10px',
-      boxShadow: '0 2px 10px rgba(139, 69, 19, 0.05)'
+      boxShadow: '0 2px 10px rgba(44, 44, 44, 0.05)'
     },
     categoryBtn: {
       padding: isMobile ? '8px 16px' : '10px 20px',
       borderRadius: '30px',
       border: 'none',
       backgroundColor: colorPalette.secondary,
-      color: colorPalette.dark,
+      color: colorPalette.white,
       fontWeight: '600',
       cursor: 'pointer',
       transition: 'all 0.3s',
@@ -569,14 +570,15 @@ export default function MPCafeManha() {
       backgroundColor: colorPalette.white,
       borderRadius: isMobile ? '10px' : '12px',
       overflow: 'hidden',
-      boxShadow: '0 4px 12px rgba(139, 69, 19, 0.1)',
+      boxShadow: '0 4px 12px rgba(44, 44, 44, 0.1)',
       border: `1px solid ${colorPalette.secondary}`,
       transition: 'transform 0.3s, box-shadow 0.3s'
     },
     productImage: {
       width: '100%',
       height: isMobile ? '130px' : '180px',
-      objectFit: 'cover'
+      objectFit: 'cover',
+      backgroundColor: colorPalette.light
     },
     productInfo: {
       padding: isMobile ? '12px' : '15px'
@@ -632,7 +634,7 @@ export default function MPCafeManha() {
       margin: isMobile ? '30px 0' : '40px 0',
       borderRadius: '10px',
       overflow: 'hidden',
-      boxShadow: '0 4px 15px rgba(139, 69, 19, 0.1)'
+      boxShadow: '0 4px 15px rgba(44, 44, 44, 0.1)'
     },
     bannerImage: {
       width: '100%',
@@ -644,7 +646,7 @@ export default function MPCafeManha() {
   return (
     <>
       <Head>
-        <title>{localConfig.businessName} - Padaria em Joanópolis-SP</title>
+        <title>{localConfig.businessName} - Kits de Churrasco em {localConfig.city}-{localConfig.state}</title>
         <meta name="description" content={localConfig.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/Logo MP cafe.png" />
@@ -653,7 +655,7 @@ export default function MPCafeManha() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Bakery",
+            "@type": "FoodEstablishment",
             "name": localConfig.businessName,
             "address": {
               "@type": "PostalAddress",
@@ -663,7 +665,8 @@ export default function MPCafeManha() {
               "postalCode": localConfig.cep
             },
             "telephone": localConfig.phone,
-            "openingHours": "Mo-Su 06:00-18:00"
+            "servesCuisine": "Brazilian Barbecue",
+            "openingHours": "Mo-Su 08:00-20:00"
           })
         }} />
       </Head>
@@ -690,7 +693,7 @@ export default function MPCafeManha() {
             margin: 0,
             fontWeight: '500'
           }}>
-            Especialistas em café da manhã - {localConfig.city}-{localConfig.state}
+            Você chama a galera, a gente resolve o churrasco. - {localConfig.city}-{localConfig.state}
           </p>
           
           {/* BOTÕES DENTRO DO HEADER */}
@@ -714,7 +717,7 @@ export default function MPCafeManha() {
         {/* SEARCH */}
         <input
           type="text"
-          placeholder="🔍 Buscar produtos..."
+          placeholder="🔍 Buscar kits, carnes, utensílios..."
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
@@ -764,13 +767,13 @@ export default function MPCafeManha() {
               onMouseOver={(e) => {
                 if (!isMobile) {
                   e.currentTarget.style.transform = 'translateY(-5px)';
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(139, 69, 19, 0.15)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(44, 44, 44, 0.15)';
                 }
               }}
               onMouseOut={(e) => {
                 if (!isMobile) {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(139, 69, 19, 0.1)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(44, 44, 44, 0.1)';
                 }
               }}
             >
@@ -787,7 +790,7 @@ export default function MPCafeManha() {
                 <div style={{
                   fontSize: isMobile ? '11px' : '12px',
                   color: colorPalette.text,
-                  backgroundColor: colorPalette.secondary + '30',
+                  backgroundColor: colorPalette.secondary + '10',
                   padding: '4px 8px',
                   borderRadius: '4px',
                   marginBottom: '8px',
@@ -861,8 +864,8 @@ export default function MPCafeManha() {
         <div style={styles.bannerContainer}>
           {currentBannerIndex === 0 ? (
             <img 
-              src="/images/banner-pague-no-ato-da-entrega.jpeg"
-              alt="Pague no ato da entrega - Frete grátis"
+              src="/images/banner-churrasco-1.jpg"
+              alt="Kits de Churrasco Premium - Frete grátis para Joanópolis"
               style={styles.bannerImage}
               onError={(e) => {
                 e.target.src = '/Logo MP cafe.png';
@@ -870,8 +873,8 @@ export default function MPCafeManha() {
             />
           ) : (
             <img 
-              src="/images/banner-obrigado.jpeg"
-              alt="Obrigado pela preferência - MP Café & Manhã"
+              src="/images/banner-churrasco-2.jpg"
+              alt="Carnes Selecionadas - Qualidade Garantida"
               style={styles.bannerImage}
               onError={(e) => {
                 e.target.src = '/Logo MP cafe.png';
