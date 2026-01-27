@@ -7,17 +7,17 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
   const [showAddedFeedback, setShowAddedFeedback] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(true);
 
-  // WhatsApp do MP Café & Manhã
+  // WhatsApp do MP na Brasa
   const WHATSAPP_NUMBER = '5511913572902';
-  const MINIMUM_ORDER = 35.00;
+  const MINIMUM_ORDER = 80.00;
 
-  // Cores da padaria
+  // Cores gourmet do MP na Brasa
   const colorPalette = {
-    primary: '#8B4513',
-    secondary: '#D2B48C',
-    accent: '#A0522D',
-    light: '#F5F5DC',
-    dark: '#654321',
+    primary: '#8B0000', // Vermelho vinho
+    secondary: '#2C2C2C', // Preto/cinza escuro
+    accent: '#B22222', // Vermelho firebrick
+    light: '#F8F8F8', // Cinza muito claro
+    dark: '#1A1A1A', // Preto quase puro
     white: '#FFFFFF',
     success: '#228B22',
     danger: '#DC3545',
@@ -112,7 +112,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
     }
 
     setCart(newCart);
-    localStorage.setItem('mp_cafe_cart', JSON.stringify(newCart));
+    localStorage.setItem('mp_brasa_cart', JSON.stringify(newCart));
   };
 
   // ✅ 6. Gerar mensagem do WhatsApp
@@ -126,18 +126,18 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                        paymentMethod === 'Cartão de Crédito' ? 'Cartão de Crédito' : '';
 
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-      `🍞 *PEDIDO - MP Café & Manhã* 🍞\n\n` +
+      `🔥 *PEDIDO - MP na Brasa* 🔥\n\n` +
       `👤 *Cliente:* [Nome do cliente]\n` +
       `📍 *Endereço:* [Endereço de entrega]\n\n` +
-      `🛒 *ITENS DO PEDIDO:*\n${itemsText}\n\n` +
+      `🥩 *ITENS DO PEDIDO:*\n${itemsText}\n\n` +
       `💰 *TOTAL: R$ ${total.toFixed(2)}*\n` +
       `💳 *Pagamento:* ${paymentText}\n` +
       `🚚 *Entrega:* Frete grátis\n\n` +
-      `Por favor, confirme meu pedido!`
+      `Por favor, confirme meu pedido de churrasco!`
     )}`;
   };
 
-  // ✅ 7. Estilos inline
+  // ✅ 7. Estilos inline - RESPONSIVO
   const styles = {
     cartButton: {
       position: 'fixed',
@@ -150,7 +150,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
       width: isMobile ? '65px' : '60px',
       height: isMobile ? '65px' : '60px',
       fontSize: isMobile ? '26px' : '24px',
-      boxShadow: '0 4px 15px rgba(139, 69, 19, 0.3)',
+      boxShadow: '0 4px 15px rgba(139, 0, 0, 0.3)',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
@@ -177,14 +177,14 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
     },
     cartContainer: {
       position: 'fixed',
-      right: isMobile ? (isOpen ? '0' : '-100%') : (isCollapsed ? '-380px' : '15px'),
+      right: isMobile ? (isOpen ? '0' : '-100%') : (isCollapsed ? '-400px' : '15px'),
       bottom: isMobile ? '0' : 'auto',
       top: isMobile ? 'auto' : '15px',
-      width: isMobile ? '100%' : '380px',
+      width: isMobile ? '100%' : '400px',
       height: isMobile ? '85vh' : 'auto',
       backgroundColor: colorPalette.white,
       borderRadius: isMobile ? '20px 20px 0 0' : '12px',
-      boxShadow: '0 -5px 25px rgba(139, 69, 19, 0.15)',
+      boxShadow: '0 -5px 25px rgba(139, 0, 0, 0.15)',
       padding: isMobile ? '20px 15px' : '15px',
       zIndex: 1000,
       maxHeight: isMobile ? '85vh' : '85vh',
@@ -194,7 +194,8 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
       transition: isMobile ? 'transform 0.3s ease-out' : 'right 0.3s ease-in-out',
       transform: isMobile ? (isOpen ? 'translateY(0)' : 'translateY(100%)') : 'none',
       opacity: isMobile ? (isOpen ? 1 : 0) : (isCollapsed ? 0 : 1),
-      pointerEvents: isMobile ? (isOpen ? 'auto' : 'none') : (isCollapsed ? 'none' : 'auto')
+      pointerEvents: isMobile ? (isOpen ? 'auto' : 'none') : (isCollapsed ? 'none' : 'auto'),
+      boxSizing: 'border-box'
     },
     overlay: {
       position: 'fixed',
@@ -282,7 +283,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
             margin: 0, 
             color: colorPalette.dark
           }}>
-            🛒 Seu Carrinho ({cart.length})
+            🥩 Seu Carrinho ({cart.length})
           </h2>
           <button 
             onClick={toggleCart}
@@ -329,12 +330,12 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
             padding: '30px 15px', 
             color: colorPalette.text 
           }}>
-            <div style={{ fontSize: '40px', marginBottom: '10px' }}>🛒</div>
+            <div style={{ fontSize: '40px', marginBottom: '10px' }}>🥩</div>
             <p style={{ fontSize: '16px', fontWeight: 500, marginBottom: '5px' }}>
               Seu carrinho está vazio
             </p>
             <p style={{ fontSize: '14px', color: colorPalette.accent }}>
-              Adicione produtos para continuar
+              Adicione kits de churrasco para continuar
             </p>
           </div>
         ) : (
@@ -343,7 +344,8 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
             <div style={{ 
               marginBottom: '15px', 
               maxHeight: isMobile ? 'calc(85vh - 350px)' : 'calc(85vh - 400px)', 
-              overflowY: 'auto'
+              overflowY: 'auto',
+              paddingRight: '5px'
             }}>
               {groupedCart.map((product) => (
                 <div 
@@ -370,7 +372,11 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                         borderRadius: '6px', 
                         objectFit: 'cover', 
                         border: `1px solid ${colorPalette.secondary}`,
-                        flexShrink: 0
+                        flexShrink: 0,
+                        backgroundColor: colorPalette.light
+                      }}
+                      onError={(e) => {
+                        e.target.src = '/Logo MP cafe.png';
                       }}
                     />
                     <div style={{ flex: 1 }}>
@@ -388,7 +394,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                         fontSize: isMobile ? '12px' : '11px', 
                         color: colorPalette.accent
                       }}>
-                        📋 {product.quantity}x • R$ {product.price.toFixed(2)} cada
+                        🔪 {product.quantity}x • R$ {product.price.toFixed(2)} cada
                       </p>
                     </div>
                   </div>
@@ -609,7 +615,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
               style={{ 
                 width: '100%', 
                 padding: isMobile ? '16px' : '14px', 
-                background: isTotalValid && paymentMethod ? colorPalette.success : colorPalette.secondary, 
+                background: isTotalValid && paymentMethod ? colorPalette.primary : colorPalette.secondary, 
                 color: colorPalette.white, 
                 border: 'none', 
                 borderRadius: '10px', 
@@ -617,18 +623,18 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                 fontSize: isMobile ? '15px' : '14px', 
                 cursor: isTotalValid && paymentMethod ? 'pointer' : 'not-allowed',
                 transition: 'all 0.3s',
-                boxShadow: isTotalValid && paymentMethod ? `0 4px 15px ${colorPalette.success}50` : 'none'
+                boxShadow: isTotalValid && paymentMethod ? `0 4px 15px rgba(139, 0, 0, 0.3)` : 'none'
               }}
               onMouseOver={(e) => {
                 if (isTotalValid && paymentMethod) {
                   e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = `0 6px 20px ${colorPalette.success}70`;
+                  e.target.style.boxShadow = `0 6px 20px rgba(139, 0, 0, 0.4)`;
                 }
               }}
               onMouseOut={(e) => {
                 if (isTotalValid && paymentMethod) {
                   e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = `0 4px 15px ${colorPalette.success}50`;
+                  e.target.style.boxShadow = `0 4px 15px rgba(139, 0, 0, 0.3)`;
                 }
               }}
             > 
@@ -643,7 +649,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                 fontSize: isMobile ? '12px' : '11px',
                 fontWeight: 500
               }}>
-                ❌ Pedido mínimo: R$ {MINIMUM_ORDER.toFixed(2)}
+                🔥 Pedido mínimo: R$ {MINIMUM_ORDER.toFixed(2)}
               </p>
             )}
           </>
@@ -656,6 +662,38 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
           20% { opacity: 1; transform: translateY(0); }
           80% { opacity: 1; transform: translateY(0); }
           100% { opacity: 0; transform: translateY(-10px); }
+        }
+        
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+          background: ${colorPalette.light};
+          border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+          background: ${colorPalette.secondary};
+          border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+          background: ${colorPalette.primary};
+        }
+        
+        /* Ajustes para telas muito pequenas */
+        @media (max-width: 360px) {
+          .cart-container {
+            padding: 15px 10px !important;
+          }
+          
+          .cart-button {
+            width: 60px !important;
+            height: 60px !important;
+            font-size: 24px !important;
+          }
         }
       `}</style>
     </>
