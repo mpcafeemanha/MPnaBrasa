@@ -7,92 +7,102 @@ export default function Home() {
   const banners = [
     { 
       id: 1,
-      desktop: '/images/banner-pague-no-ato-da-entrega01.jpg',
-      mobile: '/images/banner-pague-no-ato-da-entrega01.jpg'
+      desktop: '/images/banner-churrasco-1.jpg',
+      mobile: '/images/banner-churrasco-1.jpg',
+      title: 'Kits de Churrasco Premium'
     },
     { 
       id: 2,
-      desktop: '/images/banner-obrigado01.jpg',
-      mobile: '/images/banner-obrigado01.jpg'
+      desktop: '/images/banner-churrasco-2.jpg',
+      mobile: '/images/banner-churrasco-2.jpg',
+      title: 'Carnes Selecionadas'
+    },
+    { 
+      id: 3,
+      desktop: '/images/banner-churrasco-3.jpg',
+      mobile: '/images/banner-churrasco-3.jpg',
+      title: 'Tudo para Seu Churrasco'
     }
   ];
 
-  // ========== CONFIGURAÇÃO LOCAL ========== //
+  // ========== CONFIGURAÇÃO CHURRASCO ========== //
   const localConfig = {
-    businessName: "MP Café & Manhã",
-    businessType: "Padaria e Café",
+    businessName: "MP na Brasa",
+    slogan: "Você chama a galera, a gente resolve o churrasco.",
+    businessType: "Kits de Churrasco Gourmet",
     city: "Joanópolis",
     state: "SP",
-    address: "Rua Capitão Antônio Mathias, 720 - Centro",
+    address: "Rua do Churrasco, 123 - Centro",
     cep: "12980-000",
     phone: "(11) 91357-2902",
     whatsapp: "5511913572902",
-    description: "Padaria e café especializada em produtos para café da manhã em Joanópolis-SP. Pães frescos, bolos caseiros, salgados, cafés especiais e muito mais.",
+    description: "Kits completos de churrasco gourmet com carnes premium, acompanhamentos selecionados e utensílios de qualidade para um churrasco perfeito.",
     deliveryArea: "Joanópolis e região",
     openingHours: "Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação"
   };
 
-  // ========== PALETA DE CORES ========== //
+  // ========== PALETA DE CORES GOURMET ========== //
   const colorPalette = {
-    primary: '#8B4513',
-    secondary: '#D2B48C',
-    accent: '#A0522D',
-    light: '#F5F5DC',
-    dark: '#654321',
+    primary: '#8B0000', // Vermelho vinho
+    secondary: '#2C2C2C', // Preto/cinza escuro
+    accent: '#B22222', // Vermelho firebrick
+    light: '#F8F8F8', // Cinza muito claro
+    dark: '#1A1A1A', // Preto quase puro
     white: '#FFFFFF',
     success: '#228B22',
-    text: '#333333'
+    text: '#333333',
+    warning: '#FF8C00' // Laranja para destaques
   };
 
-  // ========== AVALIAÇÕES ========== //
+  // ========== AVALIAÇÕES CHURRASCO ========== //
   const avaliacoes = [
     // Femininas (8 avaliações)
     { 
       foto: "https://i.imgur.com/R4MCf34.png", 
       nome: "Ana", 
-      texto: "Os pães são fresquinhos todos os dias e o café é especial. Meu café da manhã favorito em Joanópolis!", 
+      texto: "O kit familiar foi perfeito para nosso churrasco em família! Carnes de ótima qualidade e tudo muito bem embalado.", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/R4MCf34.png", 
       nome: "Claudia", 
-      texto: "Adoro os bolos caseiros! Sempre compro para o café da manhã da família. Qualidade excelente!", 
+      texto: "Picanha Angus de qualidade premium! Nunca comi uma carne tão saborosa. Recomendo muito!", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/R4MCf34.png", 
       nome: "Fernanda", 
-      texto: "Café especial delicioso e pães que lembram os da fazenda. Recomendo muito!", 
+      texto: "Kit completo com tudo que precisávamos. Fizemos um churrasco para 10 pessoas e sobrou elogios!", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/R4MCf34.png", 
       nome: "Juliana", 
-      texto: "Kit café completo é uma mão na roda! Produtos de ótima qualidade e entrega pontual.", 
+      texto: "Farofa especial e vinagrete premium são incríveis! Diferenciais que fazem toda a diferença no churrasco.", 
       estrelas: 4 
     },
     { 
       foto: "https://i.imgur.com/R4MCf34.png", 
       nome: "Patrícia", 
-      texto: "Já é minha terceira compra e nunca me decepcionou. O croissant recheado é divino!", 
+      texto: "Já é minha terceira compra. Sempre que tem visita em casa, encomendo os kits. Qualidade constante!", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/R4MCf34.png", 
       nome: "Camila", 
-      texto: "Pão de queijo caseiro e quentinho. Parece que acabou de sair do forno!", 
+      texto: "Linguicinha toscana maravilhosa! Sabor autêntico que lembrou as linguiças da serra.", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/R4MCf34.png", 
       nome: "Luana", 
-      texto: "Adoro a variedade! Encontrar tudo para um café da manhã completo num só lugar.", 
+      texto: "Churrasqueira portátil salvou nosso fim de semana! Prática e de ótima qualidade.", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/R4MCf34.png", 
       nome: "Mariana", 
-      texto: "Preço justo e produto de qualidade. Virei cliente fiel do MP Café & Manhã!", 
+      texto: "Atendimento excelente! Me ajudaram a montar o kit perfeito para 15 pessoas. Tudo perfeito!", 
       estrelas: 5 
     },
 
@@ -100,43 +110,43 @@ export default function Home() {
     { 
       foto: "https://i.imgur.com/CL3oucA.png", 
       nome: "Carlos", 
-      texto: "Atendimento excelente! Sempre me ajudam a montar o kit café perfeito para o escritório.", 
+      texto: "Costela bovina sensacional! Ficou macia e saborosa. Meus amigos elogiaram muito.", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/CL3oucA.png", 
       nome: "Ricardo", 
-      texto: "Café especial de verdade! Notas diferenciadas que você não encontra em qualquer lugar.", 
+      texto: "Coração de frango no ponto perfeito! Produto de qualidade premium. Recomendo!", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/CL3oucA.png", 
       nome: "Bruno", 
-      texto: "Produtos sempre frescos e entregues com cuidado. Muito bem embalados!", 
+      texto: "Kit facas profissional mudou meu churrasco! Facas afiadas e com ótimo acabamento.", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/CL3oucA.png", 
       nome: "Lucas", 
-      texto: "Não conhecia mas arrisquei e gostei bastante. Site fácil de usar e produtos de qualidade.", 
+      texto: "Pão de alho recheado é divino! Melhor que muitos restaurantes. Pedirei sempre!", 
       estrelas: 4 
     },
     { 
       foto: "https://i.imgur.com/CL3oucA.png", 
       nome: "Marcos", 
-      texto: "Suco de laranja natural é uma delícia! Perfeito para acompanhar o pão francês.", 
+      texto: "Combo família completo tem tudo! Não precisei me preocupar com nada, só acender a churrasqueira.", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/CL3oucA.png", 
       nome: "Gustavo", 
-      texto: "Ótimo custo-benefício. Já indiquei para vários amigos e vizinhos!", 
+      texto: "Carvão premium rende muito! Queima uniforme e deixa a carne com sabor especial.", 
       estrelas: 5 
     },
     { 
       foto: "https://i.imgur.com/CL3oucA.png", 
       nome: "Rodrigo", 
-      texto: "Comprei com receio pela internet mas fui surpreendido. Entrega rápida e tudo perfeito!", 
+      texto: "Entrega pontual e tudo muito bem embalado. Carnes chegaram geladas e frescas.", 
       estrelas: 5 
     }
   ];
@@ -200,7 +210,7 @@ export default function Home() {
   const startInterval = () => {
     slideInterval.current = setInterval(() => {
       goToNextSlide();
-    }, 8000); // 8 segundos para cada banner
+    }, 6000); // 6 segundos para cada banner
   };
 
   // Configuração das notificações
@@ -251,10 +261,10 @@ export default function Home() {
     <>
       <Head>
         {/* Título Otimizado */}
-        <title>MP Café & Manhã - Padaria e Café Especializado | Joanópolis-SP</title>
+        <title>MP na Brasa - Kits de Churrasco Premium | Joanópolis-SP</title>
         
         {/* Meta Description Otimizada */}
-        <meta name="description" content="Padaria e café especializada em produtos para café da manhã em Joanópolis-SP. Pães frescos, bolos caseiros, salgados, cafés especiais e muito mais." />
+        <meta name="description" content={localConfig.description} />
         
         {/* Viewport */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -263,29 +273,29 @@ export default function Home() {
         <meta charSet="utf-8" />
         
         {/* ========== OPEN GRAPH (Facebook/WhatsApp) ========== */}
-        <meta property="og:title" content="MP Café & Manhã - Padaria e Café Especializado" />
-        <meta property="og:description" content="Padaria e café especializada em produtos para café da manhã. Pães frescos, bolos caseiros, cafés especiais em Joanópolis-SP." />
+        <meta property="og:title" content="MP na Brasa - Kits de Churrasco Premium" />
+        <meta property="og:description" content={localConfig.slogan} />
         <meta property="og:image" content="/Logo MP cafe.png" />
-        <meta property="og:url" content="https://www.mpcafemanha.com" />
+        <meta property="og:url" content="https://www.mpnabrasa.com" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="MP Café & Manhã" />
+        <meta property="og:site_name" content="MP na Brasa" />
         <meta property="og:locale" content="pt_BR" />
         
         {/* ========== TWITTER CARD ========== */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="MP Café & Manhã - Padaria e Café" />
-        <meta name="twitter:description" content="Especialistas em café da manhã com produtos frescos e de qualidade em Joanópolis-SP." />
+        <meta name="twitter:title" content="MP na Brasa - Churrasco Premium" />
+        <meta name="twitter:description" content="Kits completos para um churrasco perfeito" />
         <meta name="twitter:image" content="/Logo MP cafe.png" />
         
         {/* ========== SCHEMA.ORG (Google Rich Results) ========== */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Bakery",
+            "@type": "FoodEstablishment",
             "name": localConfig.businessName,
             "image": "/Logo MP cafe.png",
             "description": localConfig.description,
-            "url": "https://www.mpcafemanha.com",
+            "url": "https://www.mpnabrasa.com",
             "telephone": localConfig.phone,
             "address": {
               "@type": "PostalAddress",
@@ -300,31 +310,31 @@ export default function Home() {
               "latitude": "-22.9311",
               "longitude": "-46.2756"
             },
-            "openingHours": "Th-Su 06:00-12:00",
-            "priceRange": "$$",
+            "openingHours": "Mo-Su 08:00-20:00",
+            "priceRange": "$$$",
             "areaServed": localConfig.deliveryArea,
+            "servesCuisine": "Brazilian Barbecue",
             "sameAs": [
               "https://www.facebook.com",
               "https://www.instagram.com"
-            ],
-            "servesCuisine": "Café da Manhã Brasileiro"
+            ]
           })}
         </script>
         
         {/* ========== KEYWORDS E OTIMIZAÇÕES EXTRAS ========== */}
-        <meta name="keywords" content="padaria, café, joanópolis, pão francês, bolo caseiro, café especial, café da manhã, salgados, croissant, pão de queijo" />
-        <meta name="author" content="MP Café & Manhã" />
+        <meta name="keywords" content="churrasco, kit churrasco, picanha, costela, carne premium, barbecue, churrasqueira, MP na Brasa, Joanópolis" />
+        <meta name="author" content="MP na Brasa" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
         
         {/* Canonical URL */}
-        <link rel="canonical" href="https://www.mpcafemanha.com" />
+        <link rel="canonical" href="https://www.mpnabrasa.com" />
         
         {/* Favicon */}
         <link rel="icon" href="/Logo MP cafe.png" />
         
         {/* Theme Color para Mobile */}
-        <meta name="theme-color" content="#8B4513" />
-        <meta name="msapplication-TileColor" content="#8B4513" />
+        <meta name="theme-color" content="#8B0000" />
+        <meta name="msapplication-TileColor" content="#8B0000" />
         
         {/* Apple Touch Icon */}
         <link rel="apple-touch-icon" href="/Logo MP cafe.png" />
@@ -355,7 +365,7 @@ export default function Home() {
             color: 'white',
             fontSize: isMobile ? '0.8rem' : '0.9rem',
             fontWeight: '600',
-            boxShadow: '0 2px 5px rgba(139, 69, 19, 0.2)'
+            boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)'
           }}>
             {localConfig.businessName}
           </div>
@@ -367,7 +377,10 @@ export default function Home() {
               width: isMobile ? '180px' : '220px',
               margin: isMobile ? '10px 0' : '15px 0',
               filter: 'drop-shadow(0 3px 5px rgba(0,0,0,0.1))',
-              borderRadius: '10px'
+              borderRadius: '10px',
+              border: `3px solid ${colorPalette.warning}`,
+              backgroundColor: colorPalette.white,
+              padding: '5px'
             }} 
           />
           
@@ -380,7 +393,7 @@ export default function Home() {
             lineHeight: '1.3',
             padding: isMobile ? '0 10px' : '0'
           }}>
-            Especialistas em <span style={{whiteSpace: 'nowrap'}}>Café da Manhã</span>
+            {localConfig.slogan}
           </h1>
           
           <p style={{ 
@@ -392,8 +405,8 @@ export default function Home() {
             marginBottom: isMobile ? '15px' : '20px',
             padding: isMobile ? '0 15px' : '0'
           }}>
-            Padaria e café especializada com pães frescos, bolos caseiros, salgados e cafés especiais. 
-            Tudo para seu café da manhã perfeito em {localConfig.city}-{localConfig.state}.
+            Kits completos de churrasco gourmet com carnes premium, acompanhamentos selecionados e 
+            utensílios de qualidade para seu churrasco perfeito em {localConfig.city}-{localConfig.state}.
           </p>
         </header>
 
@@ -414,13 +427,13 @@ export default function Home() {
             alignItems: 'center',
             minWidth: isMobile ? 'unset' : '200px',
             flex: isMobile ? '1 1 120px' : '0 0 auto',
-            boxShadow: '0 2px 8px rgba(139, 69, 19, 0.05)',
+            boxShadow: '0 2px 8px rgba(139, 0, 0, 0.05)',
             border: `1px solid ${colorPalette.secondary}`
           }}>
-            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>🥖</span>
+            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>🥩</span>
             <div>
-              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Pães Frescos</div>
-              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Direto da Padaria</div>
+              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Carnes Premium</div>
+              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Selecionadas</div>
             </div>
           </div>
           
@@ -432,12 +445,12 @@ export default function Home() {
             alignItems: 'center',
             minWidth: isMobile ? 'unset' : '200px',
             flex: isMobile ? '1 1 120px' : '0 0 auto',
-            boxShadow: '0 2px 8px rgba(139, 69, 19, 0.05)',
+            boxShadow: '0 2px 8px rgba(139, 0, 0, 0.05)',
             border: `1px solid ${colorPalette.secondary}`
           }}>
             <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>🚚</span>
             <div>
-              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Entrega Rápida</div>
+              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Entrega Agendada</div>
               <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Para toda região</div>
             </div>
           </div>
@@ -450,13 +463,13 @@ export default function Home() {
             alignItems: 'center',
             minWidth: isMobile ? 'unset' : '200px',
             flex: isMobile ? '1 1 120px' : '0 0 auto',
-            boxShadow: '0 2px 8px rgba(139, 69, 19, 0.05)',
+            boxShadow: '0 2px 8px rgba(139, 0, 0, 0.05)',
             border: `1px solid ${colorPalette.secondary}`
           }}>
             <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>🏷️</span>
             <div>
-              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Preço Justo</div>
-              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Qualidade garantida</div>
+              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Kits Completos</div>
+              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Tudo que precisa</div>
             </div>
           </div>
 
@@ -468,13 +481,13 @@ export default function Home() {
             alignItems: 'center',
             minWidth: isMobile ? 'unset' : '200px',
             flex: isMobile ? '1 1 120px' : '0 0 auto',
-            boxShadow: '0 2px 8px rgba(139, 69, 19, 0.05)',
+            boxShadow: '0 2px 8px rgba(139, 0, 0, 0.05)',
             border: `1px solid ${colorPalette.secondary}`
           }}>
-            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>☕</span>
+            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>🔥</span>
             <div>
-              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Café Especial</div>
-              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Grãos selecionados</div>
+              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Qualidade Garantida</div>
+              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Sabor inigualável</div>
             </div>
           </div>
         </div>
@@ -489,9 +502,10 @@ export default function Home() {
             margin: isMobile ? '20px auto' : '40px auto',
             overflow: 'hidden',
             borderRadius: '10px',
-            boxShadow: '0 4px 12px rgba(139, 69, 19, 0.1)',
+            boxShadow: '0 4px 12px rgba(139, 0, 0, 0.1)',
             height: `${dimensions.height}px`,
-            backgroundColor: colorPalette.white
+            backgroundColor: colorPalette.white,
+            border: `2px solid ${colorPalette.primary}`
           }}
         >
           <div style={{
@@ -509,12 +523,13 @@ export default function Home() {
                   height: '100%',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  position: 'relative'
                 }}
               >
                 <img 
                   src={isMobile ? banner.mobile : banner.desktop}
-                  alt={`Banner ${banner.id}`}
+                  alt={`Banner ${banner.title}`}
                   style={{
                     width: 'auto',
                     height: 'auto',
@@ -528,6 +543,20 @@ export default function Home() {
                     e.target.src = '/Logo MP cafe.png';
                   }}
                 />
+                <div style={{
+                  position: 'absolute',
+                  bottom: '20px',
+                  left: '0',
+                  right: '0',
+                  textAlign: 'center',
+                  backgroundColor: 'rgba(139, 0, 0, 0.8)',
+                  color: 'white',
+                  padding: '10px',
+                  fontSize: isMobile ? '0.9rem' : '1.1rem',
+                  fontWeight: '600'
+                }}>
+                  {banner.title}
+                </div>
               </div>
             ))}
           </div>
@@ -550,7 +579,7 @@ export default function Home() {
               justifyContent: 'center',
               cursor: 'pointer',
               zIndex: 10,
-              boxShadow: '0 2px 5px rgba(139, 69, 19, 0.2)'
+              boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)'
             }}
             aria-label="Slide anterior"
           >
@@ -574,7 +603,7 @@ export default function Home() {
               justifyContent: 'center',
               cursor: 'pointer',
               zIndex: 10,
-              boxShadow: '0 2px 5px rgba(139, 69, 19, 0.2)'
+              boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)'
             }}
             aria-label="Próximo slide"
           >
@@ -611,7 +640,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Seção de Apresentação SEM VÍDEO */}
+        {/* Seção de Apresentação */}
         <section style={{
           display: 'flex',
           flexDirection: 'column',
@@ -627,7 +656,7 @@ export default function Home() {
             textAlign: 'center',
             padding: isMobile ? '0 10px' : '0'
           }}>
-            Tradição e Qualidade em Cada Produto
+            Experiência Premium em Cada Churrasco
           </h2>
           
           <p style={{
@@ -639,9 +668,9 @@ export default function Home() {
             marginBottom: isMobile ? '20px' : '30px',
             padding: isMobile ? '0 15px' : '0'
           }}>
-            Na MP Café & Manhã, transformamos ingredientes selecionados em experiências memoráveis para seu café da manhã. 
-            Cada pão é assado com cuidado, cada bolo é preparado com receitas tradicionais, e nosso café é escolhido entre 
-            as melhores safras para garantir sabor e aroma inigualáveis.
+            No MP na Brasa, selecionamos as melhores carnes, desenvolvemos acompanhamentos especiais e oferecemos 
+            utensílios de qualidade para transformar seu churrasco em uma experiência gourmet. Cada kit é pensado 
+            para proporcionar praticidade, sabor e momentos inesquecíveis.
           </p>
           
           <p style={{
@@ -650,9 +679,14 @@ export default function Home() {
             maxWidth: '600px',
             textAlign: 'center',
             lineHeight: '1.6',
-            padding: isMobile ? '0 15px' : '0'
+            padding: isMobile ? '0 15px' : '0',
+            fontWeight: '600',
+            backgroundColor: colorPalette.light,
+            padding: '10px 20px',
+            borderRadius: '8px',
+            border: `1px solid ${colorPalette.secondary}`
           }}>
-            Nossa paixão por café da manhã se reflete em cada detalhe dos nossos produtos.
+            🥩 Você se preocupa em reunir os amigos, nós cuidamos de todo o resto!
           </p>
         </section>
 
@@ -663,7 +697,7 @@ export default function Home() {
           padding: isMobile ? '25px 15px' : '35px 20px',
           backgroundColor: colorPalette.white,
           borderRadius: '12px',
-          boxShadow: '0 5px 15px rgba(139, 69, 19, 0.08)',
+          boxShadow: '0 5px 15px rgba(139, 0, 0, 0.08)',
           width: '100%',
           maxWidth: '800px',
           marginLeft: 'auto',
@@ -682,7 +716,7 @@ export default function Home() {
               marginBottom: isMobile ? '15px' : '20px',
               lineHeight: '1.3'
             }}>
-              Peça Agora e Receba em Casa!
+              Monte Seu Churrasco Perfeito!
             </h2>
             
             <p style={{
@@ -692,7 +726,7 @@ export default function Home() {
               lineHeight: '1.6',
               maxWidth: '95%'
             }}>
-              Seu café da manhã perfeito a poucos cliques de distância. Pães frescos, bolos caseiros, cafés especiais e muito mais!
+              Escolha entre nossos kits completos, carnes premium, acompanhamentos especiais ou monte seu combo personalizado!
             </p>
             
             <Link href="/mp" passHref legacyBehavior>
@@ -707,11 +741,11 @@ export default function Home() {
                   fontSize: isMobile ? '1.1rem' : '1.2rem',
                   fontWeight: '700',
                   transition: 'all 0.3s ease',
-                  boxShadow: `0 4px 12px rgba(139, 69, 19, 0.3)`,
+                  boxShadow: `0 4px 12px rgba(139, 0, 0, 0.3)`,
                   marginBottom: '15px'
                 }}
               >
-                🛒 COMPRE AGORA →
+                🔥 VER KITS DE CHURRASCO →
               </a>
             </Link>
 
@@ -721,7 +755,7 @@ export default function Home() {
               fontStyle: 'italic',
               margin: '10px 0 0 0'
             }}>
-              Entrega rápida em {localConfig.city} e região. Pague no ato da entrega!
+              Entrega agendada em {localConfig.city} e região. Pague no ato da entrega!
             </p>
           </div>
         </section>
@@ -741,7 +775,7 @@ export default function Home() {
             marginBottom: isMobile ? '15px' : '25px',
             padding: '0 15px'
           }}>
-            O que nossos clientes dizem
+            🔥 O que nossos clientes dizem
           </h2>
 
           <div style={{
@@ -771,7 +805,7 @@ export default function Home() {
                   padding: '20px',
                   background: colorPalette.white,
                   borderRadius: '10px',
-                  boxShadow: '0 2px 8px rgba(139, 69, 19, 0.1)',
+                  boxShadow: '0 2px 8px rgba(139, 0, 0, 0.1)',
                   flexShrink: 0,
                   boxSizing: 'border-box',
                   border: `1px solid ${colorPalette.secondary}`
@@ -855,7 +889,7 @@ export default function Home() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                boxShadow: '0 2px 6px rgba(139, 69, 19, 0.1)',
+                boxShadow: '0 2px 6px rgba(139, 0, 0, 0.1)',
                 zIndex: 2,
                 color: colorPalette.primary,
                 fontSize: '18px',
@@ -884,7 +918,7 @@ export default function Home() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                boxShadow: '0 2px 6px rgba(139, 69, 19, 0.1)',
+                boxShadow: '0 2px 6px rgba(139, 0, 0, 0.1)',
                 zIndex: 2,
                 color: colorPalette.primary,
                 fontSize: '18px',
@@ -897,7 +931,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Rodapé Premium COM HORÁRIO ATUALIZADO */}
+        {/* Rodapé Premium */}
         <footer style={{
           marginTop: isMobile ? '40px' : '60px',
           padding: isMobile ? '25px 15px' : '40px 20px',
@@ -907,7 +941,7 @@ export default function Home() {
           borderTop: `2px solid ${colorPalette.primary}`,
           backgroundColor: colorPalette.light,
           borderRadius: '12px 12px 0 0',
-          boxShadow: '0 -2px 10px rgba(139, 69, 19, 0.1)'
+          boxShadow: '0 -2px 10px rgba(139, 0, 0, 0.1)'
         }}>
           
           {/* Título do Rodapé */}
@@ -952,7 +986,7 @@ export default function Home() {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.color = colorPalette.white;
                 e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 4px 8px rgba(139, 69, 19, 0.2)';
+                e.target.style.boxShadow = '0 4px 8px rgba(139, 0, 0, 0.2)';
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = colorPalette.white;
@@ -990,7 +1024,7 @@ export default function Home() {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.color = colorPalette.white;
                 e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 4px 8px rgba(139, 69, 19, 0.2)';
+                e.target.style.boxShadow = '0 4px 8px rgba(139, 0, 0, 0.2)';
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = colorPalette.white;
@@ -1028,7 +1062,7 @@ export default function Home() {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.color = colorPalette.white;
                 e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 4px 8px rgba(139, 69, 19, 0.2)';
+                e.target.style.boxShadow = '0 4px 8px rgba(139, 0, 0, 0.2)';
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = colorPalette.white;
@@ -1066,7 +1100,7 @@ export default function Home() {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.color = colorPalette.white;
                 e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 4px 8px rgba(139, 69, 19, 0.2)';
+                e.target.style.boxShadow = '0 4px 8px rgba(139, 0, 0, 0.2)';
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = colorPalette.white;
@@ -1229,8 +1263,8 @@ export default function Home() {
                 fontStyle: 'italic',
                 margin: '0 0 15px 0'
               }}>
-                <strong>{localConfig.businessName}</strong> - Especialistas em café da manhã em <strong>{localConfig.city}-{localConfig.state}</strong>. 
-                Padaria e café com pães frescos, bolos caseiros, salgados e cafés especiais para começar seu dia com energia.
+                <strong>{localConfig.businessName}</strong> - Especialistas em churrasco gourmet em <strong>{localConfig.city}-{localConfig.state}</strong>. 
+                Kits completos com carnes selecionadas, acompanhamentos premium e tudo que você precisa para um churrasco perfeito.
               </p>
             </div>
 
