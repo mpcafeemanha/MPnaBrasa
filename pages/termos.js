@@ -17,52 +17,54 @@ export default function TermosUso() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Paleta de cores do MP Café
+  // Paleta de cores do MP na Brasa
   const colorPalette = {
-    primary: '#8B4513',
-    secondary: '#D2B48C',
-    accent: '#A0522D',
-    light: '#F5F5DC',
-    dark: '#654321',
+    primary: '#8B0000', // Vermelho vinho
+    secondary: '#2C2C2C', // Preto/cinza escuro
+    accent: '#B22222', // Vermelho firebrick
+    light: '#F8F8F8', // Cinza muito claro
+    dark: '#1A1A1A', // Preto quase puro
     white: '#FFFFFF',
     success: '#228B22',
     text: '#333333'
   };
 
   const localConfig = {
-    businessName: "MP Café & Manhã",
-    address: "Rua Capitão Antônio Mathias, 720 - Centro",
+    businessName: "MP na Brasa",
+    slogan: "Você chama a galera, a gente resolve o churrasco.",
+    address: "Rua Capitão Antonio Mathias , 720 - Centro",
     city: "Joanópolis",
     state: "SP",
     cep: "12980-000",
     phone: "(11) 91357-2902",
+    email: "mpcafeemanha@gmail.com",
     whatsapp: "5511913572902",
-    email: "mpcafeemanha@gmail.com"
+    openingHours: "Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação"
   };
 
   return (
     <>
       <Head>
-        <title>Termos de Uso - MP Café & Manhã | Padaria Joanópolis-SP</title>
+        <title>Termos de Uso - MP na Brasa | Kits de Churrasco Joanópolis-SP</title>
         <meta 
           name="description" 
-          content="Termos de Uso do MP Café & Manhã. Conheça as regras e condições para utilização do nosso site e serviços de padaria em Joanópolis." 
+          content="Termos de Uso do MP na Brasa. Conheça as regras e condições para utilização do nosso site e serviços de kits de churrasco em Joanópolis." 
         />
         <meta 
           name="keywords" 
-          content="termos de uso MP Café, condições uso site, regras padaria online, MP Café & Manhã termos, site padaria Joanópolis" 
+          content="termos de uso MP na Brasa, condições uso site churrasco, regras kits churrasco online, MP na Brasa termos, site churrasco Joanópolis" 
         />
-        <meta property="og:title" content="Termos de Uso - MP Café & Manhã" />
+        <meta property="og:title" content="Termos de Uso - MP na Brasa" />
         <meta 
           property="og:description" 
-          content="Leia os termos e condições para utilização do site e serviços do MP Café & Manhã." 
+          content="Leia os termos e condições para utilização do site e serviços de kits de churrasco do MP na Brasa." 
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://mpcafemanha.com/termos" />
+        <meta property="og:url" content="https://mpnabrasa.com/termos" />
         <meta property="og:image" content="/Logo MP cafe.png" />
-        <meta property="og:site_name" content="MP Café & Manhã" />
+        <meta property="og:site_name" content="MP na Brasa" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://mpcafemanha.com/termos" />
+        <link rel="canonical" href="https://mpnabrasa.com/termos" />
         
         {/* Schema.org */}
         <script
@@ -71,11 +73,11 @@ export default function TermosUso() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebPage",
-              "name": "Termos de Uso - MP Café & Manhã",
-              "description": "Termos e condições de uso do site e serviços do MP Café & Manhã",
+              "name": "Termos de Uso - MP na Brasa",
+              "description": "Termos e condições de uso do site e serviços de kits de churrasco do MP na Brasa",
               "publisher": {
                 "@type": "Organization",
-                "name": "MP Café & Manhã",
+                "name": "MP na Brasa",
                 "logo": {
                   "@type": "ImageObject",
                   "url": "/Logo MP cafe.png"
@@ -84,7 +86,7 @@ export default function TermosUso() {
               "mainEntity": {
                 "@type": "TermsAndConditions",
                 "name": "Termos de Uso",
-                "url": "https://mpcafemanha.com/termos"
+                "url": "https://mpnabrasa.com/termos"
               }
             })
           }}
@@ -109,26 +111,39 @@ export default function TermosUso() {
           <Link href="/" style={{ display: 'inline-block' }}>
             <img 
               src="/Logo MP cafe.png" 
-              alt="Logo MP Café & Manhã - Padaria e Café em Joanópolis-SP" 
+              alt={`Logo ${localConfig.businessName} - Kits de Churrasco Gourmet`} 
               style={{ 
                 width: isMobile ? '120px' : '150px',
                 marginBottom: '20px',
                 cursor: 'pointer',
-                borderRadius: '10px'
+                borderRadius: '10px',
+                border: `2px solid ${colorPalette.primary}`,
+                backgroundColor: colorPalette.white,
+                padding: '5px'
               }} 
             />
           </Link>
           <h1 style={{ 
             color: colorPalette.primary, 
             fontSize: isMobile ? '1.8rem' : '2.5rem',
-            marginBottom: '15px',
+            marginBottom: '10px',
             fontWeight: '700'
           }}>
             Termos de Uso
           </h1>
           <p style={{ 
-            color: colorPalette.text, 
+            color: colorPalette.dark, 
             fontSize: isMobile ? '1rem' : '1.1rem',
+            maxWidth: '800px',
+            margin: '0 auto 10px auto',
+            lineHeight: '1.6',
+            fontStyle: 'italic'
+          }}>
+            {localConfig.slogan}
+          </p>
+          <p style={{ 
+            color: colorPalette.text, 
+            fontSize: isMobile ? '0.9rem' : '1rem',
             maxWidth: '800px',
             margin: '0 auto',
             lineHeight: '1.6'
@@ -142,7 +157,7 @@ export default function TermosUso() {
           backgroundColor: colorPalette.white,
           borderRadius: '10px',
           padding: isMobile ? '20px' : '30px',
-          boxShadow: '0 2px 10px rgba(139, 69, 19, 0.05)',
+          boxShadow: '0 2px 10px rgba(139, 0, 0, 0.05)',
           marginBottom: '50px',
           border: `1px solid ${colorPalette.secondary}`
         }}>
@@ -154,7 +169,7 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Bem-vindo ao <strong>MP Café & Manhã</strong>! Estes Termos de Uso regulam o acesso e utilização de nosso site, aplicativo e serviços relacionados. Ao utilizar nossos serviços, você concorda com estes termos.
+              Bem-vindo ao <strong>{localConfig.businessName}</strong>! Estes Termos de Uso regulam o acesso e utilização de nosso site, aplicativo e serviços relacionados de kits de churrasco gourmet. Ao utilizar nossos serviços, você concorda com estes termos.
             </p>
             <div style={{
               backgroundColor: colorPalette.light,
@@ -169,7 +184,7 @@ export default function TermosUso() {
                 fontSize: isMobile ? '0.9rem' : '0.95rem',
                 fontWeight: '500'
               }}>
-                ⚠️ <strong>Importante:</strong> Estes termos constituem um contrato legal entre você e o MP Café & Manhã. Recomendamos que leia atentamente.
+                ⚠️ <strong>Importante:</strong> Estes termos constituem um contrato legal entre você e o {localConfig.businessName}. Recomendamos que leia atentamente antes de realizar qualquer pedido.
               </p>
             </div>
           </section>
@@ -202,19 +217,22 @@ export default function TermosUso() {
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
               <li style={{ marginBottom: '8px' }}>
-                <strong>"Site" ou "Plataforma":</strong> Refere-se ao website mpcafemanha.com e aplicativos relacionados
+                <strong>"Site" ou "Plataforma":</strong> Refere-se ao website mpnabrasa.com e aplicativos relacionados
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>"Serviços":</strong> Inclui pedidos online, entrega, atendimento e produtos oferecidos
+                <strong>"Serviços":</strong> Inclui encomendas de kits de churrasco, entrega agendada, atendimento personalizado e produtos oferecidos
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>"Usuário" ou "Cliente":</strong> Qualquer pessoa que utilize nossos serviços
+                <strong>"Usuário" ou "Cliente":</strong> Qualquer pessoa que utilize nossos serviços de churrasco
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>"Produtos":</strong> Itens alimentícios disponíveis para venda em nossa plataforma
+                <strong>"Kits de Churrasco":</strong> Combinações de carnes premium, acompanhamentos e utensílios disponíveis para venda
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>"Área de Entrega":</strong> Região de Joanópolis e arredores onde realizamos entregas
+                <strong>"Área de Entrega":</strong> Região de Joanópolis e arredores onde realizamos entregas de kits
+              </li>
+              <li style={{ marginBottom: '8px' }}>
+                <strong>"Evento":</strong> Ocasão para a qual o kit de churrasco está sendo encomendado
               </li>
             </ul>
           </section>
@@ -238,7 +256,7 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Para realizar pedidos, você precisará criar uma conta fornecendo informações verdadeiras e atualizadas:
+              Para realizar encomendas de kits de churrasco, você precisará fornecer informações verdadeiras e atualizadas:
             </p>
             <ul style={{ 
               color: colorPalette.text,
@@ -250,13 +268,14 @@ export default function TermosUso() {
               <li style={{ marginBottom: '8px' }}>Endereço de entrega válido</li>
               <li style={{ marginBottom: '8px' }}>Número de telefone ativo</li>
               <li style={{ marginBottom: '8px' }}>E-mail válido</li>
+              <li style={{ marginBottom: '8px' }}>Informações do evento (data, horário, quantidade de pessoas)</li>
             </ul>
             <p style={{ 
               color: colorPalette.text, 
               lineHeight: '1.6',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Você é responsável por manter a confidencialidade de sua conta e por todas as atividades realizadas através dela.
+              Você é responsável por manter a confidencialidade de suas informações e por todas as atividades realizadas através de sua conta.
             </p>
           </section>
 
@@ -271,7 +290,7 @@ export default function TermosUso() {
               alignItems: 'center',
               gap: '10px'
             }}>
-              <span>🛒</span> 3. Pedidos e Pagamentos
+              <span>🛒</span> 3. Encomendas e Pagamentos
             </h2>
             <p style={{ 
               color: colorPalette.text, 
@@ -279,7 +298,7 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Ao realizar um pedido, você concorda com as seguintes condições:
+              Ao realizar uma encomenda de kit de churrasco, você concorda com as seguintes condições:
             </p>
             <ul style={{ 
               color: colorPalette.text,
@@ -288,19 +307,22 @@ export default function TermosUso() {
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Preços:</strong> Podem sofrer alterações sem aviso prévio. O preço válido é o exibido no momento do pedido
+                <strong>Preços:</strong> Podem sofrer alterações sem aviso prévio. O preço válido é o exibido no momento da encomenda
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Disponibilidade:</strong> Produtos estão sujeitos à disponibilidade em estoque
+                <strong>Disponibilidade:</strong> Kits estão sujeitos à disponibilidade de carnes premium e produtos selecionados
               </li>
               <li style={{ marginBottom: '8px' }}>
                 <strong>Pagamento:</strong> Aceitamos PIX, cartão de crédito/débito e dinheiro na entrega
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Confirmação:</strong> O pedido só é considerado confirmado após nossa confirmação
+                <strong>Confirmação:</strong> A encomenda só é considerada confirmada após nossa confirmação e agendamento
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Entrega:</strong> Prazos são estimativas e podem variar conforme condições de trânsito
+                <strong>Agendamento:</strong> Recomendamos encomendar com 24h de antecedência para eventos
+              </li>
+              <li style={{ marginBottom: '8px' }}>
+                <strong>Personalização:</strong> Kits podem ser personalizados mediante consulta prévia
               </li>
             </ul>
           </section>
@@ -324,7 +346,7 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Condições para entrega de produtos:
+              Condições para entrega de kits de churrasco:
             </p>
             <div style={{
               backgroundColor: '#e8f4f8',
@@ -346,11 +368,12 @@ export default function TermosUso() {
                 paddingLeft: '20px',
                 fontSize: isMobile ? '0.95rem' : '1rem'
               }}>
-                <li style={{ marginBottom: '8px' }}>Fornecer endereço correto e completo</li>
-                <li style={{ marginBottom: '8px' }}>Estar disponível no horário combinado</li>
-                <li style={{ marginBottom: '8px' }}>Verificar produtos antes de assinar o comprovante</li>
-                <li style={{ marginBottom: '8px' }}>Informar alterações de endereço com antecedência</li>
-                <li style={{ marginBottom: '8px' }}>Garantir acesso ao local de entrega</li>
+                <li style={{ marginBottom: '8px' }}>Fornecer endereço correto e completo para entrega</li>
+                <li style={{ marginBottom: '8px' }}>Estar disponível no horário agendado para recebimento</li>
+                <li style={{ marginBottom: '8px' }}>Verificar temperatura e qualidade das carnes na chegada</li>
+                <li style={{ marginBottom: '8px' }}>Disponibilizar refrigerador para armazenamento imediato</li>
+                <li style={{ marginBottom: '8px' }}>Informar alterações de data/horário com antecedência mínima de 12h</li>
+                <li style={{ marginBottom: '8px' }}>Garantir acesso adequado para entrega do kit</li>
               </ul>
             </div>
             <p style={{ 
@@ -359,7 +382,7 @@ export default function TermosUso() {
               marginTop: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Caso não haja ninguém para receber a entrega no endereço fornecido, o pedido será reagendado com taxa adicional.
+              Caso não haja ninguém para receber a entrega no horário agendado, o kit poderá ser deixado em local seguro mediante autorização prévia, considerando as condições de temperatura.
             </p>
           </section>
 
@@ -382,7 +405,7 @@ export default function TermosUso() {
               gap: '20px',
               marginTop: '15px'
             }}>
-              {/* Responsabilidades do MP Café */}
+              {/* Responsabilidades do MP na Brasa */}
               <div style={{
                 backgroundColor: '#f0f9f0',
                 padding: '20px',
@@ -402,11 +425,12 @@ export default function TermosUso() {
                   paddingLeft: '20px',
                   fontSize: isMobile ? '0.9rem' : '0.95rem'
                 }}>
-                  <li style={{ marginBottom: '8px' }}>Fornecer produtos de qualidade</li>
-                  <li style={{ marginBottom: '8px' }}>Garantir informações corretas no site</li>
-                  <li style={{ marginBottom: '8px' }}>Processar pedidos com eficiência</li>
-                  <li style={{ marginBottom: '8px' }}>Manter segurança dos dados</li>
-                  <li style={{ marginBottom: '8px' }}>Oferecer atendimento adequado</li>
+                  <li style={{ marginBottom: '8px' }}>Fornecer carnes premium de qualidade certificada</li>
+                  <li style={{ marginBottom: '8px' }}>Garantir entrega no horário agendado</li>
+                  <li style={{ marginBottom: '8px' }}>Manter temperatura adequada durante transporte</li>
+                  <li style={{ marginBottom: '8px' }}>Oferecer kits completos conforme descrição</li>
+                  <li style={{ marginBottom: '8px' }}>Manter segurança e privacidade dos dados</li>
+                  <li style={{ marginBottom: '8px' }}>Fornecer atendimento especializado em churrasco</li>
                 </ul>
               </div>
 
@@ -430,11 +454,12 @@ export default function TermosUso() {
                   paddingLeft: '20px',
                   fontSize: isMobile ? '0.9rem' : '0.95rem'
                 }}>
-                  <li style={{ marginBottom: '8px' }}>Fornecer informações verdadeiras</li>
-                  <li style={{ marginBottom: '8px' }}>Armazenar produtos adequadamente</li>
-                  <li style={{ marginBottom: '8px' }}>Verificar produtos na entrega</li>
-                  <li style={{ marginBottom: '8px' }}>Respeitar prazos de pagamento</li>
-                  <li style={{ marginBottom: '8px' }}>Utilizar serviços conforme regras</li>
+                  <li style={{ marginBottom: '8px' }}>Fornecer informações verdadeiras sobre o evento</li>
+                  <li style={{ marginBottom: '8px' }}>Armazenar carnes adequadamente após entrega</li>
+                  <li style={{ marginBottom: '8px' }}>Verificar produtos imediatamente na chegada</li>
+                  <li style={{ marginBottom: '8px' }}>Respeitar prazos de pagamento combinados</li>
+                  <li style={{ marginBottom: '8px' }}>Informar alergias ou restrições alimentares</li>
+                  <li style={{ marginBottom: '8px' }}>Utilizar produtos dentro do prazo recomendado</li>
                 </ul>
               </div>
             </div>
@@ -467,19 +492,20 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              <li style={{ marginBottom: '8px' }}>Realizar atividades ilegais ou fraudulentas</li>
-              <li style={{ marginBottom: '8px' }}>Enviar conteúdo ofensivo ou inadequado</li>
+              <li style={{ marginBottom: '8px' }}>Realizar encomendas falsas ou de má-fé</li>
+              <li style={{ marginBottom: '8px' }}>Fornecer informações incorretas sobre eventos</li>
               <li style={{ marginBottom: '8px' }}>Tentar acessar contas de outros usuários</li>
               <li style={{ marginBottom: '8px' }}>Interferir no funcionamento da plataforma</li>
-              <li style={{ marginBottom: '8px' }}>Realizar pedidos falsos ou de má-fé</li>
-              <li style={{ marginBottom: '8px' }}>Compartilhar informações falsas sobre produtos</li>
+              <li style={{ marginBottom: '8px' }}>Utilizar a plataforma para fins comerciais não autorizados</li>
+              <li style={{ marginBottom: '8px' }}>Compartilhar informações falsas sobre produtos ou serviços</li>
+              <li style={{ marginBottom: '8px' }}>Realizar pedidos fora da área de entrega estabelecida</li>
             </ul>
             <p style={{ 
               color: colorPalette.text, 
               lineHeight: '1.6',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Reservamo-nos o direito de suspender ou cancelar contas que violarem estas regras.
+              Reservamo-nos o direito de suspender ou cancelar contas que violarem estas regras, sem prejuízo de outras medidas legais.
             </p>
           </section>
 
@@ -502,14 +528,14 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Todo o conteúdo da plataforma, incluindo logotipos, textos, imagens, design e software, são propriedade do <strong>MP Café & Manhã</strong> ou de seus licenciadores e estão protegidos por leis de propriedade intelectual.
+              Todo o conteúdo da plataforma, incluindo logotipos, textos, imagens, design, combinações de kits e software, são propriedade do <strong>{localConfig.businessName}</strong> ou de seus licenciadores e estão protegidos por leis de propriedade intelectual.
             </p>
             <p style={{ 
               color: colorPalette.text, 
               lineHeight: '1.6',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Você não pode reproduzir, distribuir, modificar ou criar obras derivadas sem nossa autorização prévia por escrito.
+              Você não pode reproduzir, distribuir, modificar, criar obras derivadas ou utilizar nossos conceitos de kits de churrasco para fins comerciais sem nossa autorização prévia por escrito.
             </p>
           </section>
 
@@ -532,7 +558,7 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              O <strong>MP Café & Manhã</strong> não será responsável por:
+              O <strong>{localConfig.businessName}</strong> não será responsável por:
             </p>
             <ul style={{ 
               color: colorPalette.text,
@@ -540,11 +566,13 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              <li style={{ marginBottom: '8px' }}>Danos decorrentes de uso inadequado dos produtos</li>
+              <li style={{ marginBottom: '8px' }}>Danos decorrentes de preparo inadequado dos produtos</li>
               <li style={{ marginBottom: '8px' }}>Problemas de entrega causados por informações incorretas fornecidas pelo cliente</li>
-              <li style={{ marginBottom: '8px' }}>Atrasos devido a fatores externos como trânsito, clima ou eventos de força maior</li>
+              <li style={{ marginBottom: '8px' }}>Atrasos devido a fatores externos como trânsito, condições climáticas ou eventos de força maior</li>
               <li style={{ marginBottom: '8px' }}>Alergias ou intolerâncias não informadas pelo cliente</li>
               <li style={{ marginBottom: '8px' }}>Mau armazenamento dos produtos após a entrega</li>
+              <li style={{ marginBottom: '8px' }}>Quantidade insuficiente devido a cálculo incorreto do cliente</li>
+              <li style={{ marginBottom: '8px' }}>Cancelamento ou alteração de eventos por parte do cliente</li>
             </ul>
           </section>
 
@@ -567,14 +595,14 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Reservamo-nos o direito de modificar estes Termos de Uso a qualquer momento. As alterações entrarão em vigor imediatamente após sua publicação no site. O uso continuado de nossos serviços após alterações constitui aceitação dos novos termos.
+              Reservamo-nos o direito de modificar estes Termos de Uso a qualquer momento para refletir mudanças em nossos serviços de kits de churrasco. As alterações entrarão em vigor imediatamente após sua publicação no site. O uso continuado de nossos serviços após alterações constitui aceitação dos novos termos.
             </p>
             <p style={{ 
               color: colorPalette.text, 
               lineHeight: '1.6',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Recomendamos que você revise periodicamente esta página para se manter informado sobre possíveis alterações.
+              Recomendamos que você revise periodicamente esta página para se manter informado sobre possíveis alterações que possam afetar seus pedidos de kits de churrasco.
             </p>
           </section>
 
@@ -597,14 +625,14 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Estes Termos são regidos pelas leis da República Federativa do Brasil. Quaisquer disputas serão resolvidas no foro da comarca de Joanópolis-SP.
+              Estes Termos são regidos pelas leis da República Federativa do Brasil. Quaisquer disputas serão resolvidas no foro da comarca de Joanópolis-SP, com renúncia a qualquer outro, por mais privilegiado que seja.
             </p>
             <p style={{ 
               color: colorPalette.text, 
               lineHeight: '1.6',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Estes Termos de Uso estão em conformidade com o <strong>Código de Defesa do Consumidor (Lei 8.078/90)</strong>.
+              Estes Termos de Uso estão em conformidade com o <strong>Código de Defesa do Consumidor (Lei 8.078/90)</strong> e as normas específicas para produtos cárneos.
             </p>
           </section>
 
@@ -627,7 +655,7 @@ export default function TermosUso() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Para dúvidas sobre estes Termos de Uso, entre em contato:
+              Para dúvidas sobre estes Termos de Uso ou nossos serviços de kits de churrasco, entre em contato:
             </p>
             <div style={{
               backgroundColor: colorPalette.light,
@@ -642,7 +670,7 @@ export default function TermosUso() {
                 fontWeight: '500',
                 fontSize: isMobile ? '0.95rem' : '1rem'
               }}>
-                <strong>MP Café & Manhã</strong>
+                <strong>{localConfig.businessName}</strong> - {localConfig.slogan}
               </p>
               <p style={{ 
                 color: colorPalette.text, 
@@ -669,7 +697,7 @@ export default function TermosUso() {
                 color: colorPalette.text, 
                 fontSize: isMobile ? '0.9rem' : '0.95rem'
               }}>
-                🕒 Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação
+                🕒 {localConfig.openingHours}
               </p>
             </div>
           </section>
@@ -689,20 +717,51 @@ export default function TermosUso() {
             justifyContent: 'center',
             flexWrap: 'wrap',
             gap: isMobile ? '10px' : '15px',
-            marginBottom: '15px'
+            marginBottom: '20px'
           }}>
             <Link 
               href="/termos" 
               style={{ 
+                color: colorPalette.primary, 
+                textDecoration: 'none',
+                fontWeight: '500',
+                padding: '8px 12px',
+                borderRadius: '6px',
+                transition: 'all 0.3s',
+                fontSize: isMobile ? '0.85rem' : '0.9rem',
+                border: `1px solid ${colorPalette.secondary}`,
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = colorPalette.primary;
+                e.target.style.color = colorPalette.white;
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = colorPalette.white;
+                e.target.style.color = colorPalette.primary;
+              }}
+            >
+              📄 Termos de Uso
+            </Link>
+            
+            <Link 
+              href="/politica-de-privacidade"
+              style={{ 
                 color: colorPalette.white, 
                 textDecoration: 'none',
                 fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
+                padding: '8px 12px',
+                borderRadius: '6px',
                 transition: 'all 0.3s',
                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                 backgroundColor: colorPalette.primary,
-                border: `1px solid ${colorPalette.primary}`
+                border: `1px solid ${colorPalette.primary}`,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
               }}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = colorPalette.accent;
@@ -713,32 +772,7 @@ export default function TermosUso() {
                 e.target.style.borderColor = colorPalette.primary;
               }}
             >
-              Termos de Uso
-            </Link>
-            
-            <Link 
-              href="/politica-de-privacidade"
-              style={{ 
-                color: colorPalette.primary, 
-                textDecoration: 'none',
-                fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
-                transition: 'all 0.3s',
-                fontSize: isMobile ? '0.85rem' : '0.9rem',
-                border: `1px solid ${colorPalette.secondary}`,
-                backgroundColor: colorPalette.white
-              }}
-              onMouseOver={(e) => {
-                e.target.style.backgroundColor = colorPalette.primary;
-                e.target.style.color = colorPalette.white;
-              }}
-              onMouseOut={(e) => {
-                e.target.style.backgroundColor = colorPalette.white;
-                e.target.style.color = colorPalette.primary;
-              }}
-            >
-              Política de Privacidade
+              🔒 Política de Privacidade
             </Link>
             
             <Link 
@@ -747,12 +781,15 @@ export default function TermosUso() {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
+                padding: '8px 12px',
+                borderRadius: '6px',
                 transition: 'all 0.3s',
                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                 border: `1px solid ${colorPalette.secondary}`,
-                backgroundColor: colorPalette.white
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
               }}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = colorPalette.primary;
@@ -763,7 +800,7 @@ export default function TermosUso() {
                 e.target.style.color = colorPalette.primary;
               }}
             >
-              Política de Devolução
+              🔄 Política de Devolução
             </Link>
             
             <Link 
@@ -772,12 +809,15 @@ export default function TermosUso() {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
+                padding: '8px 12px',
+                borderRadius: '6px',
                 transition: 'all 0.3s',
                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                 border: `1px solid ${colorPalette.secondary}`,
-                backgroundColor: colorPalette.white
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
               }}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = colorPalette.primary;
@@ -788,7 +828,35 @@ export default function TermosUso() {
                 e.target.style.color = colorPalette.primary;
               }}
             >
-              Quem Somos
+              👥 Quem Somos
+            </Link>
+            
+            <Link 
+              href="/faq"
+              style={{ 
+                color: colorPalette.primary, 
+                textDecoration: 'none',
+                fontWeight: '500',
+                padding: '8px 12px',
+                borderRadius: '6px',
+                transition: 'all 0.3s',
+                fontSize: isMobile ? '0.85rem' : '0.9rem',
+                border: `1px solid ${colorPalette.secondary}`,
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = colorPalette.primary;
+                e.target.style.color = colorPalette.white;
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = colorPalette.white;
+                e.target.style.color = colorPalette.primary;
+              }}
+            >
+              ❓ Perguntas Frequentes
             </Link>
             
             <Link 
@@ -797,12 +865,15 @@ export default function TermosUso() {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
+                padding: '8px 12px',
+                borderRadius: '6px',
                 transition: 'all 0.3s',
                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                 border: `1px solid ${colorPalette.secondary}`,
-                backgroundColor: colorPalette.white
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
               }}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = colorPalette.primary;
@@ -813,18 +884,34 @@ export default function TermosUso() {
                 e.target.style.color = colorPalette.primary;
               }}
             >
-              Voltar ao Início
+              🏠 Voltar ao Início
             </Link>
           </div>
           
-          <p style={{ 
+          <div style={{
             marginTop: '15px', 
             color: colorPalette.dark,
-            fontSize: isMobile ? '0.75rem' : '0.8rem'
+            fontSize: isMobile ? '0.75rem' : '0.8rem',
+            lineHeight: '1.6'
           }}>
-            © {new Date().getFullYear()} MP Café & Manhã. Todos os direitos reservados.<br />
-            {localConfig.address} • {localConfig.city}-{localConfig.state} • CEP: {localConfig.cep}
-          </p>
+            <p style={{ margin: '0 0 5px 0' }}>
+              © {new Date().getFullYear()} <strong>{localConfig.businessName}</strong>. Todos os direitos reservados.
+            </p>
+            <p style={{ margin: '0 0 5px 0' }}>
+              {localConfig.address} • {localConfig.city}-{localConfig.state} • CEP: {localConfig.cep}
+            </p>
+            <p style={{ margin: '0 0 5px 0' }}>
+              📞 {localConfig.phone} • 🕐 {localConfig.openingHours}
+            </p>
+            <p style={{ 
+              margin: '10px 0 0 0',
+              fontSize: isMobile ? '0.7rem' : '0.75rem',
+              color: '#666',
+              fontStyle: 'italic'
+            }}>
+              Kits de Churrasco Gourmet • Qualidade Premium • Entrega Agendada
+            </p>
+          </div>
         </footer>
       </div>
     </>
