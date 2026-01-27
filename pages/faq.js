@@ -23,25 +23,26 @@ const FAQPage = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Configuração local
+  // Configuração local CHURRASCO
   const localConfig = {
-    businessName: "MP Café & Manhã",
+    businessName: "MP na Brasa",
+    slogan: "Você chama a galera, a gente resolve o churrasco.",
     city: "Joanópolis",
     state: "SP",
     phone: "(11) 91357-2902",
     whatsapp: "5511913572902",
-    address: "Rua Capitão Antônio Mathias, 720 - Centro",
+    address: "Rua do Churrasco, 123 - Centro",
     cep: "12980-000",
     openingHours: "Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação"
   };
 
-  // Paleta de cores
+  // Paleta de cores GOURMET
   const colorPalette = {
-    primary: '#8B4513',
-    secondary: '#D2B48C',
-    accent: '#A0522D',
-    light: '#F5F5DC',
-    dark: '#654321',
+    primary: '#8B0000', // Vermelho vinho
+    secondary: '#2C2C2C', // Preto/cinza escuro
+    accent: '#B22222', // Vermelho firebrick
+    light: '#F8F8F8', // Cinza muito claro
+    dark: '#1A1A1A', // Preto quase puro
     white: '#FFFFFF',
     success: '#228B22',
     text: '#333333'
@@ -50,40 +51,40 @@ const FAQPage = () => {
   // Criar arrays separados para o schema (texto puro) e para o display (com JSX)
   const faqsForSchema = [
     {
-      pergunta: "Quais regiões o MP Café & Manhã atende?",
-      resposta: "Atendemos toda a cidade de Joanópolis e região metropolitana. Entrega rápida para seu café da manhã perfeito!"
+      pergunta: "Quais regiões o MP na Brasa atende?",
+      resposta: "Atendemos toda a cidade de Joanópolis e região metropolitana. Entrega agendada para seu churrasco perfeito!"
     },
     {
-      pergunta: "Qual o prazo de entrega dos produtos?",
-      resposta: "Entregamos em até 1 hora após confirmação do pedido em Joanópolis. Pedidos até 10h para entrega no mesmo dia."
+      pergunta: "Qual o prazo de entrega dos kits de churrasco?",
+      resposta: "Entregamos com agendamento prévio. Recomendamos encomendar com 24h de antecedência para garantir disponibilidade e qualidade."
     },
     {
-      pergunta: "O MP Café & Manhã trabalha com quais tipos de produtos?",
-      resposta: "Somos especializados em café da manhã: pães frescos, bolos caseiros, salgados, cafés especiais, sucos naturais, pão de queijo, croissants e muito mais."
+      pergunta: "O MP na Brasa trabalha com quais tipos de produtos?",
+      resposta: "Somos especializados em kits de churrasco gourmet: carnes premium (picanha, costela, linguiças), acompanhamentos especiais, utensílios e kits completos para diferentes tamanhos de eventos."
     },
     {
       pergunta: "Qual o valor mínimo para pedido?",
-      resposta: "Trabalhamos com pedidos a partir de R$ 25,00 para entrega em Joanópolis. Entrega grátis para pedidos acima de R$ 50,00."
+      resposta: "Trabalhamos com pedidos a partir de R$ 80,00 para entrega em Joanópolis. Entrega grátis"
     },
     {
       pergunta: "Como faço para fazer um pedido?",
-      resposta: "Acesse nossa página de produtos em /mp, escolha os itens, adicione ao carrinho e finalize o pedido. É rápido e fácil!"
+      resposta: "Acesse nossa página de produtos em /mp, escolha os kits ou itens, adicione ao carrinho e finalize o pedido. É rápido e fácil!"
     },
     {
       pergunta: "Aceitam quais formas de pagamento?",
-      resposta: "Trabalhamos com pagamento á vista: cartão de crédito/débito, dinheiro ou PIX. Pague no ato da entrega, não aceitamos pagamento antecipado."
+      resposta: "Trabalhamos com pagamento à vista: cartão de crédito/débito, dinheiro ou PIX. Pague no ato da entrega, não aceitamos pagamento antecipado."
     },
     {
-      pergunta: "Os produtos são frescos?",
-      resposta: "Sim! Todos os nossos pães são assados diariamente, bolos feitos no dia e produtos sempre frescos. Qualidade garantida!"
+      pergunta: "As carnes são de qualidade premium?",
+      resposta: "Sim! Trabalhamos apenas com carnes selecionadas, provenientes de fornecedores certificados. Qualidade e procedência garantidas!"
     },
     {
-      pergunta: "Fazem entregas para empresas e escritórios?",
-      resposta: "Sim! Especializados em café da manhã corporativo. Montamos kits especiais para escritórios, reuniões e eventos em Joanópolis."
+      pergunta: "Fazem kits para empresas e eventos?",
+      resposta: "Sim! Especializados em churrascos corporativos. Montamos kits especiais para empresas, reuniões, festas e eventos em Joanópolis."
     },
     {
       pergunta: "Quais são os horários de funcionamento?",
-      resposta: "Funcionamos de quinta a domingo, com pedidos aceitos até 10h. Entrega em até 1h após confirmação."
+      resposta: "Atendemos com encomendas até 24h antes do evento. Entrega agendada conforme disponibilidade."
     },
     {
       pergunta: "Como posso entrar em contato?",
@@ -94,18 +95,18 @@ const FAQPage = () => {
   // Array para display com JSX (botões, links, etc.)
   const faqsForDisplay = [
     {
-      pergunta: "Quais regiões o MP Café & Manhã atende?",
-      resposta: "Atendemos toda a cidade de Joanópolis e região metropolitana. Entrega rápida para seu café da manhã perfeito!"
+      pergunta: "Quais regiões o MP na Brasa atende?",
+      resposta: "Atendemos toda a cidade de Joanópolis e região metropolitana. Entrega agendada para seu churrasco perfeito!"
     },
     {
-      pergunta: "Qual o prazo de entrega dos produtos?",
-      resposta: "Entregamos em até 1 hora após confirmação do pedido em Joanópolis. Pedidos até 10h para entrega no mesmo dia."
+      pergunta: "Qual o prazo de entrega dos kits de churrasco?",
+      resposta: "Entregamos com agendamento prévio. Recomendamos encomendar com 24h de antecedência para garantir disponibilidade e qualidade."
     },
     {
-      pergunta: "O MP Café & Manhã trabalha com quais tipos de produtos?",
+      pergunta: "O MP na Brasa trabalha com quais tipos de produtos?",
       resposta: (
         <div>
-          <p>Somos especializados em café da manhã: pães frescos, bolos caseiros, salgados, cafés especiais, sucos naturais, pão de queijo, croissants e muito mais.</p>
+          <p>Somos especializados em kits de churrasco gourmet: carnes premium (picanha, costela, linguiças), acompanhamentos especiais, utensílios e kits completos para diferentes tamanhos de eventos.</p>
           <div style={{ marginTop: '15px' }}>
             <Link href="/mp" passHref legacyBehavior>
               <a style={{
@@ -127,7 +128,7 @@ const FAQPage = () => {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.transform = 'translateY(0)';
               }}>
-                🥐 Ver todos os produtos disponíveis →
+                🥩 Ver todos os kits disponíveis →
               </a>
             </Link>
           </div>
@@ -136,13 +137,13 @@ const FAQPage = () => {
     },
     {
       pergunta: "Qual o valor mínimo para pedido?",
-      resposta: "Trabalhamos com pedidos a partir de R$ 25,00 para entrega em Joanópolis. Entrega grátis para pedidos acima de R$ 50,00."
+      resposta: "Trabalhamos com pedidos a partir de R$ 80,00 para entrega em Joanópolis. Entrega grátis"
     },
     {
       pergunta: "Como faço para fazer um pedido?",
       resposta: (
         <div>
-          <p>Acesse nossa página de produtos em /mp, escolha os itens, adicione ao carrinho e finalize o pedido. É rápido e fácil!</p>
+          <p>Acesse nossa página de produtos em /mp, escolha os kits ou itens, adicione ao carrinho e finalize o pedido. É rápido e fácil!</p>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '15px' }}>
             <Link href="/mp" passHref legacyBehavior>
               <a style={{
@@ -164,12 +165,12 @@ const FAQPage = () => {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.transform = 'translateY(0)';
               }}>
-                🛒 Fazer pedido agora →
+                🔥 Montar meu kit agora →
               </a>
             </Link>
             
             <a 
-              href={`https://wa.me/${localConfig.whatsapp}?text=Olá! Gostaria de fazer um pedido no MP Café & Manhã.`} 
+              href={`https://wa.me/${localConfig.whatsapp}?text=Olá! Gostaria de fazer um pedido no MP na Brasa.`} 
               target="_blank" 
               rel="noopener noreferrer"
               style={{
@@ -199,19 +200,23 @@ const FAQPage = () => {
     },
     {
       pergunta: "Aceitam quais formas de pagamento?",
-      resposta: "Trabalhamos com pagamento á vista: cartão de crédito/débito, dinheiro ou PIX. Pague no ato da entrega, não aceitamos pagamento antecipado."
+      resposta: "Trabalhamos com pagamento à vista: cartão de crédito/débito, dinheiro ou PIX. Pague no ato da entrega, não aceitamos pagamento antecipado."
     },
     {
-      pergunta: "Os produtos são frescos?",
-      resposta: "Sim! Todos os nossos pães são assados diariamente, bolos feitos no dia e produtos sempre frescos. Qualidade garantida!"
+      pergunta: "As carnes são de qualidade premium?",
+      resposta: "Sim! Trabalhamos apenas com carnes selecionadas, provenientes de fornecedores certificados. Qualidade e procedência garantidas!"
     },
     {
-      pergunta: "Fazem entregas para empresas e escritórios?",
-      resposta: "Sim! Especializados em café da manhã corporativo. Montamos kits especiais para escritórios, reuniões e eventos em Joanópolis."
+      pergunta: "Fazem kits para empresas e eventos?",
+      resposta: "Sim! Especializados em churrascos corporativos. Montamos kits especiais para empresas, reuniões, festas e eventos em Joanópolis. Entre em contato para orçamento personalizado."
     },
     {
       pergunta: "Quais são os horários de funcionamento?",
-      resposta: "Funcionamos de quinta a domingo, com pedidos aceitos até 10h. Entrega em até 1h após confirmação."
+      resposta: "Atendemos com encomendas até 24h antes do evento. Entrega agendada conforme disponibilidade."
+    },
+    {
+      pergunta: "Posso personalizar meu kit de churrasco?",
+      resposta: "Sim! Oferecemos opções de personalização dos kits. Entre em contato pelo WhatsApp para montarmos o kit perfeito para sua ocasião."
     },
     {
       pergunta: "Como posso entrar em contato?",
@@ -265,7 +270,7 @@ const FAQPage = () => {
                 e.target.style.backgroundColor = colorPalette.primary;
                 e.target.style.transform = 'translateY(0)';
               }}>
-                ☕ Acessar produtos
+                🥩 Ver kits disponíveis
               </a>
             </Link>
           </div>
@@ -277,16 +282,16 @@ const FAQPage = () => {
   return (
     <>
       <Head>
-        <title>Perguntas Frequentes - MP Café & Manhã | Padaria e Café em Joanópolis-SP</title>
-        <meta name="description" content="Tire suas dúvidas sobre o MP Café & Manhã. Entregas em Joanópolis, prazos, produtos, formas de pagamento e mais. Padaria especializada em café da manhã." />
-        <meta name="keywords" content="MP Café & Manhã dúvidas, perguntas frequentes padaria Joanópolis, café da manhã delivery, entrega pães frescos, padaria Joanópolis SP" />
-        <meta property="og:title" content="Perguntas Frequentes - MP Café & Manhã | Padaria e Café Joanópolis" />
-        <meta property="og:description" content="Tire suas dúvidas sobre o MP Café & Manhã. Padaria e café especializada em café da manhã em Joanópolis-SP." />
+        <title>Perguntas Frequentes - MP na Brasa | Kits de Churrasco em Joanópolis-SP</title>
+        <meta name="description" content="Tire suas dúvidas sobre o MP na Brasa. Kits de churrasco gourmet, entregas em Joanópolis, prazos, produtos, formas de pagamento e mais. Churrasco premium." />
+        <meta name="keywords" content="MP na Brasa dúvidas, perguntas frequentes churrasco Joanópolis, kit churrasco delivery, entrega carnes premium, churrasqueira Joanópolis SP" />
+        <meta property="og:title" content="Perguntas Frequentes - MP na Brasa | Kits de Churrasco Premium" />
+        <meta property="og:description" content="Tire suas dúvidas sobre o MP na Brasa. Kits de churrasco gourmet com entrega em Joanópolis-SP." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.mpcafemanha.com/faq" />
+        <meta property="og:url" content="https://www.mpnabrasa.com/faq" />
         <meta property="og:image" content="/Logo MP cafe.png" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
-        <link rel="canonical" href="https://www.mpcafemanha.com/faq" />
+        <link rel="canonical" href="https://www.mpnabrasa.com/faq" />
         
         <script
           type="application/ld+json"
@@ -312,7 +317,8 @@ const FAQPage = () => {
         margin: '40px auto',
         padding: isMobile ? '20px' : '40px',
         backgroundColor: colorPalette.light,
-        minHeight: '100vh'
+        minHeight: '100vh',
+        fontFamily: "'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
       }}>
         {/* Cabeçalho com Logo */}
         <div style={{ 
@@ -321,11 +327,14 @@ const FAQPage = () => {
         }}>
           <img 
             src="/Logo MP cafe.png" 
-            alt={`Logo ${localConfig.businessName} - Padaria e Café Especializado`} 
+            alt={`Logo ${localConfig.businessName} - Kits de Churrasco Gourmet`} 
             style={{ 
-              height: isMobile ? '60px' : '80px', 
+              height: isMobile ? '70px' : '90px', 
               marginBottom: '15px',
-              borderRadius: '10px'
+              borderRadius: '10px',
+              border: `2px solid ${colorPalette.primary}`,
+              backgroundColor: colorPalette.white,
+              padding: '5px'
             }} 
           />
           
@@ -344,7 +353,16 @@ const FAQPage = () => {
             margin: '0 auto',
             lineHeight: '1.6'
           }}>
-            Tire suas dúvidas sobre o {localConfig.businessName}
+            {localConfig.slogan}
+          </p>
+          <p style={{ 
+            fontSize: isMobile ? '14px' : '16px',
+            color: colorPalette.accent,
+            maxWidth: '600px',
+            margin: '10px auto 0 auto',
+            fontStyle: 'italic'
+          }}>
+            Tire suas dúvidas sobre nossos kits de churrasco gourmet
           </p>
         </div>
 
@@ -358,7 +376,8 @@ const FAQPage = () => {
                 border: `1px solid ${colorPalette.secondary}`,
                 borderRadius: '8px',
                 overflow: 'hidden',
-                backgroundColor: colorPalette.white
+                backgroundColor: colorPalette.white,
+                boxShadow: '0 2px 8px rgba(139, 0, 0, 0.05)'
               }}
             >
               <button
@@ -393,7 +412,7 @@ const FAQPage = () => {
                   flex: 1,
                   textAlign: 'left'
                 }}>
-                  {faq.pergunta}
+                  {index + 1}. {faq.pergunta}
                 </span>
                 <span style={{
                   color: colorPalette.primary,
@@ -428,64 +447,90 @@ const FAQPage = () => {
           ))}
         </div>
 
-        {/* Backlinks Discretos */}
-        <div style={{ 
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-          gap: '15px',
-          marginBottom: '40px'
+        {/* CTA Section */}
+        <div style={{
+          backgroundColor: colorPalette.white,
+          padding: '30px',
+          borderRadius: '12px',
+          textAlign: 'center',
+          marginBottom: '40px',
+          border: `1px solid ${colorPalette.secondary}`,
+          boxShadow: '0 4px 15px rgba(139, 0, 0, 0.08)'
         }}>
-          <Link href="/mp" legacyBehavior>
-            <a style={{
-              display: 'block',
-              padding: '15px',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              color: colorPalette.primary,
-              border: `1px solid ${colorPalette.primary}`,
-              textAlign: 'center',
-              fontSize: '14px',
-              fontWeight: '600',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseOver={(e) => {
-              e.target.style.backgroundColor = colorPalette.primary;
-              e.target.style.color = colorPalette.white;
-            }}
-            onMouseOut={(e) => {
-              e.target.style.backgroundColor = colorPalette.white;
-              e.target.style.color = colorPalette.primary;
-            }}>
-              ☕ Acessar Produtos
-            </a>
-          </Link>
+          <h2 style={{
+            color: colorPalette.primary,
+            fontSize: isMobile ? '20px' : '24px',
+            marginBottom: '15px',
+            fontWeight: '600'
+          }}>
+            Não encontrou sua dúvida?
+          </h2>
+          <p style={{
+            color: colorPalette.text,
+            fontSize: isMobile ? '15px' : '16px',
+            marginBottom: '25px',
+            lineHeight: '1.6'
+          }}>
+            Entre em contato diretamente conosco! Estamos aqui para ajudar a montar o churrasco perfeito para você.
+          </p>
+          <div style={{ 
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+            gap: '15px',
+            marginBottom: '40px'
+          }}>
+            <Link href="/mp" legacyBehavior>
+              <a style={{
+                display: 'block',
+                padding: '15px',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                color: colorPalette.white,
+                backgroundColor: colorPalette.primary,
+                textAlign: 'center',
+                fontSize: '16px',
+                fontWeight: '600',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = colorPalette.accent;
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = colorPalette.primary;
+                e.target.style.transform = 'translateY(0)';
+              }}>
+                🔥 Ver Kits de Churrasco
+              </a>
+            </Link>
 
-          <a 
-            href={`https://wa.me/${localConfig.whatsapp}`} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            style={{
-              display: 'block',
-              padding: '15px',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              color: '#25D366',
-              border: '1px solid #25D366',
-              textAlign: 'center',
-              fontSize: '14px',
-              fontWeight: '600',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseOver={(e) => {
-              e.target.style.backgroundColor = '#25D366';
-              e.target.style.color = 'white';
-            }}
-            onMouseOut={(e) => {
-              e.target.style.backgroundColor = colorPalette.white;
-              e.target.style.color = '#25D366';
-            }}>
-            💬 Falar no WhatsApp
-          </a>
+            <a 
+              href={`https://wa.me/${localConfig.whatsapp}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{
+                display: 'block',
+                padding: '15px',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                color: 'white',
+                backgroundColor: '#25D366',
+                textAlign: 'center',
+                fontSize: '16px',
+                fontWeight: '600',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = '#1da851';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = '#25D366';
+                e.target.style.transform = 'translateY(0)';
+              }}>
+                💬 Falar no WhatsApp
+              </a>
+          </div>
         </div>
 
         {/* Rodapé Igual ao do Site Principal */}
@@ -498,7 +543,8 @@ const FAQPage = () => {
           fontSize: '14px',
           backgroundColor: colorPalette.white,
           padding: '20px',
-          borderRadius: '12px'
+          borderRadius: '12px',
+          boxShadow: '0 -2px 10px rgba(139, 0, 0, 0.1)'
         }}>
           <div style={{
             display: 'grid',
@@ -512,7 +558,7 @@ const FAQPage = () => {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '600',
-                fontSize: '14px',
+                fontSize: isMobile ? '13px' : '14px',
                 padding: '12px 8px',
                 borderRadius: '8px',
                 transition: 'all 0.3s ease',
@@ -536,7 +582,7 @@ const FAQPage = () => {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '600',
-                fontSize: '14px',
+                fontSize: isMobile ? '13px' : '14px',
                 padding: '12px 8px',
                 borderRadius: '8px',
                 transition: 'all 0.3s ease',
@@ -560,7 +606,7 @@ const FAQPage = () => {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '600',
-                fontSize: '14px',
+                fontSize: isMobile ? '13px' : '14px',
                 padding: '12px 8px',
                 borderRadius: '8px',
                 transition: 'all 0.3s ease',
@@ -584,7 +630,7 @@ const FAQPage = () => {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '600',
-                fontSize: '14px',
+                fontSize: isMobile ? '13px' : '14px',
                 padding: '12px 8px',
                 borderRadius: '8px',
                 transition: 'all 0.3s ease',
@@ -622,8 +668,8 @@ const FAQPage = () => {
               marginRight: 'auto',
               padding: '0 10px'
             }}>
-              <strong>{localConfig.businessName}</strong> - Especialistas em café da manhã em <strong>{localConfig.city}-{localConfig.state}</strong>. 
-              Padaria e café com pães frescos, bolos caseiros, salgados e cafés especiais para começar seu dia com energia.
+              <strong>{localConfig.businessName}</strong> - Especialistas em churrasco gourmet em <strong>{localConfig.city}-{localConfig.state}</strong>. 
+              Kits completos com carnes selecionadas, acompanhamentos premium e tudo que você precisa para um churrasco perfeito.
             </p>
             
             {/* INFORMAÇÕES DE CONTATO */}
