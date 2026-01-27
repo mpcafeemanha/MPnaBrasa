@@ -17,52 +17,54 @@ export default function PoliticaDevolucao() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Paleta de cores do MP Café
+  // Paleta de cores do MP na Brasa
   const colorPalette = {
-    primary: '#8B4513',
-    secondary: '#D2B48C',
-    accent: '#A0522D',
-    light: '#F5F5DC',
-    dark: '#654321',
+    primary: '#8B0000', // Vermelho vinho
+    secondary: '#2C2C2C', // Preto/cinza escuro
+    accent: '#B22222', // Vermelho firebrick
+    light: '#F8F8F8', // Cinza muito claro
+    dark: '#1A1A1A', // Preto quase puro
     white: '#FFFFFF',
     success: '#228B22',
     text: '#333333'
   };
 
   const localConfig = {
-    businessName: "MP Café & Manhã",
-    address: "Rua Capitão Antônio Mathias, 720 - Centro",
+    businessName: "MP na Brasa",
+    slogan: "Você chama a galera, a gente resolve o churrasco.",
+    address: "Rua Capitão Antonio Mathias , 720 - Centro",
     city: "Joanópolis",
     state: "SP",
     cep: "12980-000",
     phone: "(11) 91357-2902",
+    email: "mpcafeemanha@gmail.com",
     whatsapp: "5511913572902",
-    email: "mpcafeemanha@gmail.com"
+    openingHours: "Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação"
   };
 
   return (
     <>
       <Head>
-        <title>Política de Devolução e Reembolso - MP Café & Manhã | Padaria Joanópolis</title>
+        <title>Política de Devolução e Reembolso - MP na Brasa | Kits de Churrasco Joanópolis</title>
         <meta 
           name="description" 
-          content="Política de Devolução e Reembolso do MP Café & Manhã. Saiba como proceder em caso de produtos com defeito ou entregas incorretas." 
+          content="Política de Devolução e Reembolso do MP na Brasa. Saiba como proceder em caso de produtos com defeito, entrega incorreta ou problemas com kits de churrasco." 
         />
         <meta 
           name="keywords" 
-          content="política devolução MP Café, reembolso padaria Joanópolis, troca produtos, garantia MP Café, devolução alimentos" 
+          content="política devolução MP na Brasa, reembolso kits churrasco, troca carnes premium, garantia churrasco, devolução carnes Joanópolis" 
         />
-        <meta property="og:title" content="Política de Devolução e Reembolso - MP Café & Manhã" />
+        <meta property="og:title" content="Política de Devolução e Reembolso - MP na Brasa" />
         <meta 
           property="og:description" 
-          content="Conheça nossa política de devolução e reembolso para garantir sua satisfação total com nossos produtos." 
+          content="Conheça nossa política de devolução e reembolso para garantir sua satisfação total com nossos kits de churrasco gourmet." 
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://mpcafemanha.com/politica-devolucao-e-reembolso" />
+        <meta property="og:url" content="https://mpnabrasa.com/politica-devolucao-e-reembolso" />
         <meta property="og:image" content="/Logo MP cafe.png" />
-        <meta property="og:site_name" content="MP Café & Manhã" />
+        <meta property="og:site_name" content="MP na Brasa" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://mpcafemanha.com/politica-devolucao-e-reembolso" />
+        <link rel="canonical" href="https://mpnabrasa.com/politica-devolucao-e-reembolso" />
         
         {/* Schema.org */}
         <script
@@ -71,11 +73,11 @@ export default function PoliticaDevolucao() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebPage",
-              "name": "Política de Devolução e Reembolso - MP Café & Manhã",
-              "description": "Política de devolução, troca e reembolso de produtos do MP Café & Manhã",
+              "name": "Política de Devolução e Reembolso - MP na Brasa",
+              "description": "Política de devolução, troca e reembolso de kits de churrasco do MP na Brasa",
               "publisher": {
                 "@type": "Organization",
-                "name": "MP Café & Manhã",
+                "name": "MP na Brasa",
                 "logo": {
                   "@type": "ImageObject",
                   "url": "/Logo MP cafe.png"
@@ -115,31 +117,44 @@ export default function PoliticaDevolucao() {
           <Link href="/" style={{ display: 'inline-block' }}>
             <img 
               src="/Logo MP cafe.png" 
-              alt="Logo MP Café & Manhã - Padaria e Café em Joanópolis-SP" 
+              alt={`Logo ${localConfig.businessName} - Kits de Churrasco Gourmet`} 
               style={{ 
                 width: isMobile ? '120px' : '150px',
                 marginBottom: '20px',
                 cursor: 'pointer',
-                borderRadius: '10px'
+                borderRadius: '10px',
+                border: `2px solid ${colorPalette.primary}`,
+                backgroundColor: colorPalette.white,
+                padding: '5px'
               }} 
             />
           </Link>
           <h1 style={{ 
             color: colorPalette.primary, 
             fontSize: isMobile ? '1.8rem' : '2.5rem',
-            marginBottom: '15px',
+            marginBottom: '10px',
             fontWeight: '700'
           }}>
             Política de Devolução e Reembolso
           </h1>
           <p style={{ 
-            color: colorPalette.text, 
+            color: colorPalette.dark, 
             fontSize: isMobile ? '1rem' : '1.1rem',
+            maxWidth: '800px',
+            margin: '0 auto 10px auto',
+            lineHeight: '1.6',
+            fontStyle: 'italic'
+          }}>
+            {localConfig.slogan}
+          </p>
+          <p style={{ 
+            color: colorPalette.text, 
+            fontSize: isMobile ? '0.9rem' : '1rem',
             maxWidth: '800px',
             margin: '0 auto',
             lineHeight: '1.6'
           }}>
-            Nossa prioridade é sua total satisfação com nossos produtos e serviços
+            Nossa prioridade é sua total satisfação com nossos kits de churrasco gourmet
           </p>
         </header>
 
@@ -148,7 +163,7 @@ export default function PoliticaDevolucao() {
           backgroundColor: colorPalette.white,
           borderRadius: '10px',
           padding: isMobile ? '20px' : '30px',
-          boxShadow: '0 2px 10px rgba(139, 69, 19, 0.05)',
+          boxShadow: '0 2px 10px rgba(139, 0, 0, 0.05)',
           marginBottom: '50px',
           border: `1px solid ${colorPalette.secondary}`
         }}>
@@ -176,7 +191,7 @@ export default function PoliticaDevolucao() {
               lineHeight: '1.6',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Por se tratar de produtos alimentícios <strong>perecíveis</strong>, nossa política de devolução segue normas específicas de segurança alimentar. As devoluções devem ser realizadas <strong>imediatamente no ato da entrega</strong>.
+              Por se tratar de produtos alimentícios <strong>perecíveis</strong> e de <strong>alta qualidade</strong>, nossa política de devolução segue normas específicas de segurança alimentar. As devoluções devem ser realizadas <strong>imediatamente no ato da entrega</strong>.
             </p>
           </div>
 
@@ -208,16 +223,19 @@ export default function PoliticaDevolucao() {
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Produto com defeito:</strong> pães duros, bolos secos, produtos fora do prazo de validade
+                <strong>Qualidade comprometida:</strong> carnes com aspecto não apropriado, cor alterada ou odor estranho
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Entrega incorreta:</strong> produto diferente do solicitado
+                <strong>Temperatura inadequada:</strong> produtos que chegam fora da temperatura ideal de conservação
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Quantidade errada:</strong> falta ou excesso de itens na entrega
+                <strong>Entrega incorreta:</strong> kit ou item diferente do solicitado
               </li>
               <li style={{ marginBottom: '8px' }}>
-                <strong>Qualidade comprometida:</strong> produto com aspecto não apropriado para consumo
+                <strong>Quantidade errada:</strong> falta ou excesso de itens no kit
+              </li>
+              <li style={{ marginBottom: '8px' }}>
+                <strong>Prazo de validade:</strong> produto próximo ou fora do prazo de validade
               </li>
             </ul>
           </section>
@@ -249,10 +267,11 @@ export default function PoliticaDevolucao() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              <li style={{ marginBottom: '8px' }}>Produtos já abertos ou consumidos parcialmente</li>
-              <li style={{ marginBottom: '8px' }}>Mudança de ideia após a entrega</li>
-              <li style={{ marginBottom: '8px' }}>Produtos armazenados incorretamente após a entrega</li>
-              <li style={{ marginBottom: '8px' }}>Produtos congelados que foram descongelados</li>
+              <li style={{ marginBottom: '8px' }}>Carnes já temperadas, preparadas ou parcialmente consumidas</li>
+              <li style={{ marginBottom: '8px' }}>Produtos que foram congelados e descongelados após a entrega</li>
+              <li style={{ marginBottom: '8px' }}>Embalagens abertas ou violadas</li>
+              <li style={{ marginBottom: '8px' }}>Mudança de ideia após a entrega do kit</li>
+              <li style={{ marginBottom: '8px' }}>Produtos armazenados incorretamente após a entrega (fora da refrigeração adequada)</li>
               <li style={{ marginBottom: '8px' }}>Prazo de validade vencido por mau armazenamento do cliente</li>
             </ul>
           </section>
@@ -276,7 +295,7 @@ export default function PoliticaDevolucao() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              <strong>IMPORTANTE:</strong> Devido à natureza perecível dos nossos produtos, as devoluções devem ser solicitadas:
+              <strong>IMPORTANTE:</strong> Devido à natureza perecível dos nossos produtos premium, as devoluções devem ser solicitadas:
             </p>
             <div style={{
               backgroundColor: colorPalette.light,
@@ -303,10 +322,31 @@ export default function PoliticaDevolucao() {
               </h3>
               <p style={{
                 color: colorPalette.text,
-                fontSize: isMobile ? '0.9rem' : '1rem'
+                fontSize: isMobile ? '0.9rem' : '1rem',
+                marginBottom: '10px'
               }}>
-                Verifique os produtos <strong>antes de assinar o comprovante de entrega</strong>. Após a assinatura, não serão aceitas devoluções.
+                Verifique o kit <strong>imediatamente ao receber</strong>. Avalie:
               </p>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                gap: '15px',
+                marginTop: '10px'
+              }}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.5rem', marginBottom: '5px' }}>🥩</div>
+                  <div style={{ fontSize: '0.85rem' }}>Qualidade das carnes</div>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.5rem', marginBottom: '5px' }}>🌡️</div>
+                  <div style={{ fontSize: '0.85rem' }}>Temperatura</div>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.5rem', marginBottom: '5px' }}>📦</div>
+                  <div style={{ fontSize: '0.85rem' }}>Itens do kit</div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -329,7 +369,7 @@ export default function PoliticaDevolucao() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Se identificar qualquer problema com seu pedido:
+              Se identificar qualquer problema com seu kit de churrasco:
             </p>
             <ol style={{ 
               color: colorPalette.text,
@@ -341,16 +381,19 @@ export default function PoliticaDevolucao() {
                 <strong>Não assine o comprovante de entrega</strong>
               </li>
               <li style={{ marginBottom: '12px' }}>
-                <strong>Comunique imediatamente ao entregador</strong> sobre o problema
+                <strong>Comunique imediatamente ao entregador</strong> sobre o problema específico
+              </li>
+              <li style={{ marginBottom: '12px' }}>
+                <strong>Tire fotos</strong> do produto para documentação
               </li>
               <li style={{ marginBottom: '12px' }}>
                 <strong>O entregador entrará em contato</strong> conosco para verificar a situação
               </li>
               <li style={{ marginBottom: '12px' }}>
-                <strong>Providenciaremos a troca</strong> do produto ou o estorno do valor
+                <strong>Providenciaremos a troca</strong> do kit ou o estorno do valor
               </li>
               <li style={{ marginBottom: '12px' }}>
-                <strong>Assine o comprovante</strong> apenas após a resolução
+                <strong>Assine o comprovante</strong> apenas após a resolução completa
               </li>
             </ol>
           </section>
@@ -386,26 +429,63 @@ export default function PoliticaDevolucao() {
               <h3 style={{
                 color: colorPalette.success,
                 fontSize: isMobile ? '1.1rem' : '1.2rem',
-                marginBottom: '10px',
-                fontWeight: '600'
+                marginBottom: '15px',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px'
               }}>
-                Formas de Reembolso
+                <span>💰</span> Formas de Reembolso
               </h3>
-              <ul style={{
-                color: colorPalette.text,
-                paddingLeft: '20px',
-                fontSize: isMobile ? '0.95rem' : '1rem'
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                gap: '15px',
+                marginBottom: '15px'
               }}>
-                <li style={{ marginBottom: '8px' }}>
-                  <strong>PIX:</strong> reembolso em até 24 horas úteis
-                </li>
-                <li style={{ marginBottom: '8px' }}>
-                  <strong>Cartão de crédito:</strong> estorno em até 7 dias úteis (prazo da operadora)
-                </li>
-                <li style={{ marginBottom: '8px' }}>
-                  <strong>Dinheiro:</strong> devolução imediata no ato da entrega
-                </li>
-              </ul>
+                <div style={{
+                  backgroundColor: colorPalette.white,
+                  padding: '15px',
+                  borderRadius: '6px',
+                  textAlign: 'center',
+                  border: `1px solid ${colorPalette.secondary}`
+                }}>
+                  <div style={{ fontSize: '1.5rem', marginBottom: '8px', color: colorPalette.success }}>💸</div>
+                  <h4 style={{ margin: '0 0 5px 0', color: colorPalette.dark }}>PIX</h4>
+                  <p style={{ margin: '0', fontSize: '0.85rem' }}>Reembolso em até 24 horas úteis</p>
+                </div>
+                <div style={{
+                  backgroundColor: colorPalette.white,
+                  padding: '15px',
+                  borderRadius: '6px',
+                  textAlign: 'center',
+                  border: `1px solid ${colorPalette.secondary}`
+                }}>
+                  <div style={{ fontSize: '1.5rem', marginBottom: '8px', color: colorPalette.success }}>💳</div>
+                  <h4 style={{ margin: '0 0 5px 0', color: colorPalette.dark }}>Cartão de crédito</h4>
+                  <p style={{ margin: '0', fontSize: '0.85rem' }}>Estorno em até 7 dias úteis</p>
+                </div>
+                <div style={{
+                  backgroundColor: colorPalette.white,
+                  padding: '15px',
+                  borderRadius: '6px',
+                  textAlign: 'center',
+                  border: `1px solid ${colorPalette.secondary}`
+                }}>
+                  <div style={{ fontSize: '1.5rem', marginBottom: '8px', color: colorPalette.success }}>💵</div>
+                  <h4 style={{ margin: '0 0 5px 0', color: colorPalette.dark }}>Dinheiro</h4>
+                  <p style={{ margin: '0', fontSize: '0.85rem' }}>Devolução imediata no ato da entrega</p>
+                </div>
+              </div>
+              <p style={{ 
+                color: colorPalette.text, 
+                fontSize: '0.9rem',
+                fontStyle: 'italic',
+                textAlign: 'center',
+                margin: '10px 0 0 0'
+              }}>
+                O prazo do reembolso pode variar de acordo com a instituição financeira.
+              </p>
             </div>
           </section>
 
@@ -428,7 +508,7 @@ export default function PoliticaDevolucao() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Caso o produto chegue danificado devido ao transporte:
+              Caso o kit de churrasco chegue danificado devido ao transporte:
             </p>
             <ul style={{ 
               color: colorPalette.text,
@@ -437,9 +517,10 @@ export default function PoliticaDevolucao() {
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
               <li style={{ marginBottom: '8px' }}>Recuse a entrega imediatamente</li>
-              <li style={{ marginBottom: '8px' }}>Tire fotos como comprovação</li>
-              <li style={{ marginBottom: '8px' }}>Entre em contato conosco para reagendamento</li>
-              <li style={{ marginBottom: '8px' }}>Enviaremos um novo produto sem custo adicional</li>
+              <li style={{ marginBottom: '8px' }}>Documente com fotos claras do problema</li>
+              <li style={{ marginBottom: '8px' }}>Entre em contato conosco pelo WhatsApp para reagendamento</li>
+              <li style={{ marginBottom: '8px' }}>Enviaremos um novo kit sem custo adicional</li>
+              <li style={{ marginBottom: '8px' }}>Para eventos, garantimos entrega emergencial se necessário</li>
             </ul>
           </section>
 
@@ -462,7 +543,7 @@ export default function PoliticaDevolucao() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Para questões sobre devoluções ou reembolsos, entre em contato:
+              Para questões sobre devoluções, reembolsos ou problemas com kits de churrasco:
             </p>
             <div style={{
               backgroundColor: colorPalette.light,
@@ -473,11 +554,11 @@ export default function PoliticaDevolucao() {
             }}>
               <p style={{ 
                 color: colorPalette.dark, 
-                marginBottom: '10px',
+                marginBottom: '15px',
                 fontWeight: '500',
                 fontSize: isMobile ? '0.95rem' : '1rem'
               }}>
-                <strong>Atendimento ao Cliente</strong>
+                <strong>Atendimento ao Cliente {localConfig.businessName}</strong>
               </p>
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
@@ -518,20 +599,29 @@ export default function PoliticaDevolucao() {
                   E-mail: {localConfig.email}
                 </a>
               </div>
+
+              <p style={{ 
+                color: colorPalette.text, 
+                marginTop: '15px',
+                fontSize: isMobile ? '0.9rem' : '0.95rem',
+                fontStyle: 'italic'
+              }}>
+                ⚡ <strong>Para urgências em eventos:</strong> Priorizamos atendimento imediato via WhatsApp.
+              </p>
               
               <button
                 onClick={() => window.open(`https://wa.me/${localConfig.whatsapp}`, '_blank')}
                 style={{
                   width: '100%',
                   marginTop: '15px',
-                  padding: isMobile ? '10px' : '12px',
+                  padding: isMobile ? '12px' : '14px',
                   backgroundColor: colorPalette.primary,
                   color: colorPalette.white,
                   border: 'none',
                   borderRadius: '6px',
                   fontWeight: '600',
                   cursor: 'pointer',
-                  fontSize: isMobile ? '0.9rem' : '0.95rem',
+                  fontSize: isMobile ? '0.95rem' : '1rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -541,7 +631,7 @@ export default function PoliticaDevolucao() {
                 onMouseOver={(e) => e.target.style.backgroundColor = colorPalette.accent}
                 onMouseOut={(e) => e.target.style.backgroundColor = colorPalette.primary}
               >
-                <span>💬</span> Falar com Atendimento
+                <span>💬</span> Falar com Atendimento Agora
               </button>
             </div>
           </section>
@@ -565,15 +655,32 @@ export default function PoliticaDevolucao() {
               marginBottom: '15px',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Esta política está de acordo com o <strong>Código de Defesa do Consumidor (Lei 8.078/90)</strong> e as normas de segurança alimentar da Vigilância Sanitária.
+              Esta política está de acordo com o <strong>Código de Defesa do Consumidor (Lei 8.078/90)</strong> e as normas de segurança alimentar da Vigilância Sanitária para produtos cárneos.
             </p>
             <p style={{ 
               color: colorPalette.text, 
               lineHeight: '1.6',
               fontSize: isMobile ? '0.95rem' : '1rem'
             }}>
-              Em caso de dúvidas sobre seus direitos, consulte o <a href="https://www.gov.br/procon" target="_blank" rel="noopener noreferrer" style={{ color: colorPalette.primary, fontWeight: '500' }}>PROCON</a> ou a <a href="https://www.gov.br/anvisa" target="_blank" rel="noopener noreferrer" style={{ color: colorPalette.primary, fontWeight: '500' }}>ANVISA</a>.
+              Em caso de dúvidas sobre seus direitos, consulte o <a href="https://www.gov.br/procon" target="_blank" rel="noopener noreferrer" style={{ color: colorPalette.primary, fontWeight: '500' }}>PROCON</a>, a <a href="https://www.gov.br/anvisa" target="_blank" rel="noopener noreferrer" style={{ color: colorPalette.primary, fontWeight: '500' }}>ANVISA</a> ou o <a href="https://www.gov.br/agricultura" target="_blank" rel="noopener noreferrer" style={{ color: colorPalette.primary, fontWeight: '500' }}>Ministério da Agricultura</a>.
             </p>
+            <div style={{
+              backgroundColor: '#e8f4f8',
+              padding: '15px',
+              borderRadius: '8px',
+              marginTop: '20px',
+              border: '1px solid #87CEEB'
+            }}>
+              <p style={{ 
+                color: colorPalette.dark, 
+                margin: 0,
+                fontSize: isMobile ? '0.85rem' : '0.9rem',
+                fontStyle: 'italic',
+                textAlign: 'center'
+              }}>
+                🔥 <strong>Compromisso {localConfig.businessName}:</strong> Garantimos qualidade premium em todos os nossos kits e estamos comprometidos com sua satisfação total no churrasco.
+              </p>
+            </div>
           </section>
         </div>
 
@@ -591,7 +698,7 @@ export default function PoliticaDevolucao() {
             justifyContent: 'center',
             flexWrap: 'wrap',
             gap: isMobile ? '10px' : '15px',
-            marginBottom: '15px'
+            marginBottom: '20px'
           }}>
             <Link 
               href="/termos" 
@@ -599,12 +706,15 @@ export default function PoliticaDevolucao() {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
+                padding: '8px 12px',
+                borderRadius: '6px',
                 transition: 'all 0.3s',
                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                 border: `1px solid ${colorPalette.secondary}`,
-                backgroundColor: colorPalette.white
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
               }}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = colorPalette.primary;
@@ -615,46 +725,24 @@ export default function PoliticaDevolucao() {
                 e.target.style.color = colorPalette.primary;
               }}
             >
-              Termos de Uso
+              📄 Termos de Uso
             </Link>
             
             <Link 
               href="/politica-de-privacidade"
               style={{ 
-                color: colorPalette.primary, 
-                textDecoration: 'none',
-                fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
-                transition: 'all 0.3s',
-                fontSize: isMobile ? '0.85rem' : '0.9rem',
-                border: `1px solid ${colorPalette.secondary}`,
-                backgroundColor: colorPalette.white
-              }}
-              onMouseOver={(e) => {
-                e.target.style.backgroundColor = colorPalette.primary;
-                e.target.style.color = colorPalette.white;
-              }}
-              onMouseOut={(e) => {
-                e.target.style.backgroundColor = colorPalette.white;
-                e.target.style.color = colorPalette.primary;
-              }}
-            >
-              Política de Privacidade
-            </Link>
-            
-            <Link 
-              href="/politica-devolucao-e-reembolso"
-              style={{ 
                 color: colorPalette.white, 
                 textDecoration: 'none',
                 fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
+                padding: '8px 12px',
+                borderRadius: '6px',
                 transition: 'all 0.3s',
                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                 backgroundColor: colorPalette.primary,
-                border: `1px solid ${colorPalette.primary}`
+                border: `1px solid ${colorPalette.primary}`,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
               }}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = colorPalette.accent;
@@ -665,7 +753,35 @@ export default function PoliticaDevolucao() {
                 e.target.style.borderColor = colorPalette.primary;
               }}
             >
-              Política de Devolução
+              🔒 Política de Privacidade
+            </Link>
+            
+            <Link 
+              href="/politica-devolucao-e-reembolso"
+              style={{ 
+                color: colorPalette.primary, 
+                textDecoration: 'none',
+                fontWeight: '500',
+                padding: '8px 12px',
+                borderRadius: '6px',
+                transition: 'all 0.3s',
+                fontSize: isMobile ? '0.85rem' : '0.9rem',
+                border: `1px solid ${colorPalette.secondary}`,
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = colorPalette.primary;
+                e.target.style.color = colorPalette.white;
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = colorPalette.white;
+                e.target.style.color = colorPalette.primary;
+              }}
+            >
+              🔄 Política de Devolução
             </Link>
             
             <Link 
@@ -674,12 +790,15 @@ export default function PoliticaDevolucao() {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
+                padding: '8px 12px',
+                borderRadius: '6px',
                 transition: 'all 0.3s',
                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                 border: `1px solid ${colorPalette.secondary}`,
-                backgroundColor: colorPalette.white
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
               }}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = colorPalette.primary;
@@ -690,7 +809,35 @@ export default function PoliticaDevolucao() {
                 e.target.style.color = colorPalette.primary;
               }}
             >
-              Quem Somos
+              👥 Quem Somos
+            </Link>
+            
+            <Link 
+              href="/faq"
+              style={{ 
+                color: colorPalette.primary, 
+                textDecoration: 'none',
+                fontWeight: '500',
+                padding: '8px 12px',
+                borderRadius: '6px',
+                transition: 'all 0.3s',
+                fontSize: isMobile ? '0.85rem' : '0.9rem',
+                border: `1px solid ${colorPalette.secondary}`,
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = colorPalette.primary;
+                e.target.style.color = colorPalette.white;
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = colorPalette.white;
+                e.target.style.color = colorPalette.primary;
+              }}
+            >
+              ❓ Perguntas Frequentes
             </Link>
             
             <Link 
@@ -699,12 +846,15 @@ export default function PoliticaDevolucao() {
                 color: colorPalette.primary, 
                 textDecoration: 'none',
                 fontWeight: '500',
-                padding: '5px 10px',
-                borderRadius: '5px',
+                padding: '8px 12px',
+                borderRadius: '6px',
                 transition: 'all 0.3s',
                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                 border: `1px solid ${colorPalette.secondary}`,
-                backgroundColor: colorPalette.white
+                backgroundColor: colorPalette.white,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px'
               }}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = colorPalette.primary;
@@ -715,18 +865,34 @@ export default function PoliticaDevolucao() {
                 e.target.style.color = colorPalette.primary;
               }}
             >
-              Voltar ao Início
+              🏠 Voltar ao Início
             </Link>
           </div>
           
-          <p style={{ 
+          <div style={{
             marginTop: '15px', 
             color: colorPalette.dark,
-            fontSize: isMobile ? '0.75rem' : '0.8rem'
+            fontSize: isMobile ? '0.75rem' : '0.8rem',
+            lineHeight: '1.6'
           }}>
-            © {new Date().getFullYear()} MP Café & Manhã. Todos os direitos reservados.<br />
-            {localConfig.address} • {localConfig.city}-{localConfig.state} • CEP: {localConfig.cep}
-          </p>
+            <p style={{ margin: '0 0 5px 0' }}>
+              © {new Date().getFullYear()} <strong>{localConfig.businessName}</strong>. Todos os direitos reservados.
+            </p>
+            <p style={{ margin: '0 0 5px 0' }}>
+              {localConfig.address} • {localConfig.city}-{localConfig.state} • CEP: {localConfig.cep}
+            </p>
+            <p style={{ margin: '0 0 5px 0' }}>
+              📞 {localConfig.phone} • 🕐 {localConfig.openingHours}
+            </p>
+            <p style={{ 
+              margin: '10px 0 0 0',
+              fontSize: isMobile ? '0.7rem' : '0.75rem',
+              color: '#666',
+              fontStyle: 'italic'
+            }}>
+              Kits de Churrasco Gourmet • Qualidade Premium • Entrega Agendada
+            </p>
+          </div>
         </footer>
       </div>
     </>
