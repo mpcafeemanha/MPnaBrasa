@@ -7,21 +7,18 @@ export default function Home() {
   const banners = [
     { 
       id: 1,
-      desktop: '/images/banner-churrasco-1.jpg',
-      mobile: '/images/banner-churrasco-1.jpg',
-      title: 'Kits de Churrasco Premium'
+      desktop: '/images/banner-churrasco-pagina-inicial-1.png',
+      mobile: '/images/banner-churrasco-pagina-inicial-1.png',
     },
     { 
       id: 2,
-      desktop: '/images/banner-churrasco-2.jpg',
-      mobile: '/images/banner-churrasco-2.jpg',
-      title: 'Carnes Selecionadas'
+      desktop: '/images/banner-churrasco-pagina-inicial-2.png',
+      mobile: '/images/banner-churrasco-pagina-inicial-2.png',
     },
     { 
       id: 3,
-      desktop: '/images/banner-churrasco-3.jpg',
-      mobile: '/images/banner-churrasco-3.jpg',
-      title: 'Tudo para Seu Churrasco'
+      desktop: '/images/banner-churrasco-pagina-inicial-3.png',
+      mobile: '/images/banner-churrasco-pagina-inicial-3.png',
     }
   ];
 
@@ -32,11 +29,10 @@ export default function Home() {
     businessType: "Kits de Churrasco Gourmet",
     city: "Joanópolis",
     state: "SP",
-    address: "Rua do Churrasco, 123 - Centro",
+    address: "Rua Capitão Antonio Mathias , 720 - Centro",
     cep: "12980-000",
     phone: "(11) 91357-2902",
     whatsapp: "5511913572902",
-    description: "Kits completos de churrasco gourmet com carnes premium, acompanhamentos selecionados e utensílios de qualidade para um churrasco perfeito.",
     deliveryArea: "Joanópolis e região",
     openingHours: "Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação"
   };
@@ -543,20 +539,6 @@ export default function Home() {
                     e.target.src = '/Logo MP cafe.png';
                   }}
                 />
-                <div style={{
-                  position: 'absolute',
-                  bottom: '20px',
-                  left: '0',
-                  right: '0',
-                  textAlign: 'center',
-                  backgroundColor: 'rgba(139, 0, 0, 0.8)',
-                  color: 'white',
-                  padding: '10px',
-                  fontSize: isMobile ? '0.9rem' : '1.1rem',
-                  fontWeight: '600'
-                }}>
-                  {banner.title}
-                </div>
               </div>
             ))}
           </div>
@@ -1161,7 +1143,7 @@ export default function Home() {
               }}
             >
               <img 
-                src="https://i.imgur.com/YQtV4Yk.png" 
+                src="https://i.imgur.com/62MbxLy.png" 
                 alt="WhatsApp" 
                 style={{
                   width: '20px',
