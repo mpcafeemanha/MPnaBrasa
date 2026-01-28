@@ -1,7 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Cart from '../components/Cart';
 import Link from 'next/link';
+
+// ========== CONFIGURAÇÃO DE CONTROLE DE VENDAS ========== //
+const salesControl = {
+  isSalesActive: true, // MUDE PARA true PARA ATIVAR VENDAS, false PARA DESATIVAR
+};
+
+// ========== BANNERS PRODUTOS ========== //
+const productBanners = [
+  { 
+    id: 1,
+    desktop: '/images/banner-churrasco-1.png',
+    mobile: '/images/banner-churrasco-1.png',
+  },
+  { 
+    id: 2,
+    desktop: '/images/banner-churrasco-2.png',
+    mobile: '/images/banner-churrasco-2.png',
+  },
+  { 
+    id: 3,
+    desktop: '/images/banner-churrasco-3.png',
+    mobile: '/images/banner-churrasco-3.png',
+  }
+];
 
 // ========== CONFIGURAÇÃO CHURRASCO ========== //
 const localConfig = {
@@ -315,7 +339,7 @@ const FooterClean = ({ isMobile }) => {
               }}
             >
               <img 
-                src="https://i.imgur.com/YQtV4Yk.png" 
+                src="https://i.imgur.com/62MbxLy.png" 
                 alt="WhatsApp" 
                 style={{ width: isMobile ? '18px' : '20px', height: isMobile ? '18px' : '20px' }}
               />
@@ -382,6 +406,136 @@ const FooterClean = ({ isMobile }) => {
   );
 };
 
+// ========== COMPONENTE DE PRODUTOS ESGOTADOS (VERSÃO CORRIGIDA SEM OVERFLOW) ========== //
+const OutOfStockMessage = ({ isMobile }) => {
+  return (
+    <div style={{
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: colorPalette.white,
+      padding: isMobile ? '20px 15px' : '40px 35px',
+      borderRadius: '15px',
+      // 🔥 CORREÇÃO CRUCIAL: maxWidth em % e box-sizing
+      maxWidth: isMobile ? '90%' : '550px', // USAR % NO MOBILE
+      width: isMobile ? '90%' : 'auto',
+      textAlign: 'center',
+      boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)',
+      border: `3px solid ${colorPalette.primary}`,
+      zIndex: 9999,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxSizing: 'border-box', // 🔥 INCLUI PADDING NA LARGURA
+      overflow: 'hidden',
+      // 🔥 GARANTIR QUE NÃO EXCEDA A TELA
+      wordWrap: 'break-word',
+      overflowWrap: 'break-word'
+    }}>
+      {/* Efeito de fundo sutil */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '5px',
+        background: `linear-gradient(90deg, ${colorPalette.primary}, ${colorPalette.accent})`
+      }} />
+      
+      <div style={{
+        fontSize: isMobile ? '50px' : '80px',
+        marginBottom: isMobile ? '12px' : '20px',
+        lineHeight: '1'
+      }}>
+        🛑
+      </div>
+      
+      <h2 style={{
+        color: colorPalette.primary,
+        fontSize: isMobile ? '18px' : '28px',
+        marginBottom: isMobile ? '12px' : '20px',
+        fontWeight: '700',
+        lineHeight: '1.2', // 🔥 LINHA MAIS COMPACTA
+        textAlign: 'center',
+        width: '100%',
+        wordBreak: 'break-word'
+      }}>
+        Produtos Temporariamente Esgotados
+      </h2>
+      
+      <div style={{
+        color: colorPalette.dark,
+        fontSize: isMobile ? '14px' : '18px',
+        lineHeight: '1.4',
+        marginBottom: isMobile ? '12px' : '20px',
+        textAlign: 'center',
+        width: '100%',
+        wordBreak: 'break-word'
+      }}>
+        Sentimos muito, mas nossos kits de churrasco estão temporariamente fora de estoque.
+      </div>
+      
+      <div style={{
+        color: colorPalette.dark,
+        fontSize: isMobile ? '14px' : '18px',
+        lineHeight: '1.4',
+        marginBottom: isMobile ? '15px' : '20px',
+        textAlign: 'center',
+        width: '100%',
+        fontWeight: '500',
+        wordBreak: 'break-word'
+      }}>
+        Estamos trabalhando para reabastecer o mais rápido possível!
+      </div>
+      
+      <div style={{
+        color: colorPalette.secondary,
+        fontSize: isMobile ? '12px' : '16px',
+        fontStyle: 'italic',
+        marginBottom: isMobile ? '20px' : '35px',
+        padding: isMobile ? '10px 12px' : '15px 20px',
+        backgroundColor: colorPalette.light,
+        borderRadius: '8px',
+        borderLeft: `4px solid ${colorPalette.accent}`,
+        lineHeight: '1.4',
+        textAlign: 'center',
+        width: '100%',
+        wordBreak: 'break-word',
+        boxSizing: 'border-box'
+      }}>
+        Agradecemos sua compreensão e interesse em nossos produtos gourmet.
+      </div>
+      
+      <a 
+        href="/"
+        style={{
+          backgroundColor: colorPalette.primary,
+          color: colorPalette.white,
+          border: 'none',
+          padding: isMobile ? '12px 25px' : '16px 40px',
+          borderRadius: '30px',
+          fontSize: isMobile ? '14px' : '18px',
+          fontWeight: '600',
+          cursor: 'pointer',
+          textDecoration: 'none',
+          display: 'inline-block',
+          boxShadow: '0 4px 15px rgba(139, 0, 0, 0.3)',
+          width: isMobile ? '100%' : '80%', // 🔥 100% NO MOBILE
+          maxWidth: '280px',
+          margin: '0 auto',
+          textAlign: 'center',
+          wordBreak: 'break-word',
+          boxSizing: 'border-box'
+        }}
+      >
+        Voltar para Página Inicial
+      </a>
+    </div>
+  );
+};
+
 export default function MPNaBrasa() {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [searchTerm, setSearchTerm] = useState('');
@@ -389,7 +543,36 @@ export default function MPNaBrasa() {
   const [total, setTotal] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slideInterval = useRef(null);
+
+  // ========== FUNÇÕES DO CARROSSEL ========== //
+  const goToNextSlide = () => {
+    setCurrentSlide((prev) => (prev === productBanners.length - 1 ? 0 : prev + 1));
+    resetInterval();
+  };
+
+  const goToPrevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? productBanners.length - 1 : prev - 1));
+    resetInterval();
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+    resetInterval();
+  };
+
+  // Controle do intervalo automático
+  const resetInterval = () => {
+    clearInterval(slideInterval.current);
+    startInterval();
+  };
+
+  const startInterval = () => {
+    slideInterval.current = setInterval(() => {
+      goToNextSlide();
+    }, 6000); // 6 segundos para cada banner
+  };
 
   // Detectar mobile
   useEffect(() => {
@@ -399,12 +582,10 @@ export default function MPNaBrasa() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Banner automático
+  // Iniciar carrossel automático
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentBannerIndex(prev => (prev + 1) % 2);
-    }, 8000);
-    return () => clearInterval(interval);
+    startInterval();
+    return () => clearInterval(slideInterval.current);
   }, []);
 
   // Carrinho
@@ -465,7 +646,7 @@ export default function MPNaBrasa() {
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  // Estilos inline - MESMO PADRÃO, APENAS CORES DIFERENTES
+  // 🔥 ESTILOS ATUALIZADOS PARA EVITAR OVERFLOW HORIZONTAL
   const styles = {
     container: {
       maxWidth: '1200px',
@@ -473,7 +654,14 @@ export default function MPNaBrasa() {
       padding: isMobile ? '10px' : '20px',
       backgroundColor: colorPalette.light,
       minHeight: '100vh',
-      position: 'relative'
+      position: 'relative',
+      filter: !salesControl.isSalesActive ? 'blur(3px)' : 'none',
+      pointerEvents: !salesControl.isSalesActive ? 'none' : 'auto',
+      userSelect: !salesControl.isSalesActive ? 'none' : 'auto',
+      // 🔥 CORREÇÃO: GARANTIR QUE NÃO EXCEDA LARGURA
+      width: '100%',
+      boxSizing: 'border-box',
+      overflowX: 'hidden' // 🔥 IMPEDE SCROLL HORIZONTAL NA PÁGINA
     },
     header: {
       textAlign: 'center',
@@ -482,10 +670,12 @@ export default function MPNaBrasa() {
       borderRadius: isMobile ? '10px' : '15px',
       marginBottom: isMobile ? '20px' : '30px',
       border: `2px solid ${colorPalette.secondary}`,
-      boxShadow: '0 4px 12px rgba(44, 44, 44, 0.1)'
+      boxShadow: '0 4px 12px rgba(44, 44, 44, 0.1)',
+      width: '100%',
+      boxSizing: 'border-box'
     },
     logo: {
-      height: isMobile ? '90px' : '120px', // Aumentei o tamanho
+      height: isMobile ? '90px' : '120px',
       marginBottom: isMobile ? '12px' : '15px',
       borderRadius: '10px',
       maxWidth: '100%',
@@ -499,7 +689,9 @@ export default function MPNaBrasa() {
       flexWrap: 'wrap',
       marginTop: isMobile ? '15px' : '20px',
       paddingTop: isMobile ? '15px' : '20px',
-      borderTop: `1px solid ${colorPalette.secondary}`
+      borderTop: `1px solid ${colorPalette.secondary}`,
+      width: '100%',
+      boxSizing: 'border-box'
     },
     headerButton: {
       backgroundColor: colorPalette.primary,
@@ -517,6 +709,7 @@ export default function MPNaBrasa() {
       alignItems: 'center',
       gap: '6px',
       boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)',
+      boxSizing: 'border-box',
       ':hover': {
         backgroundColor: colorPalette.white,
         color: colorPalette.primary,
@@ -532,7 +725,8 @@ export default function MPNaBrasa() {
       borderRadius: '30px',
       border: `2px solid ${colorPalette.secondary}`,
       fontSize: isMobile ? '14px' : '16px',
-      display: 'block'
+      display: 'block',
+      boxSizing: 'border-box'
     },
     categories: {
       display: 'flex',
@@ -543,7 +737,9 @@ export default function MPNaBrasa() {
       padding: isMobile ? '12px' : '15px',
       backgroundColor: colorPalette.white,
       borderRadius: isMobile ? '8px' : '10px',
-      boxShadow: '0 2px 10px rgba(44, 44, 44, 0.05)'
+      boxShadow: '0 2px 10px rgba(44, 44, 44, 0.05)',
+      width: '100%',
+      boxSizing: 'border-box'
     },
     categoryBtn: {
       padding: isMobile ? '8px 16px' : '10px 20px',
@@ -554,7 +750,8 @@ export default function MPNaBrasa() {
       fontWeight: '600',
       cursor: 'pointer',
       transition: 'all 0.3s',
-      fontSize: isMobile ? '13px' : '14px'
+      fontSize: isMobile ? '13px' : '14px',
+      boxSizing: 'border-box'
     },
     activeCategory: {
       backgroundColor: colorPalette.primary,
@@ -564,7 +761,9 @@ export default function MPNaBrasa() {
       display: 'grid',
       gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
       gap: isMobile ? '15px' : '20px',
-      margin: isMobile ? '20px 0' : '30px 0'
+      margin: isMobile ? '20px 0' : '30px 0',
+      width: '100%',
+      boxSizing: 'border-box'
     },
     productCard: {
       backgroundColor: colorPalette.white,
@@ -572,7 +771,9 @@ export default function MPNaBrasa() {
       overflow: 'hidden',
       boxShadow: '0 4px 12px rgba(44, 44, 44, 0.1)',
       border: `1px solid ${colorPalette.secondary}`,
-      transition: 'transform 0.3s, box-shadow 0.3s'
+      transition: 'transform 0.3s, box-shadow 0.3s',
+      width: '100%',
+      boxSizing: 'border-box'
     },
     productImage: {
       width: '100%',
@@ -581,14 +782,17 @@ export default function MPNaBrasa() {
       backgroundColor: colorPalette.light
     },
     productInfo: {
-      padding: isMobile ? '12px' : '15px'
+      padding: isMobile ? '12px' : '15px',
+      width: '100%',
+      boxSizing: 'border-box'
     },
     productName: {
       fontSize: isMobile ? '14px' : '16px',
       fontWeight: '600',
       marginBottom: '8px',
       color: colorPalette.dark,
-      lineHeight: '1.4'
+      lineHeight: '1.4',
+      wordBreak: 'break-word'
     },
     productPrice: {
       fontSize: isMobile ? '16px' : '20px',
@@ -606,7 +810,8 @@ export default function MPNaBrasa() {
       fontWeight: '600',
       cursor: 'pointer',
       transition: 'background-color 0.3s',
-      fontSize: isMobile ? '14px' : '15px'
+      fontSize: isMobile ? '14px' : '15px',
+      boxSizing: 'border-box'
     },
     pagination: {
       display: 'flex',
@@ -614,7 +819,9 @@ export default function MPNaBrasa() {
       alignItems: 'center',
       margin: isMobile ? '25px 0' : '30px 0',
       gap: isMobile ? '8px' : '10px',
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
+      width: '100%',
+      boxSizing: 'border-box'
     },
     pageButton: {
       padding: isMobile ? '7px 12px' : '8px 15px',
@@ -623,23 +830,13 @@ export default function MPNaBrasa() {
       borderRadius: '6px',
       cursor: 'pointer',
       fontSize: isMobile ? '13px' : '14px',
-      color: colorPalette.dark
+      color: colorPalette.dark,
+      boxSizing: 'border-box'
     },
     activePage: {
       backgroundColor: colorPalette.primary,
       color: colorPalette.white,
       borderColor: colorPalette.primary
-    },
-    bannerContainer: {
-      margin: isMobile ? '30px 0' : '40px 0',
-      borderRadius: '10px',
-      overflow: 'hidden',
-      boxShadow: '0 4px 15px rgba(44, 44, 44, 0.1)'
-    },
-    bannerImage: {
-      width: '100%',
-      height: isMobile ? '180px' : '300px',
-      objectFit: 'cover'
     }
   };
 
@@ -670,6 +867,9 @@ export default function MPNaBrasa() {
           })
         }} />
       </Head>
+
+      {/* ========== MENSAGEM DE PRODUTOS ESGOTADOS ========== */}
+      {!salesControl.isSalesActive && <OutOfStockMessage isMobile={isMobile} />}
 
       <div style={styles.container}>
         {/* ========== HEADER UNIFICADO ========== */}
@@ -794,7 +994,8 @@ export default function MPNaBrasa() {
                   padding: '4px 8px',
                   borderRadius: '4px',
                   marginBottom: '8px',
-                  display: 'inline-block'
+                  display: 'inline-block',
+                  wordBreak: 'break-word'
                 }}>
                   {product.category}
                 </div>
@@ -860,27 +1061,135 @@ export default function MPNaBrasa() {
           </div>
         )}
 
-        {/* BANNER */}
-        <div style={styles.bannerContainer}>
-          {currentBannerIndex === 0 ? (
-            <img 
-              src="/images/banner-churrasco-1.jpg"
-              alt="Kits de Churrasco Premium - Frete grátis para Joanópolis"
-              style={styles.bannerImage}
-              onError={(e) => {
-                e.target.src = '/Logo MP cafe.png';
-              }}
-            />
-          ) : (
-            <img 
-              src="/images/banner-churrasco-2.jpg"
-              alt="Carnes Selecionadas - Qualidade Garantida"
-              style={styles.bannerImage}
-              onError={(e) => {
-                e.target.src = '/Logo MP cafe.png';
-              }}
-            />
-          )}
+        {/* ========== CARROSSEL DE BANNERS ========== */}
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '1200px',
+          margin: isMobile ? '25px auto' : '40px auto',
+          overflow: 'hidden',
+          borderRadius: '10px',
+          boxShadow: '0 4px 12px rgba(139, 0, 0, 0.1)',
+          height: isMobile ? '200px' : '350px',
+          backgroundColor: colorPalette.white,
+          border: `2px solid ${colorPalette.primary}`
+        }}>
+          <div style={{
+            display: 'flex',
+            transition: 'transform 0.5s ease',
+            transform: `translateX(-${currentSlide * 100}%)`,
+            height: '100%'
+          }}>
+            {productBanners.map((banner) => (
+              <div 
+                key={banner.id} 
+                style={{
+                  width: '100%',
+                  flexShrink: 0,
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  position: 'relative'
+                }}
+              >
+                <img 
+                  src={isMobile ? banner.mobile : banner.desktop}
+                  alt={`Banner de Produtos ${banner.id}`}
+                  style={{
+                    width: 'auto',
+                    height: 'auto',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                    display: 'block'
+                  }}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.target.src = '/Logo MP cafe.png';
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+          
+          {/* Botões de navegação */}
+          <button 
+            onClick={goToPrevSlide}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: isMobile ? '10px' : '20px',
+              transform: 'translateY(-50%)',
+              background: 'rgba(255,255,255,0.7)',
+              border: 'none',
+              borderRadius: '50%',
+              width: isMobile ? '35px' : '40px',
+              height: isMobile ? '35px' : '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 10,
+              boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)'
+            }}
+            aria-label="Slide anterior"
+          >
+            <span style={{ fontSize: isMobile ? '16px' : '20px', color: colorPalette.primary }}>❮</span>
+          </button>
+          
+          <button 
+            onClick={goToNextSlide}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              right: isMobile ? '10px' : '20px',
+              transform: 'translateY(-50%)',
+              background: 'rgba(255,255,255,0.7)',
+              border: 'none',
+              borderRadius: '50%',
+              width: isMobile ? '35px' : '40px',
+              height: isMobile ? '35px' : '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 10,
+              boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)'
+            }}
+            aria-label="Próximo slide"
+          >
+            <span style={{ fontSize: isMobile ? '16px' : '20px', color: colorPalette.primary }}>❯</span>
+          </button>
+          
+          {/* Indicadores de slide */}
+          <div style={{
+            position: 'absolute',
+            bottom: isMobile ? '15px' : '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            gap: isMobile ? '6px' : '8px',
+            zIndex: 10
+          }}>
+            {productBanners.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                style={{
+                  width: isMobile ? '8px' : '10px',
+                  height: isMobile ? '8px' : '10px',
+                  borderRadius: '50%',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                  backgroundColor: currentSlide === index ? colorPalette.primary : 'rgba(255,255,255,0.5)',
+                  transition: 'background-color 0.3s'
+                }}
+                aria-label={`Ir para slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* CARRINHO */}
