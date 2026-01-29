@@ -44,7 +44,7 @@ const localConfig = {
 // ========== PALETA DE CORES GOURMET ========== //
 const colorPalette = {
   primary: '#8B0000', // Vermelho vinho
-  secondary: '#2C2C2C', // Preto/cinza escuro
+  secondary: '#CCCCCC', // Cinza claro
   accent: '#B22222', // Vermelho firebrick
   light: '#F8F8F8', // Cinza muito claro
   dark: '#1A1A1A', // Preto quase puro
@@ -72,7 +72,400 @@ const products = [
   { id: 12, name: 'Kit Facas Profissional', category: 'Utensílios', price: 129.90, image: '/images/facas.jpg' },
 ];
 
-// ========== RODAPÉ CLEAN - MESMO ESTILO ========== //
+// ========== MODAL PARA DADOS DA ENTREGA ========== //
+const DeliveryDataModal = ({ isOpen, onClose, onSave, clientData, setClientData, isMobile }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    address: '',
+    phone: ''
+  });
+
+  useEffect(() => {
+    if (isOpen) {
+      setFormData(clientData);
+    }
+  }, [isOpen, clientData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = () => {
+    onSave(formData);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0,0,0,0.7)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 9998,
+      padding: isMobile ? '15px' : '0'
+    }}>
+      <div style={{
+        backgroundColor: colorPalette.white,
+        borderRadius: '15px',
+        padding: isMobile ? '20px 15px' : '30px 25px',
+        width: isMobile ? '90%' : '500px',
+        maxWidth: '95%',
+        maxHeight: isMobile ? '85vh' : '90vh',
+        overflowY: 'auto',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+        border: `3px solid ${colorPalette.primary}`
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '25px',
+          borderBottom: `2px solid ${colorPalette.primary}`,
+          paddingBottom: '10px'
+        }}>
+          <h3 style={{
+            color: colorPalette.primary,
+            fontSize: isMobile ? '18px' : '22px',
+            fontWeight: '700',
+            margin: 0,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px'
+          }}>
+            📍 Dados para Entrega
+          </h3>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '24px',
+              color: colorPalette.dark,
+              cursor: 'pointer',
+              padding: '5px',
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'background 0.2s'
+            }}
+            onMouseOver={(e) => e.target.style.backgroundColor = colorPalette.light}
+            onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
+          >
+            ×
+          </button>
+        </div>
+
+        <div style={{ display: 'grid', gap: '20px', marginBottom: '30px' }}>
+          <div>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: colorPalette.dark,
+              fontSize: isMobile ? '14px' : '15px'
+            }}>
+              Nome Completo *
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Digite seu nome completo"
+              style={{
+                width: '100%',
+                padding: isMobile ? '12px 15px' : '14px 18px',
+                borderRadius: '8px',
+                border: `2px solid ${formData.name ? colorPalette.success : colorPalette.secondary}`,
+                fontSize: isMobile ? '14px' : '15px',
+                outline: 'none',
+                transition: 'border 0.3s',
+                boxSizing: 'border-box'
+              }}
+            />
+          </div>
+
+          <div>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: colorPalette.dark,
+              fontSize: isMobile ? '14px' : '15px'
+            }}>
+              Telefone (WhatsApp) *
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="(11) 99999-9999"
+              style={{
+                width: '100%',
+                padding: isMobile ? '12px 15px' : '14px 18px',
+                borderRadius: '8px',
+                border: `2px solid ${formData.phone ? colorPalette.success : colorPalette.secondary}`,
+                fontSize: isMobile ? '14px' : '15px',
+                outline: 'none',
+                transition: 'border 0.3s',
+                boxSizing: 'border-box'
+              }}
+            />
+          </div>
+
+          <div>
+            <label style={{ 
+              display: 'block', 
+              marginBottom: '8px', 
+              fontWeight: '600', 
+              color: colorPalette.dark,
+              fontSize: isMobile ? '14px' : '15px'
+            }}>
+              Endereço Completo *
+            </label>
+            <textarea
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Rua, número, bairro, complemento, ponto de referência..."
+              rows="4"
+              style={{
+                width: '100%',
+                padding: isMobile ? '12px 15px' : '14px 18px',
+                borderRadius: '8px',
+                border: `2px solid ${formData.address ? colorPalette.success : colorPalette.secondary}`,
+                fontSize: isMobile ? '14px' : '15px',
+                outline: 'none',
+                transition: 'border 0.3s',
+                resize: 'vertical',
+                fontFamily: 'inherit',
+                boxSizing: 'border-box'
+              }}
+            />
+          </div>
+        </div>
+
+        <div style={{
+          backgroundColor: '#E8F5E8',
+          padding: isMobile ? '12px' : '15px',
+          borderRadius: '8px',
+          marginBottom: '20px',
+          border: `1px solid ${colorPalette.success}`,
+          textAlign: 'center'
+        }}>
+          <p style={{
+            margin: 0,
+            fontSize: isMobile ? '12px' : '14px',
+            color: colorPalette.success,
+            fontWeight: '500'
+          }}>
+            💡 Estes dados serão usados para a entrega do seu pedido de churrasco.
+          </p>
+        </div>
+
+        <div style={{ display: 'flex', gap: '15px' }}>
+          <button
+            onClick={onClose}
+            style={{
+              flex: 1,
+              padding: isMobile ? '12px' : '15px',
+              backgroundColor: colorPalette.white,
+              color: colorPalette.primary,
+              border: `2px solid ${colorPalette.primary}`,
+              borderRadius: '8px',
+              fontWeight: '600',
+              fontSize: isMobile ? '14px' : '15px',
+              cursor: 'pointer',
+              transition: 'all 0.3s'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.backgroundColor = colorPalette.light;
+              e.target.style.transform = 'translateY(-2px)';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.backgroundColor = colorPalette.white;
+              e.target.style.transform = 'translateY(0)';
+            }}
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={!formData.name || !formData.phone || !formData.address}
+            style={{
+              flex: 2,
+              padding: isMobile ? '12px' : '15px',
+              backgroundColor: formData.name && formData.phone && formData.address ? colorPalette.primary : colorPalette.secondary,
+              color: colorPalette.white,
+              border: 'none',
+              borderRadius: '8px',
+              fontWeight: '600',
+              fontSize: isMobile ? '14px' : '15px',
+              cursor: formData.name && formData.phone && formData.address ? 'pointer' : 'not-allowed',
+              transition: 'all 0.3s',
+              boxShadow: formData.name && formData.phone && formData.address ? `0 4px 15px rgba(139, 0, 0, 0.3)` : 'none'
+            }}
+            onMouseOver={(e) => {
+              if (formData.name && formData.phone && formData.address) {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = `0 6px 20px rgba(139, 0, 0, 0.4)`;
+              }
+            }}
+            onMouseOut={(e) => {
+              if (formData.name && formData.phone && formData.address) {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = `0 4px 15px rgba(139, 0, 0, 0.3)`;
+              }
+            }}
+          >
+            💾 Salvar Dados
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ========== COMPONENTE DE PRODUTOS ESGOTADOS ========== //
+const OutOfStockMessage = ({ isMobile }) => {
+  return (
+    <div style={{
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: colorPalette.white,
+      padding: isMobile ? '20px 15px' : '40px 35px',
+      borderRadius: '15px',
+      maxWidth: isMobile ? '90%' : '550px',
+      width: isMobile ? '90%' : 'auto',
+      textAlign: 'center',
+      boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)',
+      border: `3px solid ${colorPalette.primary}`,
+      zIndex: 9999,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxSizing: 'border-box',
+      overflow: 'hidden',
+      wordWrap: 'break-word',
+      overflowWrap: 'break-word'
+    }}>
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '5px',
+        background: `linear-gradient(90deg, ${colorPalette.primary}, ${colorPalette.accent})`
+      }} />
+      
+      <div style={{
+        fontSize: isMobile ? '50px' : '80px',
+        marginBottom: isMobile ? '12px' : '20px',
+        lineHeight: '1'
+      }}>
+        🛑
+      </div>
+      
+      <h2 style={{
+        color: colorPalette.primary,
+        fontSize: isMobile ? '18px' : '28px',
+        marginBottom: isMobile ? '12px' : '20px',
+        fontWeight: '700',
+        lineHeight: '1.2',
+        textAlign: 'center',
+        width: '100%',
+        wordBreak: 'break-word'
+      }}>
+        Produtos Temporariamente Esgotados
+      </h2>
+      
+      <div style={{
+        color: colorPalette.dark,
+        fontSize: isMobile ? '14px' : '18px',
+        lineHeight: '1.4',
+        marginBottom: isMobile ? '12px' : '20px',
+        textAlign: 'center',
+        width: '100%',
+        wordBreak: 'break-word'
+      }}>
+        Sentimos muito, mas nossos kits de churrasco estão temporariamente fora de estoque.
+      </div>
+      
+      <div style={{
+        color: colorPalette.dark,
+        fontSize: isMobile ? '14px' : '18px',
+        lineHeight: '1.4',
+        marginBottom: isMobile ? '15px' : '20px',
+        textAlign: 'center',
+        width: '100%',
+        fontWeight: '500',
+        wordBreak: 'break-word'
+      }}>
+        Estamos trabalhando para reabastecer o mais rápido possível!
+      </div>
+      
+      <div style={{
+        color: colorPalette.secondary,
+        fontSize: isMobile ? '12px' : '16px',
+        fontStyle: 'italic',
+        marginBottom: isMobile ? '20px' : '35px',
+        padding: isMobile ? '10px 12px' : '15px 20px',
+        backgroundColor: colorPalette.light,
+        borderRadius: '8px',
+        borderLeft: `4px solid ${colorPalette.accent}`,
+        lineHeight: '1.4',
+        textAlign: 'center',
+        width: '100%',
+        wordBreak: 'break-word',
+        boxSizing: 'border-box'
+      }}>
+        Agradecemos sua compreensão e interesse em nossos produtos gourmet.
+      </div>
+      
+      <a 
+        href="/"
+        style={{
+          backgroundColor: colorPalette.primary,
+          color: colorPalette.white,
+          border: 'none',
+          padding: isMobile ? '12px 25px' : '16px 40px',
+          borderRadius: '30px',
+          fontSize: isMobile ? '14px' : '18px',
+          fontWeight: '600',
+          cursor: 'pointer',
+          textDecoration: 'none',
+          display: 'inline-block',
+          boxShadow: '0 4px 15px rgba(139, 0, 0, 0.3)',
+          width: isMobile ? '100%' : '80%',
+          maxWidth: '280px',
+          margin: '0 auto',
+          textAlign: 'center',
+          wordBreak: 'break-word',
+          boxSizing: 'border-box'
+        }}
+      >
+        Voltar para Página Inicial
+      </a>
+    </div>
+  );
+};
+
+// ========== RODAPÉ CLEAN ========== //
 const FooterClean = ({ isMobile }) => {
   const footerStyle = {
     marginTop: '60px',
@@ -406,136 +799,6 @@ const FooterClean = ({ isMobile }) => {
   );
 };
 
-// ========== COMPONENTE DE PRODUTOS ESGOTADOS (VERSÃO CORRIGIDA SEM OVERFLOW) ========== //
-const OutOfStockMessage = ({ isMobile }) => {
-  return (
-    <div style={{
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: colorPalette.white,
-      padding: isMobile ? '20px 15px' : '40px 35px',
-      borderRadius: '15px',
-      // 🔥 CORREÇÃO CRUCIAL: maxWidth em % e box-sizing
-      maxWidth: isMobile ? '90%' : '550px', // USAR % NO MOBILE
-      width: isMobile ? '90%' : 'auto',
-      textAlign: 'center',
-      boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)',
-      border: `3px solid ${colorPalette.primary}`,
-      zIndex: 9999,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      boxSizing: 'border-box', // 🔥 INCLUI PADDING NA LARGURA
-      overflow: 'hidden',
-      // 🔥 GARANTIR QUE NÃO EXCEDA A TELA
-      wordWrap: 'break-word',
-      overflowWrap: 'break-word'
-    }}>
-      {/* Efeito de fundo sutil */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: '5px',
-        background: `linear-gradient(90deg, ${colorPalette.primary}, ${colorPalette.accent})`
-      }} />
-      
-      <div style={{
-        fontSize: isMobile ? '50px' : '80px',
-        marginBottom: isMobile ? '12px' : '20px',
-        lineHeight: '1'
-      }}>
-        🛑
-      </div>
-      
-      <h2 style={{
-        color: colorPalette.primary,
-        fontSize: isMobile ? '18px' : '28px',
-        marginBottom: isMobile ? '12px' : '20px',
-        fontWeight: '700',
-        lineHeight: '1.2', // 🔥 LINHA MAIS COMPACTA
-        textAlign: 'center',
-        width: '100%',
-        wordBreak: 'break-word'
-      }}>
-        Produtos Temporariamente Esgotados
-      </h2>
-      
-      <div style={{
-        color: colorPalette.dark,
-        fontSize: isMobile ? '14px' : '18px',
-        lineHeight: '1.4',
-        marginBottom: isMobile ? '12px' : '20px',
-        textAlign: 'center',
-        width: '100%',
-        wordBreak: 'break-word'
-      }}>
-        Sentimos muito, mas nossos kits de churrasco estão temporariamente fora de estoque.
-      </div>
-      
-      <div style={{
-        color: colorPalette.dark,
-        fontSize: isMobile ? '14px' : '18px',
-        lineHeight: '1.4',
-        marginBottom: isMobile ? '15px' : '20px',
-        textAlign: 'center',
-        width: '100%',
-        fontWeight: '500',
-        wordBreak: 'break-word'
-      }}>
-        Estamos trabalhando para reabastecer o mais rápido possível!
-      </div>
-      
-      <div style={{
-        color: colorPalette.secondary,
-        fontSize: isMobile ? '12px' : '16px',
-        fontStyle: 'italic',
-        marginBottom: isMobile ? '20px' : '35px',
-        padding: isMobile ? '10px 12px' : '15px 20px',
-        backgroundColor: colorPalette.light,
-        borderRadius: '8px',
-        borderLeft: `4px solid ${colorPalette.accent}`,
-        lineHeight: '1.4',
-        textAlign: 'center',
-        width: '100%',
-        wordBreak: 'break-word',
-        boxSizing: 'border-box'
-      }}>
-        Agradecemos sua compreensão e interesse em nossos produtos gourmet.
-      </div>
-      
-      <a 
-        href="/"
-        style={{
-          backgroundColor: colorPalette.primary,
-          color: colorPalette.white,
-          border: 'none',
-          padding: isMobile ? '12px 25px' : '16px 40px',
-          borderRadius: '30px',
-          fontSize: isMobile ? '14px' : '18px',
-          fontWeight: '600',
-          cursor: 'pointer',
-          textDecoration: 'none',
-          display: 'inline-block',
-          boxShadow: '0 4px 15px rgba(139, 0, 0, 0.3)',
-          width: isMobile ? '100%' : '80%', // 🔥 100% NO MOBILE
-          maxWidth: '280px',
-          margin: '0 auto',
-          textAlign: 'center',
-          wordBreak: 'break-word',
-          boxSizing: 'border-box'
-        }}
-      >
-        Voltar para Página Inicial
-      </a>
-    </div>
-  );
-};
-
 export default function MPNaBrasa() {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [searchTerm, setSearchTerm] = useState('');
@@ -544,7 +807,28 @@ export default function MPNaBrasa() {
   const [isMobile, setIsMobile] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [clientData, setClientData] = useState({
+    name: '',
+    address: '',
+    phone: ''
+  });
+  const [showDeliveryModal, setShowDeliveryModal] = useState(false);
   const slideInterval = useRef(null);
+
+  // ========== CARREGAR DADOS DO CLIENTE ========== //
+  useEffect(() => {
+    const savedData = localStorage.getItem('mp_brasa_client_data');
+    if (savedData) {
+      const parsed = JSON.parse(savedData);
+      setClientData(parsed);
+    }
+  }, []);
+
+  // ========== SALVAR DADOS DO CLIENTE ========== //
+  const saveClientData = (data) => {
+    setClientData(data);
+    localStorage.setItem('mp_brasa_client_data', JSON.stringify(data));
+  };
 
   // ========== FUNÇÕES DO CARROSSEL ========== //
   const goToNextSlide = () => {
@@ -646,7 +930,7 @@ export default function MPNaBrasa() {
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  // 🔥 ESTILOS ATUALIZADOS PARA EVITAR OVERFLOW HORIZONTAL
+  // 🔥 ESTILOS ATUALIZADOS
   const styles = {
     container: {
       maxWidth: '1200px',
@@ -658,10 +942,9 @@ export default function MPNaBrasa() {
       filter: !salesControl.isSalesActive ? 'blur(3px)' : 'none',
       pointerEvents: !salesControl.isSalesActive ? 'none' : 'auto',
       userSelect: !salesControl.isSalesActive ? 'none' : 'auto',
-      // 🔥 CORREÇÃO: GARANTIR QUE NÃO EXCEDA LARGURA
       width: '100%',
       boxSizing: 'border-box',
-      overflowX: 'hidden' // 🔥 IMPEDE SCROLL HORIZONTAL NA PÁGINA
+      overflowX: 'hidden'
     },
     header: {
       textAlign: 'center',
@@ -669,7 +952,6 @@ export default function MPNaBrasa() {
       backgroundColor: colorPalette.white,
       borderRadius: isMobile ? '10px' : '15px',
       marginBottom: isMobile ? '20px' : '30px',
-      // REMOVIDO: border: `2px solid ${colorPalette.secondary}`,
       boxShadow: '0 4px 12px rgba(44, 44, 44, 0.1)',
       width: '100%',
       boxSizing: 'border-box'
@@ -680,42 +962,6 @@ export default function MPNaBrasa() {
       borderRadius: '10px',
       maxWidth: '100%',
       objectFit: 'contain'
-    },
-    headerButtonsContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-      gap: isMobile ? '10px' : '15px',
-      alignItems: 'center',
-      flexWrap: 'wrap',
-      marginTop: isMobile ? '15px' : '20px',
-      paddingTop: isMobile ? '15px' : '20px',
-      borderTop: `1px solid ${colorPalette.secondary}`,
-      width: '100%',
-      boxSizing: 'border-box'
-    },
-    headerButton: {
-      backgroundColor: colorPalette.primary,
-      color: colorPalette.white,
-      border: `1px solid ${colorPalette.primary}`,
-      padding: isMobile ? '8px 12px' : '10px 16px',
-      borderRadius: '20px',
-      fontSize: isMobile ? '13px' : '15px',
-      fontWeight: '600',
-      cursor: 'pointer',
-      textDecoration: 'none',
-      whiteSpace: 'nowrap',
-      transition: 'all 0.3s',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '6px',
-      boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)',
-      boxSizing: 'border-box',
-      ':hover': {
-        backgroundColor: colorPalette.white,
-        color: colorPalette.primary,
-        transform: 'translateY(-2px)',
-        boxShadow: '0 4px 10px rgba(139, 0, 0, 0.3)'
-      }
     },
     search: {
       width: '100%',
@@ -871,7 +1117,153 @@ export default function MPNaBrasa() {
       {/* ========== MENSAGEM DE PRODUTOS ESGOTADOS ========== */}
       {!salesControl.isSalesActive && <OutOfStockMessage isMobile={isMobile} />}
 
+      {/* ========== MODAL DADOS DA ENTREGA ========== */}
+      <DeliveryDataModal
+        isOpen={showDeliveryModal}
+        onClose={() => setShowDeliveryModal(false)}
+        onSave={saveClientData}
+        clientData={clientData}
+        setClientData={setClientData}
+        isMobile={isMobile}
+      />
+
       <div style={styles.container}>
+        {/* ========== CABEÇALHO TOPO (ESTILO PMG) ========== */}
+        <div style={{
+          backgroundColor: colorPalette.primary,
+          color: colorPalette.white,
+          padding: isMobile ? '10px 12px' : '12px 20px',
+          borderRadius: '8px',
+          marginBottom: isMobile ? '15px' : '20px'
+        }}>
+          {/* Linha única com 3 colunas */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: isMobile ? '6px' : '10px',
+            flexWrap: isMobile ? 'wrap' : 'nowrap'
+          }}>
+            
+            {/* COLUNA 1: BOTÕES ESQUERDA */}
+            <div style={{
+              display: 'flex',
+              gap: isMobile ? '6px' : '8px',
+              alignItems: 'center',
+              flexShrink: 0
+            }}>
+              {/* BOTÃO PÁGINA INICIAL */}
+              <a href="/" style={{
+                backgroundColor: colorPalette.white,
+                color: colorPalette.primary,
+                border: `1px solid ${colorPalette.white}`,
+                padding: isMobile ? '6px 10px' : '8px 12px',
+                borderRadius: '20px',
+                fontSize: isMobile ? '12px' : '13px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.3s',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
+                ':hover': {
+                  backgroundColor: colorPalette.primary,
+                  color: colorPalette.white
+                }
+              }}>
+                <span>🏠</span>
+                {isMobile ? 'Início' : 'Página Inicial'}
+              </a>
+              
+              {/* BOTÃO PERGUNTAS FREQUENTES */}
+              <Link href="/faq" legacyBehavior>
+                <a style={{
+                  backgroundColor: colorPalette.white,
+                  color: colorPalette.primary,
+                  border: `1px solid ${colorPalette.white}`,
+                  padding: isMobile ? '6px 10px' : '8px 12px',
+                  borderRadius: '20px',
+                  fontSize: isMobile ? '12px' : '13px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.3s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  ':hover': {
+                    backgroundColor: colorPalette.primary,
+                    color: colorPalette.white
+                  }
+                }}>
+                  <span>❓</span>
+                  {isMobile ? 'Perguntas' : 'Perguntas Frequentes'}
+                </a>
+              </Link>
+            </div>
+            
+            {/* COLUNA 2: SAUDAÇÃO CENTRO */}
+            <div style={{
+              flex: 1,
+              textAlign: 'center',
+              padding: isMobile ? '0 5px' : '0 10px',
+              minWidth: isMobile ? '100%' : 'auto',
+              order: isMobile ? 3 : 0,
+              marginTop: isMobile ? '8px' : '0'
+            }}>
+              <p style={{
+                fontSize: isMobile ? '13px' : '14px',
+                fontWeight: '600',
+                margin: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px'
+              }}>
+                <span style={{ fontSize: '16px' }}>👋</span>
+                {clientData.name 
+                  ? `Olá ${clientData.name.split(' ')[0]}, seja bem-vindo(a)!`
+                  : 'Olá, seja bem-vindo(a)!'
+                }
+              </p>
+            </div>
+            
+            {/* COLUNA 3: BOTÃO DADOS DA ENTREGA DIREITA */}
+            <button 
+              onClick={() => setShowDeliveryModal(true)}
+              style={{
+                backgroundColor: colorPalette.accent,
+                color: colorPalette.white,
+                border: `1px solid ${colorPalette.accent}`,
+                padding: isMobile ? '6px 10px' : '8px 12px',
+                borderRadius: '20px',
+                fontSize: isMobile ? '12px' : '13px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.3s',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
+                flexShrink: 0,
+                boxShadow: '0 2px 5px rgba(178, 34, 34, 0.3)',
+                ':hover': {
+                  backgroundColor: colorPalette.primary,
+                  borderColor: colorPalette.primary,
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 10px rgba(178, 34, 34, 0.4)'
+                }
+              }}
+            >
+              <span style={{ fontSize: '14px' }}>📍</span>
+              {isMobile ? 'Dados' : 'Dados da Entrega'}
+            </button>
+          </div>
+        </div>
+
         {/* ========== HEADER UNIFICADO ========== */}
         <header style={styles.header}>
           <img 
@@ -895,23 +1287,6 @@ export default function MPNaBrasa() {
           }}>
             Você chama a galera, a gente resolve o churrasco. - {localConfig.city}-{localConfig.state}
           </p>
-          
-          {/* BOTÕES DENTRO DO HEADER */}
-          <div style={styles.headerButtonsContainer}>
-            {/* BOTÃO PÁGINA INICIAL */}
-            <a href="/" style={styles.headerButton}>
-              <span style={{ fontSize: isMobile ? '16px' : '18px' }}>🏠</span>
-              Página Inicial
-            </a>
-            
-            {/* BOTÃO PERGUNTAS FREQUENTES */}
-            <Link href="/faq" legacyBehavior>
-              <a style={styles.headerButton}>
-                <span style={{ fontSize: isMobile ? '16px' : '18px' }}>❓</span>
-                Perguntas Frequentes
-              </a>
-            </Link>
-          </div>
         </header>
 
         {/* SEARCH */}
@@ -1062,7 +1437,6 @@ export default function MPNaBrasa() {
         )}
 
         {/* ========== CARROSSEL DE BANNERS ========== */}
-        {/* APLICADA MESMA LÓGICA DA PÁGINA INICIAL - PROPORÇÃO 3:1 */}
         <div style={{
           position: 'relative',
           width: '100%',
@@ -1071,7 +1445,7 @@ export default function MPNaBrasa() {
           overflow: 'hidden',
           borderRadius: '10px',
           boxShadow: '0 4px 12px rgba(139, 0, 0, 0.1)',
-          height: isMobile ? 'calc(100vw / 3)' : '400px', // MESMA PROPORÇÃO 3:1
+          height: isMobile ? 'calc(100vw / 3)' : '400px',
           backgroundColor: colorPalette.dark
         }}>
           <div style={{
@@ -1198,7 +1572,7 @@ export default function MPNaBrasa() {
           removeFromCart={removeFromCart}
         />
 
-        {/* RODAPÉ CLEAN - APENAS INFORMAÇÕES LEGAIS */}
+        {/* RODAPÉ CLEAN */}
         <FooterClean isMobile={isMobile} />
       </div>
     </>
