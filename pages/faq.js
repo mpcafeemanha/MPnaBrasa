@@ -325,18 +325,26 @@ const FAQPage = () => {
           textAlign: 'center',
           marginBottom: '40px'
         }}>
-          <img 
-            src="/Logo MP cafe.png" 
-            alt={`Logo ${localConfig.businessName} - Kits de Churrasco Gourmet`} 
-            style={{ 
-              height: isMobile ? '70px' : '90px', 
-              marginBottom: '15px',
-              borderRadius: '10px',
-              border: `2px solid ${colorPalette.primary}`,
-              backgroundColor: colorPalette.white,
-              padding: '5px'
-            }} 
-          />
+          {/* LOGO SEM BORDA E SEM FUNDO BRANCO */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: isMobile ? '200px' : '250px',
+            height: isMobile ? '80px' : '100px',
+            margin: '0 auto 15px auto'
+          }}>
+            <img 
+              src="/Logo MP cafe.png" 
+              alt={`Logo ${localConfig.businessName} - Kits de Churrasco Gourmet`} 
+              style={{ 
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                display: 'block'
+              }} 
+            />
+          </div>
           
           <h1 style={{ 
             color: colorPalette.primary, 
