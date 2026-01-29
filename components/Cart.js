@@ -11,17 +11,18 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
   const WHATSAPP_NUMBER = '5511913572902';
   const MINIMUM_ORDER = 80.00;
 
-  // Cores gourmet do MP na Brasa
+  // Cores gourmet do MP na Brasa - MODIFICADO: secondary agora é cinza claro
   const colorPalette = {
     primary: '#8B0000', // Vermelho vinho
-    secondary: '#2C2C2C', // Preto/cinza escuro
+    secondary: '#CCCCCC', // MODIFICADO: Cinza claro (era #2C2C2C)
     accent: '#B22222', // Vermelho firebrick
     light: '#F8F8F8', // Cinza muito claro
     dark: '#1A1A1A', // Preto quase puro
     white: '#FFFFFF',
     success: '#228B22',
     danger: '#DC3545',
-    text: '#333333'
+    text: '#333333',
+    borderLight: '#E0E0E0' // NOVO: Cinza para bordas
   };
 
   // ✅ 1. Verificação de mobile
@@ -125,10 +126,14 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                        paymentMethod === 'Cartão de Débito' ? 'Cartão de Débito' : 
                        paymentMethod === 'Cartão de Crédito' ? 'Cartão de Crédito' : '';
 
+    // Vamos buscar os dados do localStorage (que virão da página de Dados da Entrega)
+    const clientData = JSON.parse(localStorage.getItem('mp_brasa_client_data') || '{}');
+    
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
       `🔥 *PEDIDO - MP na Brasa* 🔥\n\n` +
-      `👤 *Cliente:* [Nome do cliente]\n` +
-      `📍 *Endereço:* [Endereço de entrega]\n\n` +
+      `👤 *Cliente:* ${clientData.name || '[Nome do cliente]'}\n` +
+      `📞 *Telefone:* ${clientData.phone || '[Telefone]'}\n` +
+      `📍 *Endereço:* ${clientData.address || '[Endereço de entrega]'}\n\n` +
       `🥩 *ITENS DO PEDIDO:*\n${itemsText}\n\n` +
       `💰 *TOTAL: R$ ${total.toFixed(2)}*\n` +
       `💳 *Pagamento:* ${paymentText}\n` +
@@ -137,7 +142,13 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
     )}`;
   };
 
-  // ✅ 7. Estilos inline - RESPONSIVO
+  // ✅ 7. Verificar se dados da entrega foram preenchidos
+  const isDeliveryDataValid = () => {
+    const clientData = JSON.parse(localStorage.getItem('mp_brasa_client_data') || '{}');
+    return clientData.name && clientData.phone && clientData.address;
+  };
+
+  // ✅ 8. Estilos inline - RESPONSIVO
   const styles = {
     cartButton: {
       position: 'fixed',
@@ -274,7 +285,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderBottom: `2px solid ${colorPalette.secondary}`,
+          borderBottom: `2px solid ${colorPalette.borderLight}`, // MODIFICADO: Borda cinza claro
           marginBottom: '15px'
         }}>
           <h2 style={{ 
@@ -371,7 +382,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                         height: isMobile ? '60px' : '50px', 
                         borderRadius: '6px', 
                         objectFit: 'cover', 
-                        border: `1px solid ${colorPalette.secondary}`,
+                        border: `1px solid ${colorPalette.borderLight}`, // MODIFICADO
                         flexShrink: 0,
                         backgroundColor: colorPalette.light
                       }}
@@ -526,7 +537,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
               padding: isMobile ? '15px' : '12px', 
               borderRadius: '10px', 
               marginBottom: '15px', 
-              border: `2px solid ${colorPalette.secondary}` 
+              border: `2px solid ${colorPalette.secondary}` // MODIFICADO: Borda cinza claro
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
                 <span style={{ color: colorPalette.dark, fontSize: isMobile ? '14px' : '13px' }}>
@@ -548,7 +559,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                 display: 'flex', 
                 justifyContent: 'space-between', 
                 paddingTop: '12px', 
-                borderTop: `2px solid ${colorPalette.secondary}` 
+                borderTop: `2px solid ${colorPalette.secondary}` // MODIFICADO: Borda cinza claro
               }}>
                 <span style={{ fontWeight: 700, fontSize: isMobile ? '15px' : '14px' }}>
                   Total:
@@ -583,7 +594,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                       padding: isMobile ? '12px 10px' : '10px 12px', 
                       borderRadius: '8px', 
                       background: paymentMethod === method ? `${colorPalette.success}20` : colorPalette.light, 
-                      border: `2px solid ${paymentMethod === method ? colorPalette.success : colorPalette.secondary}`, 
+                      border: `2px solid ${paymentMethod === method ? colorPalette.success : colorPalette.secondary}`, // MODIFICADO: Borda cinza claro
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       fontSize: isMobile ? '14px' : '13px'
@@ -611,28 +622,28 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
             {/* Botão finalizar */}
             <button
               onClick={() => window.open(generateWhatsAppMessage(), '_blank')}
-              disabled={!isTotalValid || !paymentMethod}
+              disabled={!isTotalValid || !paymentMethod || !isDeliveryDataValid()}
               style={{ 
                 width: '100%', 
                 padding: isMobile ? '16px' : '14px', 
-                background: isTotalValid && paymentMethod ? colorPalette.primary : colorPalette.secondary, 
+                background: isTotalValid && paymentMethod && isDeliveryDataValid() ? colorPalette.primary : colorPalette.secondary, 
                 color: colorPalette.white, 
                 border: 'none', 
                 borderRadius: '10px', 
                 fontWeight: 700, 
                 fontSize: isMobile ? '15px' : '14px', 
-                cursor: isTotalValid && paymentMethod ? 'pointer' : 'not-allowed',
+                cursor: isTotalValid && paymentMethod && isDeliveryDataValid() ? 'pointer' : 'not-allowed',
                 transition: 'all 0.3s',
-                boxShadow: isTotalValid && paymentMethod ? `0 4px 15px rgba(139, 0, 0, 0.3)` : 'none'
+                boxShadow: isTotalValid && paymentMethod && isDeliveryDataValid() ? `0 4px 15px rgba(139, 0, 0, 0.3)` : 'none'
               }}
               onMouseOver={(e) => {
-                if (isTotalValid && paymentMethod) {
+                if (isTotalValid && paymentMethod && isDeliveryDataValid()) {
                   e.target.style.transform = 'translateY(-2px)';
                   e.target.style.boxShadow = `0 6px 20px rgba(139, 0, 0, 0.4)`;
                 }
               }}
               onMouseOut={(e) => {
-                if (isTotalValid && paymentMethod) {
+                if (isTotalValid && paymentMethod && isDeliveryDataValid()) {
                   e.target.style.transform = 'translateY(0)';
                   e.target.style.boxShadow = `0 4px 15px rgba(139, 0, 0, 0.3)`;
                 }
@@ -650,6 +661,18 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                 fontWeight: 500
               }}>
                 🔥 Pedido mínimo: R$ {MINIMUM_ORDER.toFixed(2)}
+              </p>
+            )}
+
+            {!isDeliveryDataValid() && (
+              <p style={{ 
+                color: colorPalette.danger, 
+                textAlign: 'center', 
+                marginTop: '12px', 
+                fontSize: isMobile ? '12px' : '11px',
+                fontWeight: 500
+              }}>
+                ⚠️ Preencha os "Dados da Entrega" na página principal
               </p>
             )}
           </>
