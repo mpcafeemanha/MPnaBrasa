@@ -33,7 +33,7 @@ const localConfig = {
   businessType: "Kits de Churrasco Gourmet",
   city: "Joanópolis",
   state: "SP",
-    address: "Rua Capitão Antonio Mathias , 720 - Centro",
+  address: "Rua Capitão Antonio Mathias , 720 - Centro",
   cep: "12980-000",
   phone: "(11) 91357-2902",
   whatsapp: "5511913572902",
@@ -669,7 +669,7 @@ export default function MPNaBrasa() {
       backgroundColor: colorPalette.white,
       borderRadius: isMobile ? '10px' : '15px',
       marginBottom: isMobile ? '20px' : '30px',
-      border: `2px solid ${colorPalette.secondary}`,
+      // REMOVIDO: border: `2px solid ${colorPalette.secondary}`,
       boxShadow: '0 4px 12px rgba(44, 44, 44, 0.1)',
       width: '100%',
       boxSizing: 'border-box'
@@ -1062,6 +1062,7 @@ export default function MPNaBrasa() {
         )}
 
         {/* ========== CARROSSEL DE BANNERS ========== */}
+        {/* APLICADA MESMA LÓGICA DA PÁGINA INICIAL - PROPORÇÃO 3:1 */}
         <div style={{
           position: 'relative',
           width: '100%',
@@ -1070,9 +1071,8 @@ export default function MPNaBrasa() {
           overflow: 'hidden',
           borderRadius: '10px',
           boxShadow: '0 4px 12px rgba(139, 0, 0, 0.1)',
-          height: isMobile ? '200px' : '350px',
-          backgroundColor: colorPalette.white,
-          border: `2px solid ${colorPalette.primary}`
+          height: isMobile ? 'calc(100vw / 3)' : '400px', // MESMA PROPORÇÃO 3:1
+          backgroundColor: colorPalette.dark
         }}>
           <div style={{
             display: 'flex',
@@ -1097,11 +1097,10 @@ export default function MPNaBrasa() {
                   src={isMobile ? banner.mobile : banner.desktop}
                   alt={`Banner de Produtos ${banner.id}`}
                   style={{
-                    width: 'auto',
-                    height: 'auto',
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
                     display: 'block'
                   }}
                   loading="lazy"
@@ -1119,23 +1118,23 @@ export default function MPNaBrasa() {
             style={{
               position: 'absolute',
               top: '50%',
-              left: isMobile ? '10px' : '20px',
+              left: '10px',
               transform: 'translateY(-50%)',
-              background: 'rgba(255,255,255,0.7)',
+              background: 'rgba(255,255,255,0.8)',
               border: 'none',
               borderRadius: '50%',
-              width: isMobile ? '35px' : '40px',
-              height: isMobile ? '35px' : '40px',
+              width: '35px',
+              height: '35px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               zIndex: 10,
-              boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)'
+              boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
             }}
             aria-label="Slide anterior"
           >
-            <span style={{ fontSize: isMobile ? '16px' : '20px', color: colorPalette.primary }}>❮</span>
+            <span style={{ fontSize: '16px', color: colorPalette.primary }}>❮</span>
           </button>
           
           <button 
@@ -1143,33 +1142,33 @@ export default function MPNaBrasa() {
             style={{
               position: 'absolute',
               top: '50%',
-              right: isMobile ? '10px' : '20px',
+              right: '10px',
               transform: 'translateY(-50%)',
-              background: 'rgba(255,255,255,0.7)',
+              background: 'rgba(255,255,255,0.8)',
               border: 'none',
               borderRadius: '50%',
-              width: isMobile ? '35px' : '40px',
-              height: isMobile ? '35px' : '40px',
+              width: '35px',
+              height: '35px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               zIndex: 10,
-              boxShadow: '0 2px 5px rgba(139, 0, 0, 0.2)'
+              boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
             }}
             aria-label="Próximo slide"
           >
-            <span style={{ fontSize: isMobile ? '16px' : '20px', color: colorPalette.primary }}>❯</span>
+            <span style={{ fontSize: '16px', color: colorPalette.primary }}>❯</span>
           </button>
           
           {/* Indicadores de slide */}
           <div style={{
             position: 'absolute',
-            bottom: isMobile ? '15px' : '20px',
+            bottom: '10px',
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
-            gap: isMobile ? '6px' : '8px',
+            gap: '6px',
             zIndex: 10
           }}>
             {productBanners.map((_, index) => (
@@ -1177,8 +1176,8 @@ export default function MPNaBrasa() {
                 key={index}
                 onClick={() => goToSlide(index)}
                 style={{
-                  width: isMobile ? '8px' : '10px',
-                  height: isMobile ? '8px' : '10px',
+                  width: '8px',
+                  height: '8px',
                   borderRadius: '50%',
                   border: 'none',
                   padding: 0,
