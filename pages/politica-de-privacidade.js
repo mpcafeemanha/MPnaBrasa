@@ -109,19 +109,25 @@ export default function PoliticaPrivacidade() {
           position: 'relative'
         }}>
           <Link href="/" style={{ display: 'inline-block' }}>
-            <img 
-              src="/Logo MP cafe.png" 
-              alt={`Logo ${localConfig.businessName} - Kits de Churrasco Gourmet`} 
-              style={{ 
-                width: isMobile ? '120px' : '150px',
-                marginBottom: '20px',
-                cursor: 'pointer',
-                borderRadius: '10px',
-                border: `2px solid ${colorPalette.primary}`,
-                backgroundColor: colorPalette.white,
-                padding: '5px'
-              }} 
-            />
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: isMobile ? '150px' : '200px',
+              height: isMobile ? '60px' : '80px',
+              margin: '0 auto 20px auto'
+            }}>
+              <img 
+                src="/Logo MP cafe.png" 
+                alt={`Logo ${localConfig.businessName} - Kits de Churrasco Gourmet`} 
+                style={{ 
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  display: 'block'
+                }} 
+              />
+            </div>
           </Link>
           <h1 style={{ 
             color: colorPalette.primary, 
