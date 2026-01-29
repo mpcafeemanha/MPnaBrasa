@@ -299,63 +299,84 @@ export default function Home() {
           </p>
         </header>
 
-        {/* Destaques */}
+        {/* Destaques de Credibilidade - Adaptado para mobile */}
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           flexWrap: 'wrap',
           gap: isMobile ? '10px' : '15px',
-          margin: isMobile ? '20px 15px' : '30px 0',
+          margin: isMobile ? '20px 0' : '30px 0',
           padding: isMobile ? '0 10px' : '0'
         }}>
           <div style={{
             backgroundColor: colorPalette.white,
-            padding: isMobile ? '12px 15px' : '15px 20px',
+            padding: isMobile ? '10px 15px' : '15px 20px',
             borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
+            minWidth: isMobile ? 'unset' : '200px',
             flex: isMobile ? '1 1 120px' : '0 0 auto',
             boxShadow: '0 2px 8px rgba(139, 0, 0, 0.05)',
             border: `1px solid ${colorPalette.secondary}`
           }}>
-            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: '10px'}}>🥩</span>
+            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>🥩</span>
             <div>
-              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Carnes Selecionadas</div>
-              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Picanha, Fraldinha, Maminha</div>
+              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Carnes Premium</div>
+              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Selecionadas</div>
             </div>
           </div>
           
           <div style={{
             backgroundColor: colorPalette.white,
-            padding: isMobile ? '12px 15px' : '15px 20px',
+            padding: isMobile ? '10px 15px' : '15px 20px',
             borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
+            minWidth: isMobile ? 'unset' : '200px',
             flex: isMobile ? '1 1 120px' : '0 0 auto',
             boxShadow: '0 2px 8px rgba(139, 0, 0, 0.05)',
             border: `1px solid ${colorPalette.secondary}`
           }}>
-            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: '10px'}}>🚚</span>
+            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>🚚</span>
             <div>
-              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Entrega Rápida</div>
+              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Entrega Agendada</div>
               <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Para toda região</div>
             </div>
           </div>
           
           <div style={{
             backgroundColor: colorPalette.white,
-            padding: isMobile ? '12px 15px' : '15px 20px',
+            padding: isMobile ? '10px 15px' : '15px 20px',
             borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
+            minWidth: isMobile ? 'unset' : '200px',
             flex: isMobile ? '1 1 120px' : '0 0 auto',
             boxShadow: '0 2px 8px rgba(139, 0, 0, 0.05)',
             border: `1px solid ${colorPalette.secondary}`
           }}>
-            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: '10px'}}>🏷️</span>
+            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>🏷️</span>
             <div>
-              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Site Prático</div>
-              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Compra fácil e rápida</div>
+              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Kits Completos</div>
+              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Tudo que precisa</div>
+            </div>
+          </div>
+
+          <div style={{
+            backgroundColor: colorPalette.white,
+            padding: isMobile ? '10px 15px' : '15px 20px',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            minWidth: isMobile ? 'unset' : '200px',
+            flex: isMobile ? '1 1 120px' : '0 0 auto',
+            boxShadow: '0 2px 8px rgba(139, 0, 0, 0.05)',
+            border: `1px solid ${colorPalette.secondary}`
+          }}>
+            <span style={{fontSize: isMobile ? '1.2rem' : '1.5rem', marginRight: isMobile ? '8px' : '10px'}}>🔥</span>
+            <div>
+              <div style={{fontWeight: '600', fontSize: isMobile ? '0.8rem' : '0.9rem'}}>Qualidade Garantida</div>
+              <div style={{fontSize: isMobile ? '0.7rem' : '0.8rem', color: '#666'}}>Sabor inigualável</div>
             </div>
           </div>
         </div>
