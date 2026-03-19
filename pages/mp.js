@@ -38,7 +38,9 @@ const localConfig = {
   phone: "(11) 96918-0048",
   whatsapp: "5511969180048",
   description: "Kits completos de churrasco gourmet com carnes premium, acompanhamentos selecionados e utensílios de qualidade para um churrasco perfeito.",
-  deliveryArea: "Joanópolis e região"
+  deliveryArea: "Joanópolis e região",
+  url: "https://mpnabrasa.shop",
+  logo: "https://mpnabrasa.shop/Logo%20MP%20cafe.png" // URL absoluta para compartilhamento
 };
 
 // ========== PALETA DE CORES GOURMET ========== //
@@ -57,6 +59,7 @@ const colorPalette = {
 const categories = ['Kits Completos', 'Carnes Premium', 'Acompanhamentos', 'Utensílios'];
 
 // ========== PRODUTOS COM CATEGORIAS ========== //
+// ALGUNS PRODUTOS COM PREÇO ZERO PARA TESTE (simulando indisponíveis)
 const products = [
   { id: 2, name: 'Kit Churrasco Raiz', category: 'Kits Completos', price: 279.90, image: 'https://mpnabrasa.shop/images/Kit-Churrasco-Raiz0.png' },
   { id: 3, name: 'Kit Churrasco Premium', category: 'Kits Completos', price: 359.90, image: 'https://mpnabrasa.shop/images/Kit-Churrasco-Premium.png' },
@@ -68,6 +71,22 @@ const products = [
   { id: 9, name: 'SAL GROSSO PARA CHURRASCO MASTER 1 KG', category: 'Acompanhamentos', price: 3.90, image: 'https://mpnabrasa.shop/images/sal-grosso-churrasco-master-1kg.png' },
   { id: 10, name: 'LINGUIÇA TOSCANA SADIA 700 G', category: 'Acompanhamentos', price: 30.90, image: 'https://mpnabrasa.shop/images/linguica-toscana-sadia-700g.png' },
 ];
+
+// ========== FUNÇÃO PARA GERAR METADADOS DE PRODUTO ========== //
+const generateProductMeta = (product) => {
+  if (!product) return null;
+  
+  const isAvailable = product.price > 0;
+  const availability = isAvailable ? 'Disponível' : 'Temporariamente Indisponível';
+  const priceText = isAvailable ? `R$ ${product.price.toFixed(2)}` : 'Indisponível';
+  
+  return {
+    title: `${product.name} | ${localConfig.businessName} - Kits de Churrasco em ${localConfig.city}`,
+    description: `${product.name} - ${product.category}. ${availability}. ${isAvailable ? `Preço: ${priceText}.` : ''} Entrega em ${localConfig.city} e região. Peça já seu kit churrasco gourmet!`,
+    image: product.image || localConfig.logo,
+    url: `${localConfig.url}/produtos#${product.id}`
+  };
+};
 
 // ========== MODAL PARA DADOS DA ENTREGA ========== //
 const DeliveryDataModal = ({ isOpen, onClose, onSave, clientData, setClientData, isMobile }) => {
@@ -884,6 +903,12 @@ export default function MPNaBrasa() {
   }, [cart]);
 
   const addToCart = (product) => {
+    // 🔥 NOVA VALIDAÇÃO: Não permite adicionar se preço for 0
+    if (product.price <= 0) {
+      alert('Este produto está temporariamente indisponível.');
+      return;
+    }
+    
     setCart(prev => {
       const existing = prev.findIndex(item => item.id === product.id);
       let newCart;
@@ -1016,13 +1041,15 @@ export default function MPNaBrasa() {
       border: `1px solid ${colorPalette.secondary}`,
       transition: 'transform 0.3s, box-shadow 0.3s',
       width: '100%',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
+      opacity: (product) => product.price <= 0 ? 0.7 : 1
     },
     productImage: {
       width: '100%',
       height: isMobile ? '130px' : '180px',
       objectFit: 'cover',
-      backgroundColor: colorPalette.light
+      backgroundColor: colorPalette.light,
+      filter: (product) => product.price <= 0 ? 'grayscale(80%)' : 'none'
     },
     productInfo: {
       padding: isMobile ? '12px' : '15px',
@@ -1040,18 +1067,19 @@ export default function MPNaBrasa() {
     productPrice: {
       fontSize: isMobile ? '16px' : '20px',
       fontWeight: '700',
-      color: colorPalette.success,
-      marginBottom: isMobile ? '12px' : '15px'
+      color: (product) => product.price <= 0 ? '#999' : colorPalette.success,
+      marginBottom: isMobile ? '12px' : '15px',
+      textDecoration: (product) => product.price <= 0 ? 'line-through' : 'none'
     },
     addBtn: {
       width: '100%',
       padding: isMobile ? '10px' : '12px',
-      backgroundColor: colorPalette.primary,
+      backgroundColor: (product) => product.price <= 0 ? '#999' : colorPalette.primary,
       color: colorPalette.white,
       border: 'none',
       borderRadius: '6px',
       fontWeight: '600',
-      cursor: 'pointer',
+      cursor: (product) => product.price <= 0 ? 'not-allowed' : 'pointer',
       transition: 'background-color 0.3s',
       fontSize: isMobile ? '14px' : '15px',
       boxSizing: 'border-box'
@@ -1086,10 +1114,34 @@ export default function MPNaBrasa() {
   return (
     <>
       <Head>
+        {/* Meta Tags Básicas */}
         <title>{localConfig.businessName} - Kits de Churrasco em {localConfig.city}-{localConfig.state}</title>
         <meta name="description" content={localConfig.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
         <link rel="icon" href="/Logo MP cafe.png" />
+        
+        {/* 🔥 META TAGS PARA COMPARTILHAMENTO (WhatsApp, Facebook, etc) */}
+        <meta property="og:title" content={`${localConfig.businessName} - Kits de Churrasco Gourmet`} />
+        <meta property="og:description" content={localConfig.description} />
+        <meta property="og:image" content={localConfig.logo} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content={localConfig.url} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={localConfig.businessName} />
+        <meta property="og:locale" content="pt_BR" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${localConfig.businessName} - Kits de Churrasco Gourmet`} />
+        <meta name="twitter:description" content={localConfig.description} />
+        <meta name="twitter:image" content={localConfig.logo} />
+        
+        {/* Meta tags adicionais para SEO */}
+        <meta name="keywords" content="kit churrasco, churrasco gourmet, carnes premium, picanha, linguiça, farofa, pão de alho, joanópolis, churrasco em casa" />
+        <meta name="author" content={localConfig.businessName} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={localConfig.url} />
         
         {/* Schema.org */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{
@@ -1106,7 +1158,14 @@ export default function MPNaBrasa() {
             },
             "telephone": localConfig.phone,
             "servesCuisine": "Brazilian Barbecue",
-            "openingHours": "Mo-Su 08:00-20:00"
+            "openingHours": "Th-Su 08:00-20:00",
+            "priceRange": "$$",
+            "image": localConfig.logo,
+            "description": localConfig.description,
+            "areaServed": {
+              "@type": "City",
+              "name": localConfig.city
+            }
           })
         }} />
       </Head>
@@ -1332,65 +1391,86 @@ export default function MPNaBrasa() {
 
         {/* PRODUCTS GRID */}
         <div style={styles.grid}>
-          {currentProducts.map(product => (
-            <div 
-              key={product.id} 
-              style={styles.productCard}
-              onMouseOver={(e) => {
-                if (!isMobile) {
-                  e.currentTarget.style.transform = 'translateY(-5px)';
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(44, 44, 44, 0.15)';
-                }
-              }}
-              onMouseOut={(e) => {
-                if (!isMobile) {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(44, 44, 44, 0.1)';
-                }
-              }}
-            >
-              <img 
-                src={product.image} 
-                alt={product.name}
-                style={styles.productImage}
-                onError={(e) => {
-                  e.target.src = '/Logo MP cafe.png';
+          {currentProducts.map(product => {
+            const isAvailable = product.price > 0;
+            
+            return (
+              <div 
+                key={product.id} 
+                style={{
+                  ...styles.productCard,
+                  opacity: !isAvailable ? 0.7 : 1
                 }}
-              />
-              <div style={styles.productInfo}>
-                <h3 style={styles.productName}>{product.name}</h3>
-                <div style={{
-                  fontSize: isMobile ? '11px' : '12px',
-                  color: colorPalette.text,
-                  backgroundColor: colorPalette.secondary + '10',
-                  padding: '4px 8px',
-                  borderRadius: '4px',
-                  marginBottom: '8px',
-                  display: 'inline-block',
-                  wordBreak: 'break-word'
-                }}>
-                  {product.category}
+                onMouseOver={(e) => {
+                  if (!isMobile && isAvailable) {
+                    e.currentTarget.style.transform = 'translateY(-5px)';
+                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(44, 44, 44, 0.15)';
+                  }
+                }}
+                onMouseOut={(e) => {
+                  if (!isMobile) {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(44, 44, 44, 0.1)';
+                  }
+                }}
+              >
+                <img 
+                  src={product.image} 
+                  alt={product.name}
+                  style={{
+                    ...styles.productImage,
+                    filter: !isAvailable ? 'grayscale(80%)' : 'none'
+                  }}
+                  onError={(e) => {
+                    e.target.src = '/Logo MP cafe.png';
+                  }}
+                />
+                <div style={styles.productInfo}>
+                  <h3 style={styles.productName}>{product.name}</h3>
+                  <div style={{
+                    fontSize: isMobile ? '11px' : '12px',
+                    color: colorPalette.text,
+                    backgroundColor: colorPalette.secondary + '10',
+                    padding: '4px 8px',
+                    borderRadius: '4px',
+                    marginBottom: '8px',
+                    display: 'inline-block',
+                    wordBreak: 'break-word'
+                  }}>
+                    {product.category}
+                  </div>
+                  <p style={{
+                    ...styles.productPrice,
+                    color: !isAvailable ? '#999' : colorPalette.success,
+                    textDecoration: !isAvailable ? 'line-through' : 'none'
+                  }}>
+                    {isAvailable ? `R$ ${product.price.toFixed(2)}` : 'INDISPONÍVEL'}
+                  </p>
+                  <button
+                    onClick={() => addToCart(product)}
+                    disabled={!isAvailable}
+                    style={{
+                      ...styles.addBtn,
+                      backgroundColor: !isAvailable ? '#999' : colorPalette.primary,
+                      cursor: !isAvailable ? 'not-allowed' : 'pointer'
+                    }}
+                    onMouseOver={(e) => {
+                      if (!isMobile && isAvailable) {
+                        e.target.style.backgroundColor = colorPalette.accent;
+                      }
+                    }}
+                    onMouseOut={(e) => {
+                      if (!isMobile && isAvailable) {
+                        e.target.style.backgroundColor = colorPalette.primary;
+                      }
+                    }}
+                  >
+                    {isAvailable ? 'Adicionar ao Carrinho' : 'Indisponível'}
+                  </button>
                 </div>
-                <p style={styles.productPrice}>R$ {product.price.toFixed(2)}</p>
-                <button
-                  onClick={() => addToCart(product)}
-                  style={styles.addBtn}
-                  onMouseOver={(e) => {
-                    if (!isMobile) {
-                      e.target.style.backgroundColor = colorPalette.accent;
-                    }
-                  }}
-                  onMouseOut={(e) => {
-                    if (!isMobile) {
-                      e.target.style.backgroundColor = colorPalette.primary;
-                    }
-                  }}
-                >
-                  Adicionar ao Carrinho
-                </button>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* PAGINAÇÃO */}
