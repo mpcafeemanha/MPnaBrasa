@@ -8,7 +8,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   // WhatsApp do MP na Brasa
-  const WHATSAPP_NUMBER = '5511913572902';
+  const WHATSAPP_NUMBER = '5511969180048';
   const MINIMUM_ORDER = 80.00;
 
   // Cores gourmet do MP na Brasa - MODIFICADO: secondary agora é cinza claro
