@@ -31,8 +31,8 @@ export default function Home() {
     state: "SP",
     address: "Rua Capitão Antonio Mathias , 720 - Centro",
     cep: "12980-000",
-    phone: "(11) 91357-2902",
-    whatsapp: "5511913572902",
+    phone: "(11) 96918-0048",
+    whatsapp: "5511969180048",
     deliveryArea: "Joanópolis e região",
     openingHours: "Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação"
   };
@@ -932,7 +932,7 @@ export default function Home() {
 
             {/* Facebook */}
             <a 
-              href="https://www.facebook.com" 
+              href="https://www.facebook.com/mpnabrasa" 
               target="_blank" 
               rel="noopener noreferrer"
               style={{
