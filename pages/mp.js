@@ -35,8 +35,8 @@ const localConfig = {
   state: "SP",
   address: "Rua Capitão Antonio Mathias , 720 - Centro",
   cep: "12980-000",
-  phone: "(11) 91357-2902",
-  whatsapp: "5511913572902",
+  phone: "(11) 96918-0048",
+  whatsapp: "5511969180048",
   description: "Kits completos de churrasco gourmet com carnes premium, acompanhamentos selecionados e utensílios de qualidade para um churrasco perfeito.",
   deliveryArea: "Joanópolis e região"
 };
@@ -58,18 +58,15 @@ const categories = ['Kits Completos', 'Carnes Premium', 'Acompanhamentos', 'Uten
 
 // ========== PRODUTOS COM CATEGORIAS ========== //
 const products = [
-  { id: 1, name: 'Kit Churrasco Familiar (4-6p)', category: 'Kits Completos', price: 249.90, image: '/images/kit-familiar.jpg' },
-  { id: 2, name: 'Kit Churrasco Premium (8-10p)', category: 'Kits Completos', price: 399.90, image: '/images/kit-premium.jpg' },
-  { id: 3, name: 'Kit Mega Churrasco (15-20p)', category: 'Kits Completos', price: 699.90, image: '/images/kit-mega.jpg' },
-  { id: 4, name: 'Picanha Angus Kg', category: 'Carnes Premium', price: 89.90, image: '/images/picanha.jpg' },
-  { id: 5, name: 'Costela Bovino Kg', category: 'Carnes Premium', price: 69.90, image: '/images/costela.jpg' },
-  { id: 6, name: 'Linguicinha Toscana Kg', category: 'Carnes Premium', price: 39.90, image: '/images/linguica.jpg' },
-  { id: 7, name: 'Coração de Frango Kg', category: 'Carnes Premium', price: 34.90, image: '/images/coracao.jpg' },
-  { id: 8, name: 'Farofa Especial 500g', category: 'Acompanhamentos', price: 18.90, image: '/images/farofa.jpg' },
-  { id: 9, name: 'Vinagrete Premium 500g', category: 'Acompanhamentos', price: 15.90, image: '/images/vinagrete.jpg' },
-  { id: 10, name: 'Pão de Alho Recheado (6un)', category: 'Acompanhamentos', price: 24.90, image: '/images/pao-alho.jpg' },
-  { id: 11, name: 'Churrasqueira Portátil', category: 'Utensílios', price: 189.90, image: '/images/churrasqueira.jpg' },
-  { id: 12, name: 'Kit Facas Profissional', category: 'Utensílios', price: 129.90, image: '/images/facas.jpg' },
+  { id: 2, name: 'Kit Churrasco Raiz', category: 'Kits Completos', price: 279.90, image: 'https://mpnabrasa.shop/images/Kit-Churrasco-Raiz0.png' },
+  { id: 3, name: 'Kit Churrasco Premium', category: 'Kits Completos', price: 359.90, image: 'https://mpnabrasa.shop/images/Kit-Churrasco-Premium.png' },
+  { id: 4, name: 'CONTRA FILÉ BOVINO RESFRIADO COM NOIX NOSSO BEEF FRIGO NOSSO 4 KG', category: 'Carnes Premium', price: 292.99, image: 'https://mpnabrasa.shop/images/contra-file-bovino-noix-nosso-beef-4kg.png' },
+  { id: 5, name: 'FAROFA DE MANDIOCA TEMPERADA KISABOR 400 G', category: 'Acompanhamentos', price: 9.99, image: 'https://mpnabrasa.shop/images/farofa-mandioca-temperada-kisabor-400g.png' },
+  { id: 6, name: 'PÃO DE ALHO RESFRIADO AURORA 340 G', category: 'Acompanhamentos', price: 18.99, image: 'https://mpnabrasa.shop/images/pao-de-alho-aurora-340g.png' },
+  { id: 7, name: 'PICANHA BOVINA RESFRIADA TIPO A NOSSO BEEF FRIGO NOSSO 1,1 KG', category: 'Carnes Premium', price: 127.90, image: 'https://mpnabrasa.shop/images/picanha-bovina-tipo-a-nosso-beef-1-1kg.png' },
+  { id: 8, name: 'QUEIJO COALHO ESPETO LACTOWAL PCT 7 UN', category: 'Acompanhamentos', price: 24.99, image: 'https://mpnabrasa.shop/images/queijo-coalho-espeto-lactowal-7un.png' },
+  { id: 9, name: 'SAL GROSSO PARA CHURRASCO MASTER 1 KG', category: 'Acompanhamentos', price: 3.90, image: 'https://mpnabrasa.shop/images/sal-grosso-churrasco-master-1kg.png' },
+  { id: 10, name: 'LINGUIÇA TOSCANA SADIA 700 G', category: 'Acompanhamentos', price: 30.90, image: 'https://mpnabrasa.shop/images/linguica-toscana-sadia-700g.png' },
 ];
 
 // ========== MODAL PARA DADOS DA ENTREGA ========== //
@@ -674,7 +671,7 @@ const FooterClean = ({ isMobile }) => {
           }}>
             {/* Facebook */}
             <a 
-              href="https://www.facebook.com" 
+              href="https://www.facebook.com/mpnabrasa" 
               target="_blank" 
               rel="noopener noreferrer"
               style={socialIconStyle}
