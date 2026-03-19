@@ -36,7 +36,7 @@ export default function TermosUso() {
     city: "Joanópolis",
     state: "SP",
     cep: "12980-000",
-    phone: "(11) 91357-2902",
+    phone: "(11) 96918-0048",
     email: "mpcafeemanha@gmail.com",
     whatsapp: "5511913572902",
     openingHours: "Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação"
