@@ -26,7 +26,7 @@ export default function Home() {
   const localConfig = {
     businessName: "MP na Brasa",
     slogan: "Você chama a galera, a gente resolve o churrasco.",
-    businessType: "Kits de Churrasco",
+    businessType: "Kits de Churrasco Gourmet",
     city: "Joanópolis",
     state: "SP",
     address: "Rua Capitão Antonio Mathias , 720 - Centro",
@@ -34,7 +34,9 @@ export default function Home() {
     phone: "(11) 96918-0048",
     whatsapp: "5511969180048",
     deliveryArea: "Joanópolis e região",
-    openingHours: "Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação"
+    openingHours: "Funcionamento: quinta a domingo | Pedidos até 10h | Entrega em até 1h após confirmação",
+    url: "https://mpnabrasa.shop",
+    logo: "https://mpnabrasa.shop/Logo%20MP%20cafe.png"
   };
 
   // ========== PALETA DE CORES GOURMET ========== //
@@ -144,6 +146,110 @@ export default function Home() {
     }
   ];
 
+  // ========== FUNÇÃO PARA GERAR SCHEMA.ORG ========== //
+  const generateWebsiteSchema = () => {
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": localConfig.businessName,
+          "url": localConfig.url,
+          "description": localConfig.slogan,
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": `${localConfig.url}/mp?search={search_term_string}`
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "FoodEstablishment",
+          "name": localConfig.businessName,
+          "description": localConfig.slogan,
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": localConfig.address,
+            "addressLocality": localConfig.city,
+            "addressRegion": localConfig.state,
+            "postalCode": localConfig.cep,
+            "addressCountry": "BR"
+          },
+          "telephone": localConfig.phone,
+          "servesCuisine": ["Brazilian Barbecue", "Churrasco", "Carnes"],
+          "openingHours": "Th-Su 08:00-20:00",
+          "priceRange": "$$",
+          "image": localConfig.logo,
+          "areaServed": {
+            "@type": "City",
+            "name": localConfig.city
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Kits de Churrasco",
+            "itemListElement": [
+              {
+                "@type": "Product",
+                "name": "Kit Churrasco Raiz",
+                "description": "Kit completo com carnes selecionadas e acompanhamentos"
+              },
+              {
+                "@type": "Product",
+                "name": "Kit Churrasco Premium",
+                "description": "Kit especial com carnes premium e acompanhamentos gourmet"
+              },
+              {
+                "@type": "Product",
+                "name": "Carnes Premium",
+                "description": "Picanha, fraldinha, maminha e cortes especiais"
+              }
+            ]
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": avaliacoes.length,
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "review": avaliacoes.slice(0, 5).map((avaliacao, index) => ({
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": avaliacao.nome
+            },
+            "reviewBody": avaliacao.texto,
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": avaliacao.estrelas,
+              "bestRating": "5",
+              "worstRating": "1"
+            },
+            "datePublished": "2025-01-15"
+          }))
+        },
+        {
+          "@type": "LocalBusiness",
+          "name": localConfig.businessName,
+          "image": localConfig.logo,
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": localConfig.city,
+            "addressRegion": localConfig.state,
+            "addressCountry": "BR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "-23.1058",
+            "longitude": "-46.2758"
+          }
+        }
+      ]
+    };
+  };
+
   // Estado do carrossel
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -202,23 +308,61 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>MP na Brasa - Kits de Churrasco | Joanópolis-SP</title>
-        <meta name="description" content={localConfig.slogan} />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        {/* ===== META TAGS BÁSICAS ===== */}
+        <title>{localConfig.businessName} - Kits de Churrasco Gourmet em {localConfig.city}-{localConfig.state}</title>
+        <meta name="description" content={`${localConfig.slogan} Kits completos com picanha, fraldinha, maminha e acompanhamentos. Entrega em ${localConfig.deliveryArea}. Monte seu churrasco agora!`} />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
         <meta charSet="utf-8" />
         
-        <meta property="og:title" content="MP na Brasa - Kits de Churrasco" />
-        <meta property="og:description" content={localConfig.slogan} />
-        <meta property="og:image" content="/Logo MP cafe.png" />
-        <meta property="og:url" content="https://www.mpnabrasa.com" />
+        {/* ===== KEYWORDS E AUTORIA ===== */}
+        <meta name="keywords" content="churrasco, kit churrasco, picanha, fraldinha, maminha, carne premium, churrasco gourmet, carnes selecionadas, acompanhamentos churrasco, joanópolis, churrasco em casa" />
+        <meta name="author" content={localConfig.businessName} />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        
+        {/* ===== CANONICAL ===== */}
+        <link rel="canonical" href={localConfig.url} />
+        
+        {/* ===== OPEN GRAPH / FACEBOOK ===== */}
+        <meta property="og:title" content={`${localConfig.businessName} - ${localConfig.slogan}`} />
+        <meta property="og:description" content={`Kits de churrasco gourmet com carnes premium (picanha, fraldinha, maminha) e acompanhamentos especiais. Entrega em ${localConfig.city} e região. Peça já!`} />
+        <meta property="og:image" content={localConfig.logo} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={`Logo ${localConfig.businessName} - Kits de Churrasco Gourmet`} />
+        <meta property="og:url" content={localConfig.url} />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="MP na Brasa" />
+        <meta property="og:site_name" content={localConfig.businessName} />
+        <meta property="og:locale" content="pt_BR" />
         
-        <meta name="keywords" content="churrasco, kit churrasco, picanha, fraldinha, maminha, carne, barbecue, Joanópolis" />
-        <meta name="author" content="MP na Brasa" />
+        {/* ===== TWITTER CARD ===== */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${localConfig.businessName} - Kits de Churrasco Gourmet`} />
+        <meta name="twitter:description" content={`${localConfig.slogan} Picanha, fraldinha, maminha e acompanhamentos. Entrega em ${localConfig.city}.`} />
+        <meta name="twitter:image" content={localConfig.logo} />
+        <meta name="twitter:image:alt" content={`Logo ${localConfig.businessName}`} />
         
+        {/* ===== WHATSAPP / MESSENGER ===== */}
+        <meta property="og:whatsapp:image" content={localConfig.logo} />
+        <meta property="og:whatsapp:title" content={`${localConfig.businessName} - Churrasco Gourmet`} />
+        <meta property="og:whatsapp:description" content={`${localConfig.slogan} Peça seu kit agora!`} />
+        
+        {/* ===== META TAGS ADICIONAIS ===== */}
+        <meta name="theme-color" content={colorPalette.primary} />
+        <meta name="msapplication-TileColor" content={colorPalette.primary} />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        
+        {/* ===== FAVICON ===== */}
         <link rel="icon" href="/Logo MP cafe.png" />
-        <meta name="theme-color" content="#8B0000" />
+        <link rel="apple-touch-icon" href="/Logo MP cafe.png" />
+        
+        {/* ===== SCHEMA.ORG (DADOS ESTRUTURADOS) ===== */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(generateWebsiteSchema())
+          }}
+        />
       </Head>
 
       <div style={{
@@ -263,7 +407,7 @@ export default function Home() {
           }}>
             <img 
               src="/Logo MP cafe.png" 
-              alt={localConfig.businessName} 
+              alt={`${localConfig.businessName} - Logo`} 
               style={{ 
                 width: '100%',
                 height: '100%',
@@ -414,7 +558,7 @@ export default function Home() {
               >
                 <img 
                   src={isMobile ? banner.mobile : banner.desktop}
-                  alt={`Banner ${banner.id}`}
+                  alt={`Banner ${banner.id} - ${localConfig.businessName}`}
                   style={{
                     width: '100%',
                     height: '100%',
