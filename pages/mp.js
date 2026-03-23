@@ -360,29 +360,38 @@ export default function MPNaBrasa() {
       <DeliveryDataModal isOpen={showDeliveryModal} onClose={() => setShowDeliveryModal(false)} onSave={saveClientData} clientData={clientData} isMobile={isMobile} />
 
       <div style={styles.container}>
-        {/* CABEÇALHO TOPO - ESTILO PMG ORIGINAL */}
-        <div style={{ backgroundColor: colorPalette.primary, color: colorPalette.white, padding: isMobile ? '10px 12px' : '12px 20px', borderRadius: '8px', marginBottom: isMobile ? '15px' : '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: isMobile ? '6px' : '10px', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
-            {/* COLUNA 1: BOTÃO PÁGINA INICIAL */}
-            <div style={{ display: 'flex', gap: isMobile ? '6px' : '8px', alignItems: 'center', flexShrink: 0 }}>
-              <a href="/" style={{ backgroundColor: colorPalette.white, color: colorPalette.primary, border: `1px solid ${colorPalette.white}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                <span>🏠</span> Página Inicial
-              </a>
-            </div>
-            
-            {/* COLUNA 2: SAUDAÇÃO */}
-            <div style={{ flex: 1, textAlign: 'center', padding: isMobile ? '0 5px' : '0 10px', minWidth: isMobile ? '100%' : 'auto', order: isMobile ? 3 : 0, marginTop: isMobile ? '8px' : '0' }}>
-              <p style={{ fontSize: isMobile ? '13px' : '14px', fontWeight: '600', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                <span>👋</span> {clientData.name ? `Olá ${clientData.name.split(' ')[0]}, seja bem-vindo(a)!` : 'Olá, seja bem-vindo(a)!'}
-              </p>
-            </div>
-            
-            {/* COLUNA 3: BOTÃO DADOS DA ENTREGA */}
-            <button onClick={() => setShowDeliveryModal(true)} style={{ backgroundColor: colorPalette.accent, color: colorPalette.white, border: `1px solid ${colorPalette.accent}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
-              <span>📍</span> Dados da Entrega
-            </button>
-          </div>
-        </div>
+{/* CABEÇALHO TOPO - ESTILO PMG ORIGINAL */}
+<div style={{ backgroundColor: colorPalette.primary, color: colorPalette.white, padding: isMobile ? '10px 12px' : '12px 20px', borderRadius: '8px', marginBottom: isMobile ? '15px' : '20px' }}>
+  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: isMobile ? '6px' : '10px', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
+    
+    {/* COLUNA 1: BOTÕES ESQUERDA */}
+    <div style={{ display: 'flex', gap: isMobile ? '6px' : '8px', alignItems: 'center', flexShrink: 0 }}>
+      {/* BOTÃO PÁGINA INICIAL */}
+      <a href="/" style={{ backgroundColor: colorPalette.white, color: colorPalette.primary, border: `1px solid ${colorPalette.white}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span>🏠</span> Página Inicial
+      </a>
+      
+      {/* BOTÃO PERGUNTAS FREQUENTES - ADICIONADO DE VOLTA */}
+      <Link href="/faq" legacyBehavior>
+        <a style={{ backgroundColor: colorPalette.white, color: colorPalette.primary, border: `1px solid ${colorPalette.white}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <span>❓</span> {isMobile ? 'Perguntas' : 'Perguntas'}
+        </a>
+      </Link>
+    </div>
+    
+    {/* COLUNA 2: SAUDAÇÃO CENTRO */}
+    <div style={{ flex: 1, textAlign: 'center', padding: isMobile ? '0 5px' : '0 10px', minWidth: isMobile ? '100%' : 'auto', order: isMobile ? 3 : 0, marginTop: isMobile ? '8px' : '0' }}>
+      <p style={{ fontSize: isMobile ? '13px' : '14px', fontWeight: '600', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+        <span>👋</span> {clientData.name ? `Olá ${clientData.name.split(' ')[0]}, seja bem-vindo(a)!` : 'Olá, seja bem-vindo(a)!'}
+      </p>
+    </div>
+    
+    {/* COLUNA 3: BOTÃO DADOS DA ENTREGA DIREITA */}
+    <button onClick={() => setShowDeliveryModal(true)} style={{ backgroundColor: colorPalette.accent, color: colorPalette.white, border: `1px solid ${colorPalette.accent}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
+      <span>📍</span> Dados da Entrega
+    </button>
+  </div>
+</div>
 
         {/* HEADER UNIFICADO */}
         <header style={styles.header}>
