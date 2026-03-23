@@ -441,6 +441,50 @@ export default function Home() {
             Kits completos de churrasco com carnes selecionadas (picanha, fraldinha, maminha), 
             acompanhamentos especiais e tudo que você precisa para seu churrasco em {localConfig.city}-{localConfig.state}.
           </p>
+
+{/* BOTÃO VER KITS DE CHURRASCO */}
+<Link href="/mp" passHref legacyBehavior>
+  <a style={{
+    display: 'inline-block',
+    padding: isMobile ? '10px 20px' : '12px 25px',
+    backgroundColor: colorPalette.primary,
+    color: '#fff',
+    textDecoration: 'none',
+    borderRadius: '30px',
+    fontSize: isMobile ? '0.85rem' : '1rem',
+    fontWeight: '600',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 3px 10px rgba(139, 0, 0, 0.3)',
+    margin: isMobile ? '0 auto 8px' : '0 auto 10px',
+    width: isMobile ? '80%' : 'auto',
+    maxWidth: isMobile ? '280px' : '400px',
+    textAlign: 'center',
+  }}>
+    🔥 VER KITS DE CHURRASCO
+  </a>
+</Link>
+
+{/* BOTÃO BRASA NEWS - TAMANHO REDUZIDO PARA MOBILE */}
+<Link href="/brasa-news" passHref legacyBehavior>
+  <a style={{
+    display: 'inline-block',
+    padding: isMobile ? '8px 16px' : '12px 25px',
+    backgroundColor: colorPalette.primary,
+    color: '#fff',
+    textDecoration: 'none',
+    borderRadius: '30px',
+    fontSize: isMobile ? '0.75rem' : '1rem',
+    fontWeight: '600',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 3px 10px rgba(139, 0, 0, 0.3)',
+    margin: isMobile ? '0 auto 15px' : '0 auto 15px',
+    width: isMobile ? '70%' : 'auto',
+    maxWidth: isMobile ? '240px' : '400px',
+    textAlign: 'center',
+  }}>
+    📰 BRASA NEWS
+  </a>
+</Link>
         </header>
 
         {/* Destaques de Credibilidade - Adaptado para mobile */}
@@ -990,7 +1034,7 @@ export default function Home() {
             maxWidth: '300px'
           }}></div>
 
-          {/* Redes Sociais - VOLTAR COMO ESTAVA */}
+          {/* Redes Sociais */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
