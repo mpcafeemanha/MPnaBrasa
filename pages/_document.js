@@ -37,7 +37,7 @@ export default function Document() {
         <link rel="preconnect" href="https://connect.facebook.net" />
 
         {/* ===== GOOGLE ANALYTICS ===== */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-89LSRYEHF1"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L9QFXDT8PL"></script>
         <script dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
