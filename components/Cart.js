@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabaseClient'; // ADICIONAR ESTA LINHA
 
 const Cart = ({ cart, setCart, removeFromCart }) => {
   const [paymentMethod, setPaymentMethod] = useState('');
@@ -6,24 +7,220 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [showAddedFeedback, setShowAddedFeedback] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isSyncing, setIsSyncing] = useState(false); // NOVO: evitar múltiplas sincronizações
 
   // WhatsApp do MP na Brasa
   const WHATSAPP_NUMBER = '5511969180048';
   const MINIMUM_ORDER = 80.00;
 
-  // Cores gourmet do MP na Brasa - MODIFICADO: secondary agora é cinza claro
+  // Cores gourmet do MP na Brasa
   const colorPalette = {
-    primary: '#8B0000', // Vermelho vinho
-    secondary: '#CCCCCC', // MODIFICADO: Cinza claro (era #2C2C2C)
-    accent: '#B22222', // Vermelho firebrick
-    light: '#F8F8F8', // Cinza muito claro
-    dark: '#1A1A1A', // Preto quase puro
+    primary: '#8B0000',
+    secondary: '#CCCCCC',
+    accent: '#B22222',
+    light: '#F8F8F8',
+    dark: '#1A1A1A',
     white: '#FFFFFF',
     success: '#228B22',
     danger: '#DC3545',
     text: '#333333',
-    borderLight: '#E0E0E0' // NOVO: Cinza para bordas
+    borderLight: '#E0E0E0'
   };
+
+  // ========== NOVO: SINCRONIZAR CARRINHO COM SUPABASE ========== //
+  useEffect(() => {
+    const syncCartToSupabase = async () => {
+      // Não sincronizar se carrinho estiver vazio ou já estiver sincronizando
+      if (cart.length === 0 || isSyncing) return;
+      
+      setIsSyncing(true);
+      
+      try {
+        // Pega o visitor_id do localStorage (criado pelo hook useTrackUser)
+        const sessaoId = localStorage.getItem('visitor_id_mpnabrasa');
+        if (!sessaoId) {
+          console.log('⚠️ Nenhuma sessão encontrada, aguardando criação...');
+          setIsSyncing(false);
+          return;
+        }
+        
+        // Pega o visitor_number do localStorage
+        const visitorNumber = localStorage.getItem('visitor_number') || '1';
+        
+        // Pega os dados do cliente (se preenchidos no modal de entrega)
+        const clientData = JSON.parse(localStorage.getItem('mp_brasa_client_data') || '{}');
+        
+        // Calcula total do carrinho
+        const totalCarrinho = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+        
+        // Prepara os itens do carrinho no formato JSONB
+        const cartItems = cart.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity || 1,
+          image: item.image,
+          category: item.category,
+          totalPrice: item.price * (item.quantity || 1)
+        }));
+        
+        // Dados para salvar no Supabase
+        const dadosCarrinho = {
+          sessao_id: sessaoId,
+          visitor_number: parseInt(visitorNumber),
+          cart_items: cartItems,
+          nome_cliente: clientData.name || null,
+          telefone_cliente: clientData.phone || null,
+          endereco_cliente: clientData.address || null,
+          total_carrinho: totalCarrinho,
+          quantidade_itens: cartItems.length,
+          status: 'ativo',
+          updated_at: new Date().toISOString()
+        };
+        
+        console.log('🔄 Sincronizando carrinho com Supabase...', { 
+          items: cartItems.length,
+          total: totalCarrinho,
+          cliente: clientData.name || 'Anônimo'
+        });
+        
+        // Verifica se já existe um carrinho ativo para esta sessão
+        const { data: carrinhoExistente, error: checkError } = await supabase
+          .from('carrinho_sessoes')
+          .select('id')
+          .eq('sessao_id', sessaoId)
+          .eq('status', 'ativo')
+          .maybeSingle();
+        
+        if (carrinhoExistente) {
+          // Atualiza carrinho existente
+          const { error: updateError } = await supabase
+            .from('carrinho_sessoes')
+            .update(dadosCarrinho)
+            .eq('id', carrinhoExistente.id);
+          
+          if (updateError) {
+            console.log('❌ Erro ao atualizar carrinho no Supabase:', updateError.message);
+          } else {
+            console.log('✅ Carrinho atualizado no Supabase - Total: R$', totalCarrinho);
+          }
+        } else {
+          // Cria novo registro de carrinho
+          const { error: insertError } = await supabase
+            .from('carrinho_sessoes')
+            .insert([{
+              ...dadosCarrinho,
+              created_at: new Date().toISOString()
+            }]);
+          
+          if (insertError) {
+            console.log('❌ Erro ao salvar carrinho no Supabase:', insertError.message);
+          } else {
+            console.log('✅ Carrinho salvo no Supabase - Total: R$', totalCarrinho);
+          }
+        }
+        
+      } catch (error) {
+        console.log('💥 Erro ao sincronizar carrinho:', error.message);
+      } finally {
+        setIsSyncing(false);
+      }
+    };
+    
+    // Sincronizar quando o carrinho mudar (com delay para evitar muitas requisições)
+    if (cart.length > 0) {
+      const timeoutId = setTimeout(() => {
+        syncCartToSupabase();
+      }, 1500); // Delay de 1.5 segundos
+      
+      return () => clearTimeout(timeoutId);
+    }
+  }, [cart]); // Executa sempre que o carrinho mudar
+
+  // ========== SINCRONIZAR QUANDO DADOS DO CLIENTE MUDAREM ========== //
+  useEffect(() => {
+    const handleClientDataChange = () => {
+      if (cart.length > 0 && !isSyncing) {
+        console.log('📝 Dados do cliente atualizados, sincronizando carrinho...');
+        // Forçar uma sincronização
+        const forceSync = async () => {
+          setIsSyncing(true);
+          try {
+            const sessaoId = localStorage.getItem('visitor_id_mpnabrasa');
+            if (!sessaoId) return;
+            
+            const visitorNumber = localStorage.getItem('visitor_number') || '1';
+            const clientData = JSON.parse(localStorage.getItem('mp_brasa_client_data') || '{}');
+            const totalCarrinho = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+            
+            const cartItems = cart.map(item => ({
+              id: item.id,
+              name: item.name,
+              price: item.price,
+              quantity: item.quantity || 1,
+              image: item.image,
+              category: item.category,
+              totalPrice: item.price * (item.quantity || 1)
+            }));
+            
+            const dadosCarrinho = {
+              sessao_id: sessaoId,
+              visitor_number: parseInt(visitorNumber),
+              cart_items: cartItems,
+              nome_cliente: clientData.name || null,
+              telefone_cliente: clientData.phone || null,
+              endereco_cliente: clientData.address || null,
+              total_carrinho: totalCarrinho,
+              quantidade_itens: cartItems.length,
+              status: 'ativo',
+              updated_at: new Date().toISOString()
+            };
+            
+            const { data: carrinhoExistente } = await supabase
+              .from('carrinho_sessoes')
+              .select('id')
+              .eq('sessao_id', sessaoId)
+              .eq('status', 'ativo')
+              .maybeSingle();
+            
+            if (carrinhoExistente) {
+              await supabase
+                .from('carrinho_sessoes')
+                .update(dadosCarrinho)
+                .eq('id', carrinhoExistente.id);
+            } else {
+              await supabase
+                .from('carrinho_sessoes')
+                .insert([{ ...dadosCarrinho, created_at: new Date().toISOString() }]);
+            }
+            
+            console.log('✅ Carrinho atualizado com dados do cliente');
+          } catch (error) {
+            console.log('❌ Erro ao atualizar dados do cliente:', error);
+          } finally {
+            setIsSyncing(false);
+          }
+        };
+        
+        const timeoutId = setTimeout(forceSync, 500);
+        return () => clearTimeout(timeoutId);
+      }
+    };
+    
+    // Observa mudanças no localStorage (quando cliente preenche dados)
+    const checkClientData = () => {
+      const currentClientData = localStorage.getItem('mp_brasa_client_data');
+      if (currentClientData !== window._lastClientData) {
+        window._lastClientData = currentClientData;
+        handleClientDataChange();
+      }
+    };
+    
+    window._lastClientData = localStorage.getItem('mp_brasa_client_data');
+    const intervalId = setInterval(checkClientData, 2000);
+    
+    return () => clearInterval(intervalId);
+  }, [cart, isSyncing]);
 
   // ✅ 1. Verificação de mobile
   useEffect(() => {
@@ -113,7 +310,8 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
     }
 
     setCart(newCart);
-    localStorage.setItem('mp_brasa_cart', JSON.stringify(newCart));
+    // O localStorage já é salvo pelo pai (mp.js ou produto.js)
+    // Não precisa salvar aqui para evitar duplicação
   };
 
   // ✅ 6. Gerar mensagem do WhatsApp
@@ -126,7 +324,6 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                        paymentMethod === 'Cartão de Débito' ? 'Cartão de Débito' : 
                        paymentMethod === 'Cartão de Crédito' ? 'Cartão de Crédito' : '';
 
-    // Vamos buscar os dados do localStorage (que virão da página de Dados da Entrega)
     const clientData = JSON.parse(localStorage.getItem('mp_brasa_client_data') || '{}');
     
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -285,7 +482,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderBottom: `2px solid ${colorPalette.borderLight}`, // MODIFICADO: Borda cinza claro
+          borderBottom: `2px solid ${colorPalette.borderLight}`,
           marginBottom: '15px'
         }}>
           <h2 style={{ 
@@ -382,7 +579,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                         height: isMobile ? '60px' : '50px', 
                         borderRadius: '6px', 
                         objectFit: 'cover', 
-                        border: `1px solid ${colorPalette.borderLight}`, // MODIFICADO
+                        border: `1px solid ${colorPalette.borderLight}`,
                         flexShrink: 0,
                         backgroundColor: colorPalette.light
                       }}
@@ -537,7 +734,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
               padding: isMobile ? '15px' : '12px', 
               borderRadius: '10px', 
               marginBottom: '15px', 
-              border: `2px solid ${colorPalette.secondary}` // MODIFICADO: Borda cinza claro
+              border: `2px solid ${colorPalette.secondary}`
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
                 <span style={{ color: colorPalette.dark, fontSize: isMobile ? '14px' : '13px' }}>
@@ -559,7 +756,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                 display: 'flex', 
                 justifyContent: 'space-between', 
                 paddingTop: '12px', 
-                borderTop: `2px solid ${colorPalette.secondary}` // MODIFICADO: Borda cinza claro
+                borderTop: `2px solid ${colorPalette.secondary}`
               }}>
                 <span style={{ fontWeight: 700, fontSize: isMobile ? '15px' : '14px' }}>
                   Total:
@@ -594,7 +791,7 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                       padding: isMobile ? '12px 10px' : '10px 12px', 
                       borderRadius: '8px', 
                       background: paymentMethod === method ? `${colorPalette.success}20` : colorPalette.light, 
-                      border: `2px solid ${paymentMethod === method ? colorPalette.success : colorPalette.secondary}`, // MODIFICADO: Borda cinza claro
+                      border: `2px solid ${paymentMethod === method ? colorPalette.success : colorPalette.secondary}`,
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       fontSize: isMobile ? '14px' : '13px'
