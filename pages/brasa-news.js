@@ -2,6 +2,9 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
 import ShareButtons from '../components/ShareButtons';
+import useTrackUser from '../hook/useTrackUser';
+import { supabase } from '../lib/supabaseClient';
+
 
 // ========== CONFIGURAÇÃO MP NA BRASA ========== //
 const localConfig = {
@@ -367,6 +370,9 @@ export default function BrasaNews({ initialPage }) {
     }
   };
 
+  // ========== HOOK DE RASTREAMENTO ========== //
+  useTrackUser(); // Adicione esta linha aqui!
+  
   // ========== COMPONENTE DE ÍNDICE - SEM STICKY, POSIÇÃO NORMAL ========== //
   const ArticleIndex = () => (
     <div style={{
