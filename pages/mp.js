@@ -3,6 +3,8 @@ import Head from 'next/head';
 import Cart from '../components/Cart';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import useTrackUser from '../hook/useTrackUser';
+import { supabase } from '../lib/supabaseClient';
 
 // ========== CONFIGURAÇÃO DE CONTROLE DE VENDAS ========== //
 const salesControl = {
@@ -198,6 +200,9 @@ const footerStyles = {
 };
 
 export default function MPNaBrasa() {
+  // ========== HOOK DE RASTREAMENTO DE VISITANTES ========== //
+  useTrackUser();
+  
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [searchTerm, setSearchTerm] = useState('');
@@ -208,7 +213,30 @@ export default function MPNaBrasa() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [clientData, setClientData] = useState({ name: '', address: '', phone: '' });
   const [showDeliveryModal, setShowDeliveryModal] = useState(false);
+  const [cartLoaded, setCartLoaded] = useState(false); // NOVO: para controlar carregamento
   const slideInterval = useRef(null);
+
+  // ========== CARREGAR CARRINHO DO LOCALSTORAGE AO INICIAR ========== //
+  useEffect(() => {
+    const saved = localStorage.getItem('mp_brasa_cart');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      console.log('📦 [MP] Carrinho carregado:', parsed.length, 'itens');
+      setCart(parsed);
+      setTotal(parsed.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0));
+    }
+    setCartLoaded(true); // Marca que o carregamento terminou
+  }, []);
+
+  // ========== SALVAR CARRINHO NO LOCALSTORAGE ========== //
+  useEffect(() => {
+    if (!cartLoaded) return; // Só salva depois de carregar
+    
+    if (cart.length > 0) {
+      console.log('💾 [MP] Salvando carrinho:', cart.length, 'itens');
+      localStorage.setItem('mp_brasa_cart', JSON.stringify(cart));
+    }
+  }, [cart, cartLoaded]);
 
   // ========== REDIRECIONAR PARA DETALHES DO PRODUTO ========== //
   const redirectToProductDetails = (productId) => {
@@ -264,20 +292,7 @@ export default function MPNaBrasa() {
     return () => clearInterval(slideInterval.current);
   }, []);
 
-  // Carrinho
-  useEffect(() => {
-    const saved = localStorage.getItem('mp_brasa_cart');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      setCart(parsed);
-      setTotal(parsed.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('mp_brasa_cart', JSON.stringify(cart));
-  }, [cart]);
-
+  // ========== FUNÇÕES DO CARRINHO ========== //
   const addToCart = (product) => {
     if (product.price <= 0) {
       alert('Este produto está temporariamente indisponível.');
@@ -292,7 +307,8 @@ export default function MPNaBrasa() {
       } else {
         newCart = [...prev, { ...product, quantity: 1 }];
       }
-      setTotal(newCart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0));
+      const newTotal = newCart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+      setTotal(newTotal);
       return newCart;
     });
   };
@@ -300,7 +316,8 @@ export default function MPNaBrasa() {
   const removeFromCart = (productId) => {
     setCart(prevCart => {
       const newCart = prevCart.filter(item => item.id !== productId);
-      setTotal(newCart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0));
+      const newTotal = newCart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+      setTotal(newTotal);
       return newCart;
     });
   };
@@ -340,6 +357,11 @@ export default function MPNaBrasa() {
     activePage: { backgroundColor: colorPalette.primary, color: colorPalette.white, borderColor: colorPalette.primary }
   };
 
+  // Se o carrinho ainda não carregou, mostra loading
+  if (!cartLoaded) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Carregando...</div>;
+  }
+
   return (
     <>
       <Head>
@@ -360,38 +382,32 @@ export default function MPNaBrasa() {
       <DeliveryDataModal isOpen={showDeliveryModal} onClose={() => setShowDeliveryModal(false)} onSave={saveClientData} clientData={clientData} isMobile={isMobile} />
 
       <div style={styles.container}>
-{/* CABEÇALHO TOPO - ESTILO PMG ORIGINAL */}
-<div style={{ backgroundColor: colorPalette.primary, color: colorPalette.white, padding: isMobile ? '10px 12px' : '12px 20px', borderRadius: '8px', marginBottom: isMobile ? '15px' : '20px' }}>
-  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: isMobile ? '6px' : '10px', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
-    
-    {/* COLUNA 1: BOTÕES ESQUERDA */}
-    <div style={{ display: 'flex', gap: isMobile ? '6px' : '8px', alignItems: 'center', flexShrink: 0 }}>
-      {/* BOTÃO PÁGINA INICIAL */}
-      <a href="/" style={{ backgroundColor: colorPalette.white, color: colorPalette.primary, border: `1px solid ${colorPalette.white}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px' }}>
-        <span>🏠</span> Página Inicial
-      </a>
-      
-      {/* BOTÃO PERGUNTAS FREQUENTES - ADICIONADO DE VOLTA */}
-      <Link href="/faq" legacyBehavior>
-        <a style={{ backgroundColor: colorPalette.white, color: colorPalette.primary, border: `1px solid ${colorPalette.white}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <span>❓</span> {isMobile ? 'Perguntas' : 'Perguntas'}
-        </a>
-      </Link>
-    </div>
-    
-    {/* COLUNA 2: SAUDAÇÃO CENTRO */}
-    <div style={{ flex: 1, textAlign: 'center', padding: isMobile ? '0 5px' : '0 10px', minWidth: isMobile ? '100%' : 'auto', order: isMobile ? 3 : 0, marginTop: isMobile ? '8px' : '0' }}>
-      <p style={{ fontSize: isMobile ? '13px' : '14px', fontWeight: '600', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-        <span>👋</span> {clientData.name ? `Olá ${clientData.name.split(' ')[0]}, seja bem-vindo(a)!` : 'Olá, seja bem-vindo(a)!'}
-      </p>
-    </div>
-    
-    {/* COLUNA 3: BOTÃO DADOS DA ENTREGA DIREITA */}
-    <button onClick={() => setShowDeliveryModal(true)} style={{ backgroundColor: colorPalette.accent, color: colorPalette.white, border: `1px solid ${colorPalette.accent}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
-      <span>📍</span> Dados da Entrega
-    </button>
-  </div>
-</div>
+        {/* CABEÇALHO TOPO */}
+        <div style={{ backgroundColor: colorPalette.primary, color: colorPalette.white, padding: isMobile ? '10px 12px' : '12px 20px', borderRadius: '8px', marginBottom: isMobile ? '15px' : '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: isMobile ? '6px' : '10px', flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
+            
+            <div style={{ display: 'flex', gap: isMobile ? '6px' : '8px', alignItems: 'center', flexShrink: 0 }}>
+              <a href="/" style={{ backgroundColor: colorPalette.white, color: colorPalette.primary, border: `1px solid ${colorPalette.white}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <span>🏠</span> Página Inicial
+              </a>
+              <Link href="/faq" legacyBehavior>
+                <a style={{ backgroundColor: colorPalette.white, color: colorPalette.primary, border: `1px solid ${colorPalette.white}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  <span>❓</span> {isMobile ? 'Perguntas' : 'Perguntas'}
+                </a>
+              </Link>
+            </div>
+            
+            <div style={{ flex: 1, textAlign: 'center', padding: isMobile ? '0 5px' : '0 10px', minWidth: isMobile ? '100%' : 'auto', order: isMobile ? 3 : 0, marginTop: isMobile ? '8px' : '0' }}>
+              <p style={{ fontSize: isMobile ? '13px' : '14px', fontWeight: '600', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                <span>👋</span> {clientData.name ? `Olá ${clientData.name.split(' ')[0]}, seja bem-vindo(a)!` : 'Olá, seja bem-vindo(a)!'}
+              </p>
+            </div>
+            
+            <button onClick={() => setShowDeliveryModal(true)} style={{ backgroundColor: colorPalette.accent, color: colorPalette.white, border: `1px solid ${colorPalette.accent}`, padding: isMobile ? '6px 10px' : '8px 12px', borderRadius: '20px', fontSize: isMobile ? '12px' : '13px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
+              <span>📍</span> Dados da Entrega
+            </button>
+          </div>
+        </div>
 
         {/* HEADER UNIFICADO */}
         <header style={styles.header}>
@@ -411,13 +427,12 @@ export default function MPNaBrasa() {
           ))}
         </div>
 
-        {/* PRODUCTS GRID COM LUPA */}
+        {/* PRODUCTS GRID */}
         <div style={styles.grid}>
           {currentProducts.map(product => {
             const isAvailable = product.price > 0;
             return (
               <div key={product.id} style={{ ...styles.productCard, opacity: !isAvailable ? 0.7 : 1 }}>
-                {/* BOTÃO LUPA - ESTILO PMG ORIGINAL */}
                 <button
                   onClick={() => redirectToProductDetails(product.id)}
                   style={{
