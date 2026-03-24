@@ -20,6 +20,9 @@ export default function Document() {
         {/* ===== LINKS DE POLÍTICA E TERMOS PARA SEO ===== */}
         <link rel="privacy-policy" href="/politica-de-privacidade" />
         <link rel="terms-of-service" href="/termos" />
+        
+        {/* ===== VERIFICAÇÃO DO GOOGLE ===== */}
+        <meta name="google-site-verification" content="OM6ZA5lhy6ZCDjG8LU-PTFcF4QORtpkNh7f_JHt5Ctc" />
 
         {/* ===== FAVICON MP NA BRASA ===== */}
         <link rel="icon" href="/Logo MP cafe.png" />
@@ -45,6 +48,30 @@ export default function Document() {
             });
           `,
         }} />
+
+        {/* ===== META PIXEL ===== */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '9491377657643670');
+            fbq('track', 'PageView');
+          `,
+        }} />
+        <noscript>
+          <img height="1" width="1" style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=9491377657643670&ev=PageView&noscript=1" />
+        </noscript>
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
 
         {/* ===== FALLBACK PARA JAVASCRIPT DESABILITADO ===== */}
         <noscript>
