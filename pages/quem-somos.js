@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import useTrackUser from '../hook/useTrackUser';
+import { supabase } from '../lib/supabaseClient';
 
 export default function QuemSomos() {
   const [isMobile, setIsMobile] = useState(false);
@@ -17,6 +19,9 @@ export default function QuemSomos() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // ========== HOOK DE RASTREAMENTO ========== //
+  useTrackUser(); // Adicione esta linha aqui!
+  
   // ========== CONFIGURAÇÃO CHURRASCO ========== //
   const localConfig = {
     businessName: "MP na Brasa",
