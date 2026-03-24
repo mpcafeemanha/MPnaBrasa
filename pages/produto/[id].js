@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Cart from '../../components/Cart'; 
+import useTrackUser from '../../hook/useTrackUser';
+import { supabase } from '../../lib/supabaseClient';
 
 // ========== CONFIGURAÇÃO MP NA BRASA ========== //
 const localConfig = {
@@ -93,7 +95,7 @@ const generateBrand = (product) => {
   );
   return brandMap[foundBrand] || brandMap.default;
 };
-
+  
 export async function getStaticProps({ params }) {
   const id = parseInt(params.id.split('-')[0]);
   const product = products.find(p => p.id === id);
@@ -102,6 +104,9 @@ export async function getStaticProps({ params }) {
 }
 
 export default function ProductPage({ product: initialProduct }) {
+  // ========== HOOK DE RASTREAMENTO DE VISITANTES ========== //
+  useTrackUser(); // ✅ ADICIONAR ESTA LINHA
+  
   const router = useRouter();
   const { id } = router.query;
   const [product, setProduct] = useState(initialProduct);
@@ -111,24 +116,39 @@ export default function ProductPage({ product: initialProduct }) {
   const [clientData, setClientData] = useState({ name: '', address: '', phone: '' });
   const [showDeliveryModal, setShowDeliveryModal] = useState(false);
   
-  // ========== ESTADO DO CARRINHO LOCAL ========== //
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
+// ========== ESTADO DO CARRINHO ========== //
+const [cart, setCart] = useState([]);
+const [total, setTotal] = useState(0);
+const [cartLoaded, setCartLoaded] = useState(false); // NOVO: flag de carregamento
 
-  // ========== CARREGAR CARRINHO DO LOCALSTORAGE ========== //
-  useEffect(() => {
-    const savedCart = localStorage.getItem('mp_brasa_cart');
-    if (savedCart) {
-      const parsed = JSON.parse(savedCart);
-      setCart(parsed);
-      setTotal(parsed.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0));
-    }
-  }, []);
+// ========== CARREGAR CARRINHO DO LOCALSTORAGE ========== //
+useEffect(() => {
+  const savedCart = localStorage.getItem('mp_brasa_cart');
+  console.log('📦 [PRODUTO] Carregando carrinho do localStorage:', savedCart);
+  if (savedCart) {
+    const parsed = JSON.parse(savedCart);
+    console.log('📦 [PRODUTO] Carrinho carregado:', parsed.length, 'itens');
+    setCart(parsed);
+    setTotal(parsed.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0));
+  } else {
+    console.log('📦 [PRODUTO] Nenhum carrinho encontrado no localStorage');
+  }
+  setCartLoaded(true); // Marca que o carregamento terminou
+}, []);
 
-  // ========== SALVAR CARRINHO NO LOCALSTORAGE ========== //
-  useEffect(() => {
+// ========== SALVAR CARRINHO NO LOCALSTORAGE ========== //
+useEffect(() => {
+  // SÓ SALVA SE JÁ TIVER CARREGADO (evita salvar vazio)
+  if (!cartLoaded) return;
+  
+  if (cart.length > 0) {
+    console.log('💾 [PRODUTO] Salvando carrinho no localStorage:', cart.length, 'itens');
     localStorage.setItem('mp_brasa_cart', JSON.stringify(cart));
-  }, [cart]);
+  } else {
+    console.log('💾 [PRODUTO] Carrinho vazio, não salvando');
+    // Não faz nada quando está vazio
+  }
+}, [cart, cartLoaded]);
 
   // ========== FUNÇÃO ADICIONAR AO CARRINHO ========== //
   const addToCart = (product) => {
@@ -977,6 +997,11 @@ const feedbackStyles = {
   container: { position: 'fixed', top: '20px', right: '20px', backgroundColor: '#27AE60', color: 'white', padding: '12px 20px', borderRadius: '8px', zIndex: 9999, animation: 'fadeInOut 2s ease-in-out', fontWeight: 'bold', boxShadow: '0 4px 12px rgba(39, 174, 96, 0.3)' }
 };
 
+// Remova ou corrija o getStaticPaths no final do arquivo
 export async function getStaticPaths() {
-  return { paths: [], fallback: 'blocking' };
+  // Retorna paths vazio para gerar apenas sob demanda
+  return {
+    paths: [],
+    fallback: 'blocking' // ou true, dependendo da sua necessidade
+  };
 }
