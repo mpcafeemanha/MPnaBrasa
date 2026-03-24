@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import useTrackUser from '../hook/useTrackUser';
+import { supabase } from '../lib/supabaseClient';
 
 const FAQPage = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -92,6 +94,9 @@ const FAQPage = () => {
     }
   ];
 
+  // ========== HOOK DE RASTREAMENTO ========== //
+  useTrackUser(); // Adicione esta linha aqui!
+  
   // Array para display com JSX (botões, links, etc.)
   const faqsForDisplay = [
     {
